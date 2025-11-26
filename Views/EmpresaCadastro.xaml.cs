@@ -43,5 +43,12 @@ namespace WPF_Projeto_BD.Views
             MessageBox.Show("Empresa e administrador cadastrados com sucesso!");
             
         }
+
+        private void Home(object sender, RoutedEventArgs e)
+        {
+            var home = new Home();
+            home.Show();
+            this.Close();
+        }
     }
 }
