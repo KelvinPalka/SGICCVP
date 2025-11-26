@@ -1,19 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows;
+﻿using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
 using WPF_Projeto_BD.Models;
 using WPF_Projeto_BD.Controllers;
 using System.Text.RegularExpressions;
+using MySqlX.XDevAPI;
+using WPF_Projeto_BD.Utils;
 
 namespace WPF_Projeto_BD.Views
 {
@@ -28,16 +19,12 @@ namespace WPF_Projeto_BD.Views
         public ClienteCadastro()
         {
             InitializeComponent();
-            DataObject.AddPastingHandler(txtCPF_CNPJ, OnPasteOnlyDigits);
-            DataObject.AddPastingHandler(txtTelefone, OnPasteOnlyDigits);
         }
 
         // CONSTRUTOR PARA EDIÇÃO
         public ClienteCadastro(Cliente cliente)
         {
             InitializeComponent();
-            DataObject.AddPastingHandler(txtCPF_CNPJ, OnPasteOnlyDigits);
-            DataObject.AddPastingHandler(txtTelefone, OnPasteOnlyDigits);
 
             clienteEditando = cliente;
 
@@ -140,10 +127,9 @@ namespace WPF_Projeto_BD.Views
                 // Atualização
                 clienteEditando.Nome = txtNome.Text;
                 clienteEditando.Endereco = txtEndereco.Text;
-                clienteEditando.CPF_CNPJ = Regex.Replace(txtCPF_CNPJ.Text, "[^0-9]", "");
-                clienteEditando.Telefone = Regex.Replace(txtTelefone.Text, "[^0-9]", "");
+                clienteEditando.CPF_CNPJ = Masks.Unmask(txtCPF_CNPJ.Text);
+                clienteEditando.Telefone = Masks.Unmask(txtTelefone.Text);
                 clienteEditando.Email = txtEmail.Text;
-
                 controller.EditarCliente(clienteEditando);
                 MessageBox.Show("Cliente atualizado com sucesso!");
             }
@@ -154,119 +140,81 @@ namespace WPF_Projeto_BD.Views
             this.Close();
         }
 
-        private static readonly Regex OnlyDigits = new Regex(@"[^\d]", RegexOptions.Compiled);
+        private bool _isMasking = false;
 
-        private void MaskCPF_CNPJ(object sender, System.Windows.Input.TextCompositionEventArgs e)
+        private void txtCPF_CNPJ_TextChanged(object sender, TextChangedEventArgs e)
         {
-            // permite apenas números na digitação direta
+            if (_isMasking) return;
+            _isMasking = true;
+
+            var tb = sender as TextBox;
+            string original = tb.Text;
+            int cursor = tb.SelectionStart;
+
+            string masked = Utils.Masks.MaskCpfOrCnpj(original);
+
+            tb.Text = masked;
+            tb.SelectionStart = masked.Length;
+
+            _isMasking = false;
+        }
+
+        private void txtTelefone_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            if (_isMasking) return;
+            _isMasking = true;
+
+            var tb = sender as TextBox;
+            string original = tb.Text;
+
+            string masked = Utils.Masks.MaskPhone(original);
+
+            tb.Text = masked;
+            tb.SelectionStart = masked.Length;
+
+            _isMasking = false;
+        }
+
+        private void TxtCPF_CNPJ_PreviewTextInput(object sender, System.Windows.Input.TextCompositionEventArgs e)
+        {
+            // permitir somente números
             e.Handled = !Regex.IsMatch(e.Text, "^[0-9]+$");
         }
 
-        private void FormatCPF_CNPJ(object sender, TextChangedEventArgs e)
+        private void TxtCPF_CNPJ_TextChanged(object sender, TextChangedEventArgs e)
         {
-            var tb = (TextBox)sender;
+            if (_isMasking) return;
+            _isMasking = true;
 
-            // salva posição original do cursor
-            int selStart = tb.SelectionStart;
+            var tb = sender as TextBox;
+            string original = tb.Text;
+            string masked = Utils.Masks.MaskCpfOrCnpj(original);
 
-            // limpa o texto (apenas dígitos)
-            string digits = OnlyDigits.Replace(tb.Text, "");
+            tb.Text = masked;
+            tb.SelectionStart = masked.Length;
 
-            // limita o tamanho (CPF 11, CNPJ 14) — evita entradas inválidas enormes
-            if (digits.Length > 14) digits = digits.Substring(0, 14);
-
-            string formatted;
-            if (digits.Length <= 11)
-            {
-                // formato CPF: 000.000.000-00
-                formatted = digits;
-                if (formatted.Length > 3) formatted = formatted.Insert(3, ".");
-                if (formatted.Length > 7) formatted = formatted.Insert(7, ".");
-                if (formatted.Length > 11) formatted = formatted.Insert(11, "-");
-            }
-            else
-            {
-                // formato CNPJ: 00.000.000/0000-00
-                formatted = digits;
-                if (formatted.Length > 2) formatted = formatted.Insert(2, ".");
-                if (formatted.Length > 6) formatted = formatted.Insert(6, ".");
-                if (formatted.Length > 10) formatted = formatted.Insert(10, "/");
-                if (formatted.Length > 15) formatted = formatted.Insert(15, "-");
-            }
-
-            // atualizar sem provocar recursão
-            tb.TextChanged -= FormatCPF_CNPJ;
-            tb.Text = formatted;
-            // tenta colocar o cursor numa posição coerente
-            tb.SelectionStart = Math.Min(formatted.Length, selStart + (formatted.Length - digits.Length));
-            tb.TextChanged += FormatCPF_CNPJ;
+            _isMasking = false;
         }
 
-        private void MaskTelefone(object sender, System.Windows.Input.TextCompositionEventArgs e)
+        private void TxtTelefone_PreviewTextInput(object sender, System.Windows.Input.TextCompositionEventArgs e)
         {
             e.Handled = !Regex.IsMatch(e.Text, "^[0-9]+$");
         }
 
-        private void FormatTelefone(object sender, TextChangedEventArgs e)
+        private void TxtTelefone_TextChanged(object sender, TextChangedEventArgs e)
         {
-            var tb = (TextBox)sender;
-            int selStart = tb.SelectionStart;
+            if (_isMasking) return;
+            _isMasking = true;
 
-            string digits = OnlyDigits.Replace(tb.Text, "");
+            var tb = sender as TextBox;
+            string original = tb.Text;
 
-            // limita razoavelmente (DDD + 9 dígitos = 11, ou 10)
-            if (digits.Length > 11) digits = digits.Substring(0, 11);
+            string masked = Utils.Masks.MaskPhone(original);
 
-            string formatted = digits;
+            tb.Text = masked;
+            tb.SelectionStart = masked.Length;
 
-            if (digits.Length >= 1)
-            {
-                // insere parênteses quando houver pelo menos 2 dígitos de DDD
-                if (digits.Length >= 2)
-                {
-                    formatted = $"({digits.Substring(0, 2)})";
-                    string rest = digits.Substring(2);
-                    if (rest.Length <= 4)
-                    {
-                        formatted += " " + rest;
-                    }
-                    else if (rest.Length <= 8)
-                    {
-                        // caso 8 dígitos: NNNN-NNNN
-                        formatted += " " + rest.Substring(0, rest.Length - 4) + "-" + rest.Substring(rest.Length - 4);
-                    }
-                    else
-                    {
-                        // 9 dígitos: NNNNN-NNNN
-                        formatted += " " + rest.Substring(0, rest.Length - 4) + "-" + rest.Substring(rest.Length - 4);
-                    }
-                }
-                else
-                {
-                    formatted = digits; // ainda incompleto para DDD
-                }
-            }
-
-            tb.TextChanged -= FormatTelefone;
-            tb.Text = formatted;
-            tb.SelectionStart = Math.Min(formatted.Length, selStart + (formatted.Length - digits.Length));
-            tb.TextChanged += FormatTelefone;
-        }
-
-        private void OnPasteOnlyDigits(object sender, DataObjectPastingEventArgs e)
-        {
-            if (e.DataObject.GetDataPresent(DataFormats.Text))
-            {
-                string text = e.DataObject.GetData(DataFormats.Text) as string;
-                if (!Regex.IsMatch(text, @"^\d+$"))
-                {
-                    e.CancelCommand();
-                }
-            }
-            else
-            {
-                e.CancelCommand();
-            }
+            _isMasking = false;
         }
 
 
