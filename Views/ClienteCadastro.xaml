@@ -1,0 +1,80 @@
+﻿<Window x:Class="WPF_Projeto_BD.Views.ClienteCadastro"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="Cadastro de Cliente"
+        WindowStartupLocation="CenterScreen"
+        ResizeMode="NoResize"
+        Width="520" Height="620"
+        Background="#EDF0F2">
+
+    <Grid Margin="30">
+
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+
+        <!-- TÍTULO -->
+        <TextBlock Text="Cadastro de Cliente"
+                   FontSize="28"
+                   FontWeight="SemiBold"
+                   Foreground="#2C3E50"
+                   Margin="0 10 0 25"
+                   Grid.Row="0"
+                   HorizontalAlignment="Center"/>
+
+        <!-- FORM -->
+        <StackPanel Grid.Row="1">
+
+            <TextBlock Text="Nome" FontSize="14" Foreground="#555" Margin="0 0 0 3"/>
+            <TextBox x:Name="txtNome"
+                     Height="34" Padding="8"
+                     Background="#F6F7F8" BorderBrush="#C5C9CC"
+                     BorderThickness="1"/>
+
+            <TextBlock Text="CPF/CNPJ" FontSize="14" Foreground="#555" Margin="0 16 0 3"/>
+            <TextBox x:Name="txtCPF_CNPJ"
+                     Height="34" Padding="8"
+                     Background="#F6F7F8" BorderBrush="#C5C9CC"
+                     BorderThickness="1"
+                     PreviewTextInput="MaskCPF_CNPJ"
+                     TextChanged="FormatCPF_CNPJ"/>
+
+            <TextBlock Text="Endereço" FontSize="14" Foreground="#555" Margin="0 16 0 3"/>
+            <TextBox x:Name="txtEndereco"
+                     Height="34" Padding="8"
+                     Background="#F6F7F8" BorderBrush="#C5C9CC"
+                     BorderThickness="1"/>
+
+            <TextBlock Text="Telefone" FontSize="14" Foreground="#555" Margin="0 16 0 3"/>
+            <TextBox x:Name="txtTelefone"
+                     Height="34" Padding="8"
+                     Background="#F6F7F8" BorderBrush="#C5C9CC"
+                     BorderThickness="1"
+                     PreviewTextInput="MaskTelefone"
+                     TextChanged="FormatTelefone"/>
+
+            <TextBlock Text="Email" FontSize="14" Foreground="#555" Margin="0 16 0 3"/>
+            <TextBox x:Name="txtEmail"
+                     Height="34" Padding="8"
+                     Background="#F6F7F8" BorderBrush="#C5C9CC"
+                     BorderThickness="1"/>
+
+        </StackPanel>
+
+        <!-- BOTÃO -->
+        <Button Grid.Row="2"
+                Content="Salvar"
+                Height="45"
+                Margin="0 30 0 0"
+                Background="#1C7ED6"
+                Foreground="White"
+                FontSize="16"
+                FontWeight="SemiBold"
+                BorderBrush="#1C7ED6"
+                BorderThickness="0"
+                Click="Salvar"/>
+
+    </Grid>
+</Window>

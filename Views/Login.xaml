@@ -1,0 +1,80 @@
+﻿<Window x:Class="WPF_Projeto_BD.Views.Login"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="Login"
+        WindowStartupLocation="CenterScreen"
+        ResizeMode="NoResize"
+        Width="724" Height="520"
+        Background="#F4F6F9">
+
+    <Grid Margin="30">
+
+        <Border Background="White" Padding="30" BorderBrush="#DADCE0" BorderThickness="1">
+
+            <StackPanel>
+
+                <!-- TÍTULO -->
+                <TextBlock Text="Acesso ao Sistema"
+                           FontSize="26"
+                           FontWeight="Bold"
+                           Foreground="#333"
+                           HorizontalAlignment="Center"
+                           Margin="0 0 0 25"/>
+
+                <!-- USUÁRIO -->
+                <TextBlock Text="Usuário" 
+                           Margin="0 0 0 5"
+                           FontSize="14"
+                           Foreground="#555"/>
+                <TextBox x:Name="txtUsuario"
+                         Height="38"
+                         Padding="8"
+                         Background="#EFF1F3"
+                         BorderBrush="#C4C4C4"
+                         BorderThickness="1"
+                         FontSize="16"/>
+
+                <!-- SENHA -->
+                <TextBlock Text="Senha" 
+                           Margin="0 15 0 5"
+                           FontSize="14"
+                           Foreground="#555"/>
+                <PasswordBox x:Name="txtSenha"
+                             Height="38"
+                             Padding="8"
+                             Background="#EFF1F3"
+                             BorderBrush="#C4C4C4"
+                             BorderThickness="1"
+                             FontSize="16"/>
+
+                <!-- BOTÃO LOGIN -->
+                <Button Content="Entrar"
+                        Height="42"
+                        Margin="0 25 0 0"
+                        Background="#1976D2"
+                        Foreground="White"
+                        FontWeight="Bold"
+                        FontSize="16"
+                        BorderThickness="0"
+                        Click="BtnEntrar_Click"/>
+
+                <!-- ESQUECEU A SENHA -->
+                <TextBlock Text="Esqueceu a senha?"
+                           FontSize="13"
+                           Foreground="#1976D2"
+                           HorizontalAlignment="Center"
+                           Margin="0 10 0 0"
+                           Cursor="Hand"/>
+
+                <!-- RODAPÉ -->
+                <TextBlock Text="© 2025 - Sistema de Gerenciamento"
+                           FontSize="11"
+                           Foreground="#999"
+                           HorizontalAlignment="Center"
+                           Margin="0 40 0 0"/>
+            </StackPanel>
+
+        </Border>
+
+    </Grid>
+</Window>
