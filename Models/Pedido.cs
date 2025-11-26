@@ -10,18 +10,19 @@ namespace WPF_Projeto_BD.Models
     public class Pedido
     {
         public int Id { get; set; }
-        public string Data_pedido { get; set; }
-        public string Data_entrega { get; set; }
-        public int Qntd {  get; set; }
+        public DateTime Data_pedido { get; set; }
+        public DateTime? Data_entrega { get; set; } 
+        public int Qntd { get; set; }
         public double Valor { get; set; }
         public string Status_pedido { get; set; }
         public string Descricao { get; set; }
         public int Id_cliente { get; set; }
         public int Id_produto { get; set; }
+        
 
         public Pedido() { }
 
-        public Pedido(int id, string data_pedido, string data_entrega, int qntd, double valor, string status_pedido, string descricao, int id_cliente, int id_produto)
+        public Pedido(int id, DateTime data_pedido, DateTime? data_entrega, int qntd, double valor, string status_pedido, string descricao, int id_cliente, int id_produto)
         {
             Id = id;
             Data_pedido = data_pedido;

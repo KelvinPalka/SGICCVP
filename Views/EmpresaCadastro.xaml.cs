@@ -25,29 +25,23 @@ namespace WPF_Projeto_BD.Views
         }
 
         private void BtnCadastrar_Click(object sender, RoutedEventArgs e)
-        {
-            try
-            {
-                var controller = new Controllers.EmpresaController();
-                controller.CadastrarEmpresaComAdministrador(
-                    txtCNPJ.Text,
-                    txtNomeFantasia.Text,
-                    txtEmailEmpresa.Text,
-                    txtTelefone.Text,
-                    txtRazaoSocial.Text,
-                    txtEndereco.Text,
-                    txtNomeADM.Text,
-                    txtEmailADM.Text,
-                    txtSenhaADM.Password,
-                    txtConfirmSenhaADM.Password
-                );
+        { 
+            var controller = new Controllers.EmpresaController();
+            controller.CadastrarEmpresaComAdministrador(
+                txtCNPJ.Text,
+                txtNomeFantasia.Text,
+                txtEmailEmpresa.Text,
+                txtTelefone.Text,
+                txtRazaoSocial.Text,
+                txtEndereco.Text,
+                txtNomeADM.Text,
+                txtEmailADM.Text,
+                txtSenhaADM.Password,
+                txtConfirmSenhaADM.Password
+            );
 
-                MessageBox.Show("Empresa e administrador cadastrados com sucesso!");
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show("Erro ao cadastrar: " + ex.Message);
-            }
+            MessageBox.Show("Empresa e administrador cadastrados com sucesso!");
+            
         }
     }
 }

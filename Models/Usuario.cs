@@ -9,7 +9,7 @@ namespace WPF_Projeto_BD.Models
     public class Usuario
     {
         public int Id { get; set; }
-        public int IdEmpresa { get; set; }
+        public int IdEmpresa { get; set; } 
         public string Nome { get; set; }
         public string Email { get; set; }
         public string Senha { get; set; } 

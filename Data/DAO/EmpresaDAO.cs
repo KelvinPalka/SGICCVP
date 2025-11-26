@@ -1,5 +1,4 @@
 ﻿using MySql.Data.MySqlClient;
-using Wpf_Projeto_BD.Models;
 using WPF_Projeto_BD.Models;
 
 namespace WPF_Projeto_BD.Data.DAO

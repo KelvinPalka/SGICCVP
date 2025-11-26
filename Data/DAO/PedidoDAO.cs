@@ -42,8 +42,10 @@ namespace WPF_Projeto_BD.Data.DAO
                     pedidos.Add(new Pedido
                     {
                         Id = reader.GetInt32("id_pedido"),
-                        Data_pedido = reader.GetString("data_pedido"),
-                        Data_entrega = reader.GetString("data_entrega"),
+                        Data_pedido = reader.GetDateTime("data_pedido"),
+                        Data_entrega = reader.IsDBNull(reader.GetOrdinal("data_entrega"))
+                   ? (DateTime?)null
+                   : reader.GetDateTime("data_entrega"),
                         Qntd = reader.GetInt32("qntd"),
                         Valor = reader.GetDouble("valor"),
                         Status_pedido = reader.GetString("status_pedido"),
@@ -51,6 +53,8 @@ namespace WPF_Projeto_BD.Data.DAO
                         Id_cliente = reader.GetInt32("id_cliente"),
                         Id_produto = reader.GetInt32("id_produto")
                     });
+
+
                 }
             }
 
