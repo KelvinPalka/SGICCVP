@@ -1,0 +1,29 @@
+# Visual Studio
+.vs/
+*.user
+*.suo
+
+# Build
+bin/
+obj/
+
+# Config
+*.cache
+*.log
+
+# ReSharper (se usar)
+_ReSharper*/
+*.DotSettings.user
+
+# NuGet
+packages/
+*.nupkg
+project.lock.json
+
+# MySQL configs
+*.db
+*.sql
+
+# Publish output
+publish/
+
