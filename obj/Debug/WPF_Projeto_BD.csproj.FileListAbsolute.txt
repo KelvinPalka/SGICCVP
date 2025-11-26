@@ -96,7 +96,6 @@ C:\Users\kelvi\OneDrive\Documentos\SGICCVP\obj\Debug\Views\Home.baml
 C:\Users\kelvi\OneDrive\Documentos\SGICCVP\obj\Debug\Views\Login.baml
 C:\Users\kelvi\OneDrive\Documentos\SGICCVP\obj\Debug\Views\PedidoCadastro.baml
 C:\Users\kelvi\OneDrive\Documentos\SGICCVP\obj\Debug\Views\PedidosLista.baml
-C:\Users\kelvi\OneDrive\Documentos\SGICCVP\obj\Debug\MainWindow.g.cs
 C:\Users\kelvi\OneDrive\Documentos\SGICCVP\obj\Debug\Views\ClienteCadastro.g.cs
 C:\Users\kelvi\OneDrive\Documentos\SGICCVP\obj\Debug\Views\ClienteLista.g.cs
 C:\Users\kelvi\OneDrive\Documentos\SGICCVP\obj\Debug\Views\Home.g.cs
@@ -105,8 +104,6 @@ C:\Users\kelvi\OneDrive\Documentos\SGICCVP\obj\Debug\Views\PedidoCadastro.g.cs
 C:\Users\kelvi\OneDrive\Documentos\SGICCVP\obj\Debug\Views\PedidosLista.g.cs
 C:\Users\kelvi\OneDrive\Documentos\SGICCVP\obj\Debug\App.g.cs
 C:\Users\kelvi\OneDrive\Documentos\SGICCVP\obj\Debug\WPF_Projeto_BD_MarkupCompile.cache
-C:\Users\kelvi\OneDrive\Documentos\SGICCVP\obj\Debug\WPF_Projeto_BD_MarkupCompile.lref
-C:\Users\kelvi\OneDrive\Documentos\SGICCVP\obj\Debug\MainWindow.baml
 C:\Users\kelvi\OneDrive\Documentos\SGICCVP\obj\Debug\WPF_Projeto_BD.g.resources
 C:\Users\kelvi\OneDrive\Documentos\SGICCVP\obj\Debug\WPF_Projeto_BD.Properties.Resources.resources
 C:\Users\kelvi\OneDrive\Documentos\SGICCVP\obj\Debug\WPF_Projeto_BD.csproj.GenerateResource.cache
@@ -114,3 +111,7 @@ C:\Users\kelvi\OneDrive\Documentos\SGICCVP\obj\Debug\WPF_Projeto_BD.csproj.CoreC
 C:\Users\kelvi\OneDrive\Documentos\SGICCVP\obj\Debug\WPF_Proj.135C1339.Up2Date
 C:\Users\kelvi\OneDrive\Documentos\SGICCVP\obj\Debug\WPF_Projeto_BD.exe
 C:\Users\kelvi\OneDrive\Documentos\SGICCVP\obj\Debug\WPF_Projeto_BD.pdb
+C:\Users\kelvi\OneDrive\Documentos\SGICCVP\obj\Debug\Views\EmpresaCadastro.baml
+C:\Users\kelvi\OneDrive\Documentos\SGICCVP\obj\Debug\Views\EmpresaCadastro.g.cs
+C:\Users\kelvi\OneDrive\Documentos\SGICCVP\obj\Debug\Views\MainWindow.baml
+C:\Users\kelvi\OneDrive\Documentos\SGICCVP\obj\Debug\Views\MainWindow.g.cs

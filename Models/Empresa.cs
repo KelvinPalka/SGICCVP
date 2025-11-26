@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Wpf_Projeto_BD.Models
+namespace WPF_Projeto_BD.Models
 {
     public class Empresa
     {

@@ -1,0 +1,95 @@
+﻿<Window x:Class="WPF_Projeto_BD.Views.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="SGICCVP - Sistema de Gerenciamento"
+        Height="550" Width="1000"
+        WindowStartupLocation="CenterScreen"
+        Background="#F4F6F9">
+
+    <Grid Margin="30">
+
+        <!-- CABEÇALHO -->
+        <DockPanel VerticalAlignment="Top" Margin="0,0,0,30">
+            <TextBlock Text="SGICCVP"
+                       FontSize="48"
+                       FontWeight="ExtraBold"
+                       Foreground="#3B82F6"
+                       DockPanel.Dock="Left"/>
+            <TextBlock Text="Sistema de Gerenciamento Integrado"
+                       FontSize="20"
+                       FontWeight="SemiBold"
+                       Foreground="#1F2937"
+                       VerticalAlignment="Bottom"
+                       Margin="10,0,0,0"/>
+        </DockPanel>
+
+        <!-- CONTAINER CENTRAL -->
+        <Grid VerticalAlignment="Center" HorizontalAlignment="Center">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="400"/>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="400"/>
+            </Grid.ColumnDefinitions>
+
+            <!-- LOGIN CARD -->
+            <Border Grid.Column="0"
+                    Background="White"
+                    CornerRadius="15"
+                    Padding="30"
+                    BorderBrush="#DDD"
+                    BorderThickness="1" >
+                <StackPanel>
+                    <TextBlock Text="Bem-vindo(a)!" 
+                               FontSize="28" 
+                               FontWeight="Bold" 
+                               Foreground="#1F2937"
+                               TextAlignment="Center"
+                               Margin="0,0,0,20"/>
+                    <TextBlock Text="Entre na sua conta para continuar"
+                               FontSize="16"
+                               Foreground="#6B7280"
+                               TextAlignment="Center"
+                               Margin="0,0,0,30"/>
+                    <Button Content="Login" Height="50" Margin="0,0,0,15"
+                            Background="#3B82F6" Foreground="White" FontWeight="Bold"
+                            BorderThickness="0" Cursor="Hand"
+                            FontSize="16"
+                            Click="Login"/>
+                    <Button Content="Cadastro de Empresa" Height="50"
+                            Background="#10B981" Foreground="White" FontWeight="Bold"
+                            BorderThickness="0" Cursor="Hand"
+                            FontSize="16"
+                            Click="Cadastro"/>
+                </StackPanel>
+            </Border>
+
+            <!-- ESPAÇADOR -->
+            <GridSplitter Grid.Column="1" Width="40"/>
+
+            <!-- INFO/DESIGN DECORATIVO -->
+            <Border Grid.Column="2" 
+                    Background="#E0F2FE" 
+                    CornerRadius="15" 
+                    Padding="30"
+                    VerticalAlignment="Center">
+                <StackPanel>
+                    <TextBlock Text="Otimize seus processos de produção"
+                               FontSize="24" 
+                               FontWeight="Bold" 
+                               Foreground="#1E40AF"
+                               TextWrapping="Wrap"
+                               Margin="0,0,0,20"/>
+                    <TextBlock Text="Controle de estoque, pedidos, fornecedores e entregas tudo em um só lugar."
+                               FontSize="16" 
+                               Foreground="#1E40AF"
+                               TextWrapping="Wrap"
+                               Margin="0,0,0,10"/>
+                    <TextBlock Text="Aumente a eficiência e tenha dados confiáveis para decisões estratégicas."
+                               FontSize="16" 
+                               Foreground="#1E40AF"
+                               TextWrapping="Wrap"/>
+                </StackPanel>
+            </Border>
+        </Grid>
+    </Grid>
+</Window>

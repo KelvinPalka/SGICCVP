@@ -104,14 +104,21 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Controllers\EmpresaController.cs" />
     <Compile Include="Controllers\PedidoController.cs" />
+    <Compile Include="Data\DAO\EmpresaDAO.cs" />
     <Compile Include="Data\DAO\PedidoDAO.cs" />
+    <Compile Include="Data\DAO\UsuarioDAO.cs" />
+    <Compile Include="Models\Usuario.cs" />
     <Compile Include="Utils\Masks.cs" />
     <Compile Include="Views\ClienteCadastro.xaml.cs">
       <DependentUpon>ClienteCadastro.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\ClienteLista.xaml.cs">
       <DependentUpon>ClienteLista.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\EmpresaCadastro.xaml.cs">
+      <DependentUpon>EmpresaCadastro.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\Home.xaml.cs">
       <DependentUpon>Home.xaml</DependentUpon>
@@ -125,7 +132,7 @@
     <Compile Include="Views\PedidosLista.xaml.cs">
       <DependentUpon>PedidosLista.xaml</DependentUpon>
     </Compile>
-    <Page Include="MainWindow.xaml">
+    <Page Include="Views\MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
@@ -137,7 +144,7 @@
     <Compile Include="Data\DAO\ClienteDAO.cs" />
     <Compile Include="Data\DAO\Connection.cs" />
     <Compile Include="Data\DAO\ConnectionTest.cs" />
-    <Compile Include="MainWindow.xaml.cs">
+    <Compile Include="Views\MainWindow.xaml.cs">
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
@@ -146,6 +153,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\ClienteLista.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\EmpresaCadastro.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

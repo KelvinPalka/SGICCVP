@@ -10,11 +10,11 @@ none
 false
 DEBUG;TRACE
 C:\Users\kelvi\OneDrive\Documentos\SGICCVP\App.xaml
-7-445042528
+82108741514
 
-35324342339
+40-727571258
 32923726795
-MainWindow.xaml;Views\ClienteCadastro.xaml;Views\ClienteLista.xaml;Views\Home.xaml;Views\Login.xaml;Views\PedidoCadastro.xaml;Views\PedidosLista.xaml;
+Views\MainWindow.xaml;Views\ClienteCadastro.xaml;Views\ClienteLista.xaml;Views\EmpresaCadastro.xaml;Views\Home.xaml;Views\Login.xaml;Views\PedidoCadastro.xaml;Views\PedidosLista.xaml;
 
-True
+False
 

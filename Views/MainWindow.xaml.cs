@@ -13,8 +13,9 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using Wpf_Projeto_BD.Models;
+using WPF_Projeto_BD.Views;
 
-namespace WPF_Projeto_BD
+namespace WPF_Projeto_BD.Views
 {
     /// <summary>
     /// Interação lógica para MainWindow.xam
@@ -24,6 +25,20 @@ namespace WPF_Projeto_BD
         public MainWindow()
         {
             ConnectionTest.Test();                         
+        }
+
+        private void Login(object sender, RoutedEventArgs e)
+        {
+            var loginWindow = new Login();
+            loginWindow.Show();
+            this.Close();
+        }
+
+        private void Cadastro(object sender, RoutedEventArgs e)
+        {
+            var cadastroWindow = new EmpresaCadastro();
+            cadastroWindow.Show();
+            this.Close();
         }
 
     }
