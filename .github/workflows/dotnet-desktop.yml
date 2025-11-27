@@ -1,4 +1,4 @@
-name: Build .NET Project Only
+name: .NET Desktop CI
 
 on:
   push:
@@ -8,23 +8,33 @@ on:
 
 jobs:
   build:
+
     runs-on: windows-latest
 
     steps:
     - name: Checkout code
-      uses: actions/checkout@v4
+      uses: actions/checkout@v3
 
     - name: Setup .NET
-      uses: actions/setup-dotnet@v4
+      uses: actions/setup-dotnet@v3
       with:
         dotnet-version: 8.0.x
 
     - name: Restore dependencies
       run: dotnet restore
 
-    - name: Build project
+    - name: Build solution
       run: dotnet build --configuration Release --no-restore
 
-    - name: Notify build status
-      if: ${{ failure() }}   
-      run: echo "ALERTA: Build falhou! Verifique o projeto no GitHub Actions."
+    - name: Run tests
+      run: dotnet test --no-build --verbosity normal
+      continue-on-error: true
+
+    - name: Publish
+      run: dotnet publish ./WPF_Projeto_BD.csproj -c Release -o ./published
+
+    - name: Upload artifact
+      uses: actions/upload-artifact@v3
+      with:
+        name: build-wpf
+        path: published
