@@ -56,7 +56,7 @@
                         FontWeight="Bold"
                         FontSize="16"
                         BorderThickness="0"
-                        Click="BtnEntrar_Click"/>
+                        Click="Entrar_Click"/>
 
                 <!-- ESQUECEU A SENHA -->
                 <TextBlock Text="Esqueceu a senha?"

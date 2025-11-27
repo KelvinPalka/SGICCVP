@@ -2,60 +2,67 @@
 using WPF_Projeto_BD.Models;
 using WPF_Projeto_BD.Data.DAO;
 using WPF_Projeto_BD.Views;
+using System;
 
 namespace WPF_Projeto_BD.Controllers
 {
     public class EmpresaController
     {
         public void CadastrarEmpresaComAdministrador(
-            string cnpj,
-            string nomeFantasia,
-            string emailEmpresa,
-            string telefone,
-            string razao,
-            string endereco,
-            string nomeAdm,
-            string emailAdm,
-            string senhaAdm,
-            string senhaConfirm)
+            string cnpj, string nomeFantasia, string emailEmpresa, string telefone,
+            string razaoSocial, string endereco,
+            string nomeADM, string emailADM, string senhaADM, string confirmSenhaADM)
         {
-            // validações simples
-            if (senhaAdm != senhaConfirm)
-            {
-                MessageBox.Show("As senhas não coincidem!");
-                return;
-            }
+            // Validação simples
+            if (senhaADM != confirmSenhaADM)
+                throw new Exception("As senhas não conferem!");
 
-            // cria objetos
-            var empresa = new Empresa
+            // Monta empresa
+            Empresa empresa = new Empresa
             {
                 CNPJ = cnpj,
                 Nome_fantasia = nomeFantasia,
                 Email = emailEmpresa,
                 Telefone = telefone,
-                Razao_social = razao,
+                Razao_social = razaoSocial,
                 Endereco = endereco
             };
 
             var empresaDAO = new EmpresaDAO();
-            empresaDAO.Inserir(empresa);
+            var usuarioDAO = new UsuarioDAO();
 
-            var usuario = new Usuario
+            // 1. Insere empresa e obtém o ID
+            int idEmpresa = empresaDAO.Inserir(empresa);
+
+            // 2. Cria usuário administrador
+            Usuario usuario = new Usuario
             {
-                Nome = nomeAdm,
-                Email = emailAdm,
-                Senha = senhaAdm,
-                IdEmpresa = empresa.Id
+                Nome = nomeADM,
+                Email = emailADM,
+                Senha = senhaADM,
+                TipoUsuario = "admin", // <-- propriedade correta
+                IdEmpresa = idEmpresa
             };
 
-            var usuarioDAO = new UsuarioDAO();
             usuarioDAO.Inserir(usuario);
 
-            MessageBox.Show("Empresa + ADM cadastrados com sucesso!");
+            // 3. Notifica e abre login
+            MessageBox.Show("Empresa e administrador cadastrados com sucesso!",
+                            "Sucesso", MessageBoxButton.OK, MessageBoxImage.Information);
 
-            // navegação (controller controla a troca de tela)
-            var tela = new MainWindow();
-            tela.Show();
+            // Abre tela de login
+            var login = new Login();   // coloque o nome correto da sua tela aqui
+            login.Show();
+
+            // Fecha a tela atual (EmpresaCadastro)
+            foreach (Window w in Application.Current.Windows)
+            {
+                if (w is EmpresaCadastro)
+                {
+                    w.Close();
+                    break;
+                }
+            }
         }
     }
 }
