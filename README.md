@@ -30,7 +30,7 @@ Desenvolver um sistema que centralize e otimize os processos de gestão em empre
 * **C# (.NET / WPF)**
 * **XAML**
 * **MySQL** (Banco de dados relacional)
-* **Arquitetura em camadas (MVVM)**
+* **Arquitetura em camadas (MVC)**
 * **SQL (DDL, DML e consultas avançadas)**
 
 ---
@@ -46,7 +46,7 @@ Desenvolver um sistema que centralize e otimize os processos de gestão em empre
 ## 📁 Estrutura (resumo)
 
 * **/Views** — Telas WPF do sistema
-* **/ViewModels** — Lógica MVVM
+* **/Controllers** — Intermediário entre Views e Models
 * **/Models** — Classes de entidade e domínio
 * **/Database** — Scripts SQL (criação, inserts e consultas)
 * **/Docs** — Mini TCC, MER, DER e documentação do projeto
@@ -58,5 +58,3 @@ Desenvolver um sistema que centralize e otimize os processos de gestão em empre
 Projeto desenvolvido por estudantes do Ensino Médio Integrado ao Técnico em Desenvolvimento de Sistemas — ETEC Hortolândia (2025).
 
 ---
-
-Se desejar, posso adicionar badges, imagens, gifs da aplicação, tabelas, roadmap detalhado ou separar o README em seções mais avançadas.
