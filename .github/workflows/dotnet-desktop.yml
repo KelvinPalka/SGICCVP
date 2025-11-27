@@ -1,0 +1,35 @@
+name: Build .NET Project Only
+
+on:
+  push:
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
+
+jobs:
+  build:
+    runs-on: windows-latest
+
+    steps:
+    # 1. Baixa o código do repositório
+    - name: Checkout code
+      uses: actions/checkout@v4
+
+    # 2. Instala o .NET (altere a versão se necessário)
+    - name: Setup .NET
+      uses: actions/setup-dotnet@v4
+      with:
+        dotnet-version: 8.0.x
+
+    # 3. Restaura dependências
+    - name: Restore dependencies
+      run: dotnet restore
+
+    # 4. Compila o projeto
+    - name: Build project
+      run: dotnet build --configuration Release --no-restore
+
+    # 5. Alerta simples (apenas log no GitHub)
+    - name: Notify build status
+      if: failure()  # Só roda se a compilação falhar
+      run: echo "⚠ ALERTA: Build falhou! Verifique o projeto no GitHub Actions."
