@@ -29,7 +29,7 @@ namespace WPF_Projeto_BD.Views
         private void CarregarClientes()
         {
             var controller = new ClienteController();
-            var lista = controller.GetClientesSimples();
+            var lista = controller.ObterListaClientes();
 
             cbCliente.ItemsSource = lista;
             cbCliente.DisplayMemberPath = "Nome";

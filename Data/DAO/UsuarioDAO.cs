@@ -21,7 +21,7 @@ namespace WPF_Projeto_BD.Data.DAO
                     cmd.Parameters.AddWithValue("@email", usuario.Email);
                     cmd.Parameters.AddWithValue("@senha", usuario.Senha);
                     cmd.Parameters.AddWithValue("@tipo_usuario", usuario.TipoUsuario);
-                    cmd.Parameters.AddWithValue("@id_empresa", usuario.IdEmpresa); // obrigatório
+                    cmd.Parameters.AddWithValue("@id_empresa", usuario.IdEmpresa); 
 
                     cmd.ExecuteNonQuery();
                 }

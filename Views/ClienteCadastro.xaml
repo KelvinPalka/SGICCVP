@@ -38,8 +38,7 @@
                      Height="34" Padding="8"
                      Background="#F6F7F8" BorderBrush="#C5C9CC"
                      BorderThickness="1"
-                     PreviewTextInput="TxtCPF_CNPJ_PreviewTextInput"
-                     TextChanged="TxtCPF_CNPJ_TextChanged"/>
+                     />
 
             <TextBlock Text="Endereço" FontSize="14" Foreground="#555" Margin="0 16 0 3"/>
             <TextBox x:Name="txtEndereco"
@@ -51,9 +50,7 @@
             <TextBox x:Name="txtTelefone"
                      Height="34" Padding="8"
                      Background="#F6F7F8" BorderBrush="#C5C9CC"
-                     BorderThickness="1"
-                     PreviewTextInput="TxtTelefone_PreviewTextInput"
-                     TextChanged="TxtTelefone_TextChanged"/>
+                     BorderThickness="1" />
 
             <TextBlock Text="Email" FontSize="14" Foreground="#555" Margin="0 16 0 3"/>
             <TextBox x:Name="txtEmail"
@@ -74,7 +71,7 @@
                 FontWeight="SemiBold"
                 BorderBrush="#1C7ED6"
                 BorderThickness="0"
-                Click="Salvar"/>
+                Click="BtnSalvar_Click"/>
 
     </Grid>
 </Window>

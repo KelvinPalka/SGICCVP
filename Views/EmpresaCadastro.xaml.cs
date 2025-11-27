@@ -44,10 +44,10 @@ namespace WPF_Projeto_BD.Views
             
         }
 
-        private void Home(object sender, RoutedEventArgs e)
+        private void Voltar(object sender, RoutedEventArgs e)
         {
-            var home = new Home();
-            home.Show();
+            var voltar = new MainWindow();
+            voltar.Show();
             this.Close();
         }
     }

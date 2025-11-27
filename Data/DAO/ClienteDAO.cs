@@ -1,7 +1,7 @@
 ﻿using MySql.Data.MySqlClient;
 using System.Collections.Generic;
 using WPF_Projeto_BD.Models;
-
+using WPF_Projeto_BD.Views;
 namespace WPF_Projeto_BD.Data.DAO
 {
     public class ClienteDAO

@@ -24,9 +24,9 @@ namespace WPF_Projeto_BD.Controllers
             if (senhaADM != confirmSenhaADM)
                 throw new Exception("As senhas não conferem.");
 
-            // Aplica máscaras
-            cnpj = Utils.Masks.Unmask(cnpj);
-            telefone = Utils.Masks.Unmask(telefone);
+            // ⛔ REMOVIDO: máscara não será mais aplicada
+            // cnpj = Utils.Masks.Unmask(cnpj);
+            // telefone = Utils.Masks.Unmask(telefone);
 
             //Cria objeto Empresa
             Empresa empresa = new Empresa

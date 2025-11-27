@@ -11,6 +11,7 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using WPF_Projeto_BD.Controllers;
 
 namespace WPF_Projeto_BD.Views
 {
@@ -44,12 +45,13 @@ namespace WPF_Projeto_BD.Views
         
         private void BtnClientes_Click(object sender, RoutedEventArgs e)
         {
-            var ClientesWindow = new ClienteLista();
+            var controller = new ClienteController();
+            var ClientesWindow = new ClienteLista(controller);
             ClientesWindow.Show();
             this.Close();
         }
 
-        
+
 
         private void BtnVendas_Click(object sender, RoutedEventArgs e)
         {
