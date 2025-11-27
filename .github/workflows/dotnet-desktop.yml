@@ -26,5 +26,5 @@ jobs:
       run: dotnet build --configuration Release --no-restore
 
     - name: Notify build status
-      if: ${{ failure() }}  
+      if: ${{ failure() }}   
       run: echo "ALERTA: Build falhou! Verifique o projeto no GitHub Actions."
