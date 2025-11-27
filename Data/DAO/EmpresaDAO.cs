@@ -3,39 +3,25 @@ using WPF_Projeto_BD.Models;
 
 namespace WPF_Projeto_BD.Data.DAO
 {
-
     public class EmpresaDAO
     {
-        private string connectionString = "server=localhost;database=MiniTCC;uid=root;pwd=@260914Zveek;";
-
         public void Inserir(Empresa empresa)
         {
-            // Usando 'using' para garantir que a conexão seja fechada corretamente
-            using (var conn = new MySqlConnection(connectionString))
+            using (var conn = Connection.GetConnection())
             {
-                conn.Open(); // Abrindo a conexão
+                var cmd = new MySqlCommand(
+                @"INSERT INTO Empresas 
+                (CNPJ, NomeFantasia, Email, Telefone, RazaoSocial, Endereco)
+                VALUES (@CNPJ, @Nome, @Email, @Tel, @Razao, @End);", conn);
 
-                // Query SQL com colunas que existem na tabela 'empresa'
-                string sql = @"INSERT INTO empresa 
-                           (cnpj, nome_fantasia, email, telefone, razao_social, endereco) 
-                           VALUES (@cnpj, @nome_fantasia, @email, @telefone, @razao_social, @endereco)";
+                cmd.Parameters.AddWithValue("@CNPJ", empresa.CNPJ);
+                cmd.Parameters.AddWithValue("@Nome", empresa.Nome_fantasia);
+                cmd.Parameters.AddWithValue("@Email", empresa.Email);
+                cmd.Parameters.AddWithValue("@Tel", empresa.Telefone);
+                cmd.Parameters.AddWithValue("@Razao", empresa.Razao_social);
+                cmd.Parameters.AddWithValue("@End", empresa.Endereco);
 
-                using (var cmd = new MySqlCommand(sql, conn))
-                {
-                    // Passando os parâmetros da classe Empresa
-                    cmd.Parameters.AddWithValue("@cnpj", empresa.CNPJ);
-                    cmd.Parameters.AddWithValue("@nome_fantasia", empresa.Nome_fantasia);
-                    cmd.Parameters.AddWithValue("@email", empresa.Email);
-                    cmd.Parameters.AddWithValue("@telefone", empresa.Telefone);
-                    cmd.Parameters.AddWithValue("@razao_social", empresa.Razao_social);
-                    cmd.Parameters.AddWithValue("@endereco", empresa.Endereco);
-
-                    // Executa o comando
-                    cmd.ExecuteNonQuery();
-
-                    // Pega o ID gerado pelo banco
-                    empresa.Id = (int)cmd.LastInsertedId;
-                }
+                cmd.ExecuteNonQuery();
             }
         }
     }

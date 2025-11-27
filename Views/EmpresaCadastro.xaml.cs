@@ -1,32 +1,19 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
+﻿using System.Windows;
+using WPF_Projeto_BD.Controllers;
 
 namespace WPF_Projeto_BD.Views
 {
-    /// <summary>
-    /// Lógica interna para EmpresaCadastro.xaml
-    /// </summary>
     public partial class EmpresaCadastro : Window
     {
+        private EmpresaController controller = new EmpresaController();
+
         public EmpresaCadastro()
         {
             InitializeComponent();
         }
 
         private void BtnCadastrar_Click(object sender, RoutedEventArgs e)
-        { 
-            var controller = new Controllers.EmpresaController();
+        {
             controller.CadastrarEmpresaComAdministrador(
                 txtCNPJ.Text,
                 txtNomeFantasia.Text,
@@ -39,16 +26,14 @@ namespace WPF_Projeto_BD.Views
                 txtSenhaADM.Password,
                 txtConfirmSenhaADM.Password
             );
-
-            MessageBox.Show("Empresa e administrador cadastrados com sucesso!");
-            
         }
 
-        private void Voltar(object sender, RoutedEventArgs e)
+        private void BtnVoltar_Click(object sender, RoutedEventArgs e)
         {
-            var voltar = new MainWindow();
-            voltar.Show();
+            var main = new MainWindow();
+            main.Show();
             this.Close();
         }
+
     }
 }

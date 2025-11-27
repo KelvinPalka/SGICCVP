@@ -7,20 +7,20 @@ namespace WPF_Projeto_BD.Views
 {
     public partial class ClienteCadastro : Window
     {
-        private readonly ClienteController _controller;
-        private Cliente clienteEditando;
+        private readonly ClienteController _controller; // Controlador de clientes
+        private Cliente clienteEditando; // Cliente que está sendo editado (nulo se for um novo cliente)
 
-        public ClienteCadastro(ClienteController controller)
+        public ClienteCadastro(ClienteController controller) // Construtor para novo cliente
         {
             InitializeComponent();
-            _controller = controller;
+            _controller = controller; // Atribui o controlador
         }
 
-        public ClienteCadastro(Cliente cliente, ClienteController controller)
+        public ClienteCadastro(Cliente cliente, ClienteController controller) // Construtor para editar cliente existente
         {
             InitializeComponent();
-            _controller = controller;
-            clienteEditando = cliente;
+            _controller = controller; // Atribui o controlador
+            clienteEditando = cliente; // Atribui o cliente que está sendo editado
 
             txtNome.Text = cliente.Nome;
             txtCPF_CNPJ.Text = cliente.CPF_CNPJ;
@@ -31,7 +31,7 @@ namespace WPF_Projeto_BD.Views
 
         private void BtnSalvar_Click(object sender, RoutedEventArgs e)
         {
-            string nome = txtNome.Text.Trim();
+            string nome = txtNome.Text.Trim(); 
             string cpf = Regex.Replace(txtCPF_CNPJ.Text, "[^0-9]", "");
             string end = txtEndereco.Text.Trim();
             string tel = Regex.Replace(txtTelefone.Text, "[^0-9]", "");

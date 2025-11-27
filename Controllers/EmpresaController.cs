@@ -1,60 +1,61 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using WPF_Projeto_BD.Data.DAO;
+﻿using System.Windows;
 using WPF_Projeto_BD.Models;
+using WPF_Projeto_BD.Data.DAO;
+using WPF_Projeto_BD.Views;
 
 namespace WPF_Projeto_BD.Controllers
 {
     public class EmpresaController
     {
-        private EmpresaDAO empresaDAO = new EmpresaDAO();
-        private UsuarioDAO usuarioDAO = new UsuarioDAO();
-
         public void CadastrarEmpresaComAdministrador(
-            string cnpj, string nomeFantasia, string emailEmpresa, string telefone, string razaoSocial, string endereco,
-            string nomeADM, string emailADM, string senhaADM, string confirmSenhaADM)
+            string cnpj,
+            string nomeFantasia,
+            string emailEmpresa,
+            string telefone,
+            string razao,
+            string endereco,
+            string nomeAdm,
+            string emailAdm,
+            string senhaAdm,
+            string senhaConfirm)
         {
-            // Valida campos obrigatórios
-            if (string.IsNullOrEmpty(cnpj) || string.IsNullOrEmpty(nomeFantasia) || string.IsNullOrEmpty(nomeADM))
-                throw new Exception("Preencha todos os campos obrigatórios.");
+            // validações simples
+            if (senhaAdm != senhaConfirm)
+            {
+                MessageBox.Show("As senhas não coincidem!");
+                return;
+            }
 
-            if (senhaADM != confirmSenhaADM)
-                throw new Exception("As senhas não conferem.");
-
-            // ⛔ REMOVIDO: máscara não será mais aplicada
-            // cnpj = Utils.Masks.Unmask(cnpj);
-            // telefone = Utils.Masks.Unmask(telefone);
-
-            //Cria objeto Empresa
-            Empresa empresa = new Empresa
+            // cria objetos
+            var empresa = new Empresa
             {
                 CNPJ = cnpj,
                 Nome_fantasia = nomeFantasia,
                 Email = emailEmpresa,
                 Telefone = telefone,
-                Razao_social = razaoSocial,
+                Razao_social = razao,
                 Endereco = endereco
             };
 
-            //Insere empresa no banco
+            var empresaDAO = new EmpresaDAO();
             empresaDAO.Inserir(empresa);
 
-            //Cria o usuário administrador vinculado à empresa
-            Usuario usuario = new Usuario
+            var usuario = new Usuario
             {
-                Nome = nomeADM,
-                Email = emailADM,
-                Senha = senhaADM,
-                TipoUsuario = "Administrador",
+                Nome = nomeAdm,
+                Email = emailAdm,
+                Senha = senhaAdm,
                 IdEmpresa = empresa.Id
             };
 
-            // Insere usuário no banco
+            var usuarioDAO = new UsuarioDAO();
             usuarioDAO.Inserir(usuario);
+
+            MessageBox.Show("Empresa + ADM cadastrados com sucesso!");
+
+            // navegação (controller controla a troca de tela)
+            var tela = new MainWindow();
+            tela.Show();
         }
     }
-
 }

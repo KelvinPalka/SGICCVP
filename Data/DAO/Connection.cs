@@ -1,19 +1,17 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using MySql.Data.MySqlClient;
+﻿using MySql.Data.MySqlClient;
 
-public class Connection
+namespace WPF_Projeto_BD.Data
 {
-    private static string connectionString =
-        "server=localhost;database=MiniTCC;userid=root;password=@260914Zveek;";
-
-    public static MySqlConnection GetConnection()
+    public static class Connection
     {
-        var conn = new MySqlConnection(connectionString);
-        conn.Open();
-        return conn;
+        private const string CONNECTION_STRING =
+            "server=localhost;user id=root;password=SENHA;database=MiniTCC;";
+
+        public static MySqlConnection GetConnection()
+        {
+            var conn = new MySqlConnection(CONNECTION_STRING);
+            conn.Open();
+            return conn;
+        }
     }
 }

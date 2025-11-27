@@ -24,7 +24,8 @@
                         FontWeight="SemiBold"
                         BorderThickness="0"
                         Cursor="Hand"
-                        DockPanel.Dock="Left" Click="Voltar"
+                        DockPanel.Dock="Left" 
+                        Click="BtnVoltar_Click"
                         />
 
                 <TextBlock Text="Cadastro de Empresa"

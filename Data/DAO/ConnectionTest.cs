@@ -5,7 +5,7 @@ public class ConnectionTest
 {
     public static void Test()
     {
-        string connStr = "server=localhost;database=MiniTCC;uid=root;pwd=@260914Zveek;";
+        string connStr = "server=localhost;user id=root;password=SENHA;database=MiniTCC;";
         using (var conn = new MySqlConnection(connStr))
         {
             conn.Open();

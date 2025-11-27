@@ -1,15 +1,16 @@
-﻿using System;
+﻿//importações padrão
+using System;
 using System.Collections.Generic;
 using System.Windows;
 using WPF_Projeto_BD.Models;
 using WPF_Projeto_BD.Data.DAO;
 using WPF_Projeto_BD.Views;
 
-namespace WPF_Projeto_BD.Controllers
+namespace WPF_Projeto_BD.Controllers // Define o namespace da aplicação (Controllers)
 {
-    public class ClienteController
+    public class ClienteController 
     {
-        private ClienteDAO dao = new ClienteDAO();
+        private ClienteDAO dao = new ClienteDAO(); // Instancia o objeto DAO para operações de banco de dados
 
         // ---- REGRAS DE NEGÓCIO ----
         private string Validar(string nome, string cpf, string endereco, string telefone, string email)
@@ -45,7 +46,7 @@ namespace WPF_Projeto_BD.Controllers
             return "OK";
         }
 
-        public string Editar(Cliente cliente, string nome, string cpf, string endereco, string telefone, string email)
+        public string Editar(Cliente cliente, string nome, string cpf, string endereco, string telefone, string email) 
         {
             var validar = Validar(nome, cpf, endereco, telefone, email);
             if (validar != "OK") return validar;
