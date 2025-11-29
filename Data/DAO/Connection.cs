@@ -5,7 +5,7 @@ namespace WPF_Projeto_BD.Data
     public static class Connection
     {
         private const string CONNECTION_STRING =
-            "server=localhost;user id=root;password=SENHA;database=MiniTCC;";
+             "server=localhost;user id=alunos;password=etec;database=MiniTCC_PNTJ;";
 
         public static MySqlConnection GetConnection()
         {

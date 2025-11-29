@@ -344,3 +344,10 @@ FROM
 INNER JOIN 
     Departamento ON Funcionario.cod_depto = Departamento.cod_depto;
 
+CREATE USER 'alunos'@'localhost' IDENTIFIED BY 'etec';
+GRANT ALL PRIVILEGES ON MiniTCC_PNTJ.* TO 'alunos'@'localhost';
+FLUSH PRIVILEGES;
+SHOW GRANTS FOR 'alunos'@'localhost';
+
+
+

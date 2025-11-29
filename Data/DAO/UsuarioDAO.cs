@@ -26,7 +26,7 @@ namespace WPF_Projeto_BD.Data.DAO
             }
         }
 
-        private readonly string conexao = "server=localhost;user id=root;password=SENHA;database=MiniTCC;";
+        private readonly string conexao = "server=localhost;user id=alunos;password=etec;database=MiniTCC_PNTJ;";
 
         public Usuario Login(string email, string senha)
         {

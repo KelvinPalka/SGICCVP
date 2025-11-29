@@ -22,7 +22,6 @@ namespace WPF_Projeto_BD.Views
     {
         public Home()
         {
-            ConnectionTest.Test();
             InitializeComponent();
         }
 
