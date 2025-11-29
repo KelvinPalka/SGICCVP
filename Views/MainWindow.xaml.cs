@@ -31,14 +31,14 @@ namespace WPF_Projeto_BD.Views
         {
             var loginWindow = new Login();
             loginWindow.Show();
-            this.Close();
+            this.Hide();
         }
 
         private void Cadastro(object sender, RoutedEventArgs e)
         {
             var cadastroWindow = new EmpresaCadastro();
             cadastroWindow.Show();
-            this.Close();
+            this.Hide();
         }
 
     }

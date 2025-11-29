@@ -1,0 +1,173 @@
+﻿<Window x:Class="WPF_Projeto_BD.Views.Config"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="Configurações do Sistema"
+        Height="650" Width="1000"
+        WindowStartupLocation="CenterScreen"
+        Background="#F6F7FB"
+        ResizeMode="NoResize">
+
+    <Window.Resources>
+        <DropShadowEffect x:Key="SoftShadow"
+                          BlurRadius="18"
+                          ShadowDepth="2"
+                          Opacity="0.10"/>
+
+        <Style x:Key="CardButton" TargetType="Button">
+            <Setter Property="Width" Value="220"/>
+            <Setter Property="Height" Value="120"/>
+            <Setter Property="Margin" Value="10"/>
+            <Setter Property="Padding" Value="10"/>
+            <Setter Property="Background" Value="White"/>
+            <Setter Property="BorderBrush" Value="#E1E5ED"/>
+            <Setter Property="BorderThickness" Value="1"/>
+            <Setter Property="Cursor" Value="Hand"/>
+            <Setter Property="FontWeight" Value="SemiBold"/>
+            <Setter Property="Foreground" Value="#2E2E2E"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Border Background="{TemplateBinding Background}"
+                                BorderBrush="{TemplateBinding BorderBrush}"
+                                CornerRadius="12"
+                                BorderThickness="1"
+                                Effect="{StaticResource SoftShadow}">
+                            <ContentPresenter HorizontalAlignment="Center"
+                                              VerticalAlignment="Center"/>
+                        </Border>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+            <Style.Triggers>
+                <Trigger Property="IsMouseOver" Value="True">
+                    <Setter Property="Background" Value="#F0F3FA"/>
+                </Trigger>
+            </Style.Triggers>
+        </Style>
+    </Window.Resources>
+
+    <Grid Margin="20">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+        <DockPanel Grid.Row="0" Margin="0,0,0,25">
+            <TextBlock Text="Configurações do Sistema"
+                       FontSize="28"
+                       FontWeight="Bold"
+                       Foreground="#2E2E2E"/>
+            <Button Content="⟵ Voltar"
+                    Background="#E1E5ED"
+                    Foreground="#2E2E2E"
+                    BorderThickness="0"
+                    Padding="10,5"
+                    Width="100"
+                    Cursor="Hand"
+                    DockPanel.Dock="Right"
+                    HorizontalAlignment="Right"
+                    Click="BtnVoltar_Click"/>
+        </DockPanel>
+
+        <ScrollViewer Grid.Row="1" VerticalScrollBarVisibility="Auto">
+            <StackPanel>
+
+                <TextBlock Text="Empresa"
+                           FontSize="20"
+                           FontWeight="SemiBold"
+                           Margin="0,0,0,10"
+                           Foreground="#4A90E2"/>
+
+                <WrapPanel Margin="0,0,0,30">
+                    <Button Style="{StaticResource CardButton}" Click="BtnDadosEmpresa_Click">
+                        <StackPanel HorizontalAlignment="Center">
+                            <TextBlock Text="🏢" FontSize="35"/>
+                            <TextBlock Text="Dados da Empresa" FontSize="15"/>
+                        </StackPanel>
+                    </Button>
+
+                    <Button Style="{StaticResource CardButton}"
+                            Click="BtnMateriais_Click">
+                        <StackPanel HorizontalAlignment="Center">
+                            <TextBlock Text="🧵" FontSize="35"/>
+                            <TextBlock Text="Materiais Utilizados" FontSize="15"/>
+                        </StackPanel>
+                    </Button>
+                </WrapPanel>
+
+                <TextBlock Text="Usuários e Acessos"
+                           FontSize="20"
+                           FontWeight="SemiBold"
+                           Margin="0,0,0,10"
+                           Foreground="#4A90E2"/>
+
+                <WrapPanel Margin="0,0,0,30">
+                    <Button Style="{StaticResource CardButton}"
+                            Click="BtnUsuarioCadastrar_Click">
+                        <StackPanel HorizontalAlignment="Center">
+                            <TextBlock Text="➕" FontSize="35"/>
+                            <TextBlock Text="Cadastrar Usuário" FontSize="15"/>
+                        </StackPanel>
+                    </Button>
+
+                    <Button Style="{StaticResource CardButton}"
+                            Click="BtnUsuarioLista_Click">
+                        <StackPanel HorizontalAlignment="Center">
+                            <TextBlock Text="👤" FontSize="35"/>
+                            <TextBlock Text="Gerenciar Usuários" FontSize="15"/>
+                        </StackPanel>
+                    </Button>
+
+                    <Button Style="{StaticResource CardButton}">
+                        <StackPanel HorizontalAlignment="Center">
+                            <TextBlock Text="🔒" FontSize="35"/>
+                            <TextBlock Text="Redefinir Senha" FontSize="15"/>
+                        </StackPanel>
+                    </Button>
+                </WrapPanel>
+
+                <TextBlock Text="Sistema"
+                           FontSize="20"
+                           FontWeight="SemiBold"
+                           Margin="0,0,0,10"
+                           Foreground="#4A90E2"/>
+
+                <WrapPanel Margin="0,0,0,30">
+                    <Button Style="{StaticResource CardButton}">
+                        <StackPanel HorizontalAlignment="Center">
+                            <TextBlock Text="💾" FontSize="35"/>
+                            <TextBlock Text="Backup do Sistema" FontSize="15"/>
+                        </StackPanel>
+                    </Button>
+
+                    <Button Style="{StaticResource CardButton}">
+                        <StackPanel HorizontalAlignment="Center">
+                            <TextBlock Text="🧹" FontSize="35"/>
+                            <TextBlock Text="Limpar Registros" FontSize="15"/>
+                        </StackPanel>
+                    </Button>
+
+                    <Button Style="{StaticResource CardButton}">
+                        <StackPanel HorizontalAlignment="Center">
+                            <TextBlock Text="⚙️" FontSize="35"/>
+                            <TextBlock Text="Preferências" FontSize="15"/>
+                        </StackPanel>
+                    </Button>
+                </WrapPanel>
+
+                <Border Background="#E5E7EB"
+                        BorderBrush="#D1D5DB"
+                        BorderThickness="1"
+                        CornerRadius="6"
+                        Padding="12"
+                        Margin="0,40,0,0">
+                    <TextBlock Text="SGICCVP © 2025 — Todos os direitos reservados"
+                               FontSize="14"
+                               Foreground="#374151"
+                               HorizontalAlignment="Center"/>
+                </Border>
+
+            </StackPanel>
+        </ScrollViewer>
+    </Grid>
+</Window>

@@ -12,6 +12,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 using WPF_Projeto_BD.Controllers;
+using WPF_Projeto_BD.Models;
 
 namespace WPF_Projeto_BD.Views
 {
@@ -20,9 +21,24 @@ namespace WPF_Projeto_BD.Views
     /// </summary>
     public partial class Home : Window
     {
-        public Home()
+        private Usuario usuarioLogado;
+        public Home(Usuario usuario)
         {
             InitializeComponent();
+            usuarioLogado = usuario;
+            VerificarPermissao();
+        }
+
+        private void VerificarPermissao()
+        {
+            if(usuarioLogado.TipoUsuario == "admin")
+            {
+                btnConfig.Visibility = Visibility.Visible;
+            }
+            else
+            {
+                btnConfig.Visibility = Visibility.Collapsed;
+            }
         }
 
         private void BtnEstoque_Click(object sender, RoutedEventArgs e)
@@ -32,7 +48,7 @@ namespace WPF_Projeto_BD.Views
 
         private void BtnPedidos_Click(object sender, RoutedEventArgs e)
         {
-            var pedidosWindow = new PedidosLista();
+            var pedidosWindow = new PedidosLista(usuarioLogado);
             pedidosWindow.Show();
             this.Close();
         }
@@ -44,7 +60,7 @@ namespace WPF_Projeto_BD.Views
         
         private void BtnClientes_Click(object sender, RoutedEventArgs e)
         {
-            var controller = new ClienteController();
+            var controller = new ClienteController(usuarioLogado);
             var ClientesWindow = new ClienteLista(controller);
             ClientesWindow.Show();
             this.Close();
@@ -59,7 +75,21 @@ namespace WPF_Projeto_BD.Views
 
         private void BtnFechar_Click(object sender, RoutedEventArgs e)
         {
+            var result = MessageBox.Show("Tem certeza que deseja sair?", "Confirmação", MessageBoxButton.YesNo, MessageBoxImage.Question);
 
+            if (result == MessageBoxResult.Yes)
+            {
+                var loginWindow = new Login();
+                loginWindow.Show();
+                this.Close();
+            }
+        }
+
+        private void BtnConfig_Click(object sender, RoutedEventArgs e)
+        {
+            var configWindow = new Config(usuarioLogado);
+            configWindow.Show();
+            this.Close();
         }
     }
 }

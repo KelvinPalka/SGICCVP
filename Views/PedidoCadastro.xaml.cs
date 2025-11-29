@@ -12,6 +12,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 using WPF_Projeto_BD.Controllers;
+using WPF_Projeto_BD.Models;
 
 namespace WPF_Projeto_BD.Views
 {
@@ -20,15 +21,18 @@ namespace WPF_Projeto_BD.Views
     /// </summary>
     public partial class PedidoCadastro : Window
     {
-        public PedidoCadastro()
+        private Usuario usuarioLogado;
+
+        public PedidoCadastro(Usuario usuario)
         {
+            usuarioLogado = usuario;
             InitializeComponent();
             CarregarClientes();
         }
 
         private void CarregarClientes()
         {
-            var controller = new ClienteController();
+            var controller = new ClienteController(usuarioLogado);
             var lista = controller.ObterListaClientes();
 
             cbCliente.ItemsSource = lista;
@@ -38,14 +42,14 @@ namespace WPF_Projeto_BD.Views
 
         private void Cancelar(object sender, RoutedEventArgs e)
         {
-            var pedidosLista = new PedidosLista();
+            var pedidosLista = new PedidosLista(usuarioLogado);
             pedidosLista.Show();
             this.Close();
         }
 
         private void Voltar(object sender, RoutedEventArgs e)
         {
-            var home = new Home();
+            var home = new Home(usuarioLogado);
             home.Show();
             this.Close();
         }

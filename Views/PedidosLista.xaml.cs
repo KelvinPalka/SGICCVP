@@ -22,9 +22,11 @@ namespace WPF_Projeto_BD.Views
     /// </summary>
     public partial class PedidosLista : Window
     {
-        public PedidosLista()
+        private Usuario usuariologado;
+        public PedidosLista(Usuario usuario)
         {
             InitializeComponent();
+            usuariologado = usuario;
             Carregar_Pedido(this, null);
         }
 
@@ -37,13 +39,13 @@ namespace WPF_Projeto_BD.Views
 
         private void CadastrarPedido(object sender, RoutedEventArgs e)
         {
-            var cadastrarPedidoWindow = new PedidoCadastro();
+            var cadastrarPedidoWindow = new PedidoCadastro(usuariologado);
             cadastrarPedidoWindow.Show();
             this.Close();
         }
         private void BtnVoltar_Click(object sender, RoutedEventArgs e)
         {
-            var home = new Home();
+            var home = new Home(usuariologado);
             home.Show();
             this.Close();
         }

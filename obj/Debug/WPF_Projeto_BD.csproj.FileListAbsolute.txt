@@ -234,3 +234,9 @@ D:\Mini Tcc\SGICCVP\obj\Debug\WPF_Projeto_BD.csproj.CoreCompileInputs.cache
 D:\Mini Tcc\SGICCVP\obj\Debug\WPF_Proj.135C1339.Up2Date
 D:\Mini Tcc\SGICCVP\obj\Debug\WPF_Projeto_BD.exe
 D:\Mini Tcc\SGICCVP\obj\Debug\WPF_Projeto_BD.pdb
+C:\Users\kelvi\OneDrive\Documentos\SGICCVP\obj\Debug\Views\ConfigADM.baml
+C:\Users\kelvi\OneDrive\Documentos\SGICCVP\obj\Debug\Views\ConfigADM.g.cs
+C:\Users\kelvi\OneDrive\Documentos\SGICCVP\obj\Debug\Views\EmpresaDados.baml
+C:\Users\kelvi\OneDrive\Documentos\SGICCVP\obj\Debug\Views\EmpresaDados.g.cs
+C:\Users\kelvi\OneDrive\Documentos\SGICCVP\obj\Debug\Views\EmpresaEditar.baml
+C:\Users\kelvi\OneDrive\Documentos\SGICCVP\obj\Debug\Views\EmpresaEditar.g.cs

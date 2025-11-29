@@ -10,7 +10,14 @@ namespace WPF_Projeto_BD.Controllers // Define o namespace da aplicação (Contr
 {
     public class ClienteController 
     {
+        private Usuario usuarioLogado; // Armazena o usuário logado na aplicação
         private ClienteDAO dao = new ClienteDAO(); // Instancia o objeto DAO para operações de banco de dados
+
+
+        public ClienteController(Usuario usuario)
+        {
+            usuarioLogado = usuario;
+        }
 
         // ---- REGRAS DE NEGÓCIO ----
         private string Validar(string nome, string cpf, string endereco, string telefone, string email)
@@ -94,7 +101,7 @@ namespace WPF_Projeto_BD.Controllers // Define o namespace da aplicação (Contr
 
         public void VoltarHome()
         {
-            new Home().Show();
+            new Home(usuarioLogado).Show();
         }
     }
 }

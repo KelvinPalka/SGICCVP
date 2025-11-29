@@ -22,7 +22,8 @@ namespace WPF_Projeto_BD.Views
 
             if (usuario != null)
             {
-                Home home = new Home();
+                Home home = new Home(usuario);
+                Application.Current.MainWindow = home;
                 home.Show();
                 this.Close();
             }

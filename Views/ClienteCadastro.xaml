@@ -15,7 +15,6 @@
             <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
 
-        <!-- TÍTULO -->
         <TextBlock Text="Cadastro de Cliente"
                    FontSize="28"
                    FontWeight="SemiBold"

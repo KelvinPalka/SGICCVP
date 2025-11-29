@@ -15,11 +15,30 @@
 
         <!-- CABEÇALHO -->
         <DockPanel Grid.Row="0" Margin="0,0,0,20">
+
             <TextBlock Text="Painel de Controle"
                        FontSize="28"
                        FontWeight="Bold"
                        Foreground="#333"
                        DockPanel.Dock="Left"/>
+
+            <!-- BOTÃO DE CONFIGURAÇÕES (⚙) - VISÍVEL APENAS PARA ADMIN -->
+            <Button x:Name="btnConfig"
+                    Content="⚙"
+                    Width="40"
+                    Height="40"
+                    FontSize="22"
+                    Background="Transparent"
+                    BorderThickness="0"
+                    Cursor="Hand"
+                    ToolTip="Configurações"
+                    Margin="0,0,10,0"
+                    Visibility="Collapsed"
+                    DockPanel.Dock="Right"
+                    Click="BtnConfig_Click"
+                    />
+
+            <!-- BOTÃO FECHAR -->
             <Button Content="Fechar"
                     DockPanel.Dock="Right"
                     HorizontalAlignment="Right"
@@ -27,7 +46,8 @@
                     Background="#E53935"
                     Foreground="White"
                     Padding="10,5"
-                    Click="BtnFechar_Click" Width="100" RenderTransformOrigin="0.508,0.475"/>
+                    Width="100"
+                    Click="BtnFechar_Click"/>
         </DockPanel>
 
         <!-- INDICADORES (CARDS) -->
@@ -84,28 +104,32 @@
                     Orientation="Horizontal"
                     HorizontalAlignment="Center"
                     Margin="0,20,0,0">
+
             <Button Content="📦 Estoque" Width="150" Height="40"
                     Background="#1976D2" Foreground="White" FontWeight="Bold"
                     Margin="10"
                     Click="BtnEstoque_Click"/>
+
             <Button Content="📑 Pedidos" Width="150" Height="40"
                     Background="#0288D1" Foreground="White" FontWeight="Bold"
                     Margin="10"
                     Click="BtnPedidos_Click"/>
+
             <Button Content="👤 Clientes" Width="150" Height="40"
-                    Background="#6A1B9A" 
-                    Foreground="White" 
-                    FontWeight="Bold"
+                    Background="#6A1B9A" Foreground="White" FontWeight="Bold"
                     Margin="10"
-                    Click="BtnClientes_Click"/> 
+                    Click="BtnClientes_Click"/>
+
             <Button Content="🛠 Produção" Width="150" Height="40"
                     Background="#F57C00" Foreground="White" FontWeight="Bold"
                     Margin="10"
                     Click="BtnProducao_Click"/>
+
             <Button Content="💰 Vendas" Width="150" Height="40"
                     Background="#388E3C" Foreground="White" FontWeight="Bold"
                     Margin="10"
                     Click="BtnVendas_Click"/>
         </StackPanel>
+
     </Grid>
 </Window>

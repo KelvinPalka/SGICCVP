@@ -30,8 +30,7 @@ namespace WPF_Projeto_BD.Views
 
         private void BtnVoltar_Click(object sender, RoutedEventArgs e)
         {
-            var main = new MainWindow();
-            main.Show();
+            Application.Current.MainWindow.Show();
             this.Close();
         }
 
