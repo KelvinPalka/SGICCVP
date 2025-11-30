@@ -77,26 +77,24 @@ namespace WPF_Projeto_BD.Views
         {
             string nome = txtNomeUsuario.Text.Trim();
             string email = txtEmailUsuario.Text.Trim();
-            string senha = txtSenhaUsuario.Password;
+            string novaSenha = txtSenhaUsuario.Password; // senha digitada pelo usuário
             string tipoSelecionado = ((ComboBoxItem)cmbTipoUsuario.SelectedItem)?.Content?.ToString() ?? "";
 
             try
             {
-                // Valida campos obrigatórios
+                // ================= VALIDAÇÃO DE CAMPOS =================
                 if (string.IsNullOrWhiteSpace(nome) || string.IsNullOrWhiteSpace(email))
                 {
                     MessageBox.Show("Nome e e-mail são obrigatórios.", "Erro", MessageBoxButton.OK, MessageBoxImage.Warning);
                     return;
                 }
 
-                // Valida formato de e-mail
                 if (!Regex.IsMatch(email, @"^[^@\s]+@[^@\s]+\.[^@\s]+$"))
                 {
                     MessageBox.Show("E-mail inválido.", "Erro", MessageBoxButton.OK, MessageBoxImage.Warning);
                     return;
                 }
 
-                // Validação obrigatória do tipo de conta
                 if (string.IsNullOrWhiteSpace(tipoSelecionado) || (tipoSelecionado != "admin" && tipoSelecionado != "user"))
                 {
                     MessageBox.Show("Selecione o tipo de conta ('admin' ou 'user').", "Erro", MessageBoxButton.OK, MessageBoxImage.Warning);
@@ -108,13 +106,13 @@ namespace WPF_Projeto_BD.Views
                 if (usuarioEmEdicao == null)
                 {
                     // ================= CADASTRO =================
-                    if (!SenhaValida(senha, false))
+                    if (!SenhaValida(novaSenha, false))
                     {
                         MessageBox.Show("Senha inválida. Mínimo 6 caracteres, com letras e números.", "Erro", MessageBoxButton.OK, MessageBoxImage.Warning);
                         return;
                     }
 
-                    resultado = usuarioController.CadastrarUsuario(nome, email, senha, tipoSelecionado, usuarioLogado.IdEmpresa);
+                    resultado = usuarioController.CadastrarUsuario(nome, email, novaSenha, tipoSelecionado, usuarioLogado.IdEmpresa);
 
                     if (resultado == "ok")
                     {
@@ -134,26 +132,21 @@ namespace WPF_Projeto_BD.Views
                     usuarioEmEdicao.TipoUsuario = tipoSelecionado;
 
                     // ================= VALIDAÇÃO DE SENHA =================
-                    if (string.IsNullOrWhiteSpace(usuarioEmEdicao.SenhaHash) && string.IsNullOrWhiteSpace(senha))
+                    if (string.IsNullOrWhiteSpace(novaSenha))
                     {
-                        // Caso não exista senha anterior e o campo está vazio, não permite
-                        MessageBox.Show("A senha não pode ficar vazia.", "Erro", MessageBoxButton.OK, MessageBoxImage.Warning);
+                        MessageBox.Show("A senha não pode ficar vazia na edição.", "Erro", MessageBoxButton.OK, MessageBoxImage.Warning);
                         return;
                     }
 
-                    if (!string.IsNullOrWhiteSpace(senha) && !SenhaValida(senha, false))
+                    if (!SenhaValida(novaSenha, false))
                     {
                         MessageBox.Show("A senha deve ter pelo menos 6 caracteres, com letras e números.", "Erro", MessageBoxButton.OK, MessageBoxImage.Warning);
                         return;
                     }
 
-                    // Atualiza hash apenas se nova senha for preenchida
-                    if (!string.IsNullOrWhiteSpace(senha))
-                    {
-                        usuarioEmEdicao.SenhaHash = senha; // o controller irá gerar hash
-                    }
 
-                    resultado = usuarioController.AtualizarUsuario(usuarioEmEdicao);
+                    // Chama o Controller passando a nova senha
+                    resultado = usuarioController.AtualizarUsuario(usuarioEmEdicao, novaSenha);
 
                     if (resultado == "ok")
                     {
@@ -173,6 +166,7 @@ namespace WPF_Projeto_BD.Views
                 MessageBox.Show("Ocorreu um erro inesperado: " + ex.Message, "Erro", MessageBoxButton.OK, MessageBoxImage.Error);
             }
         }
+
 
 
         // ==================== Cadastro Automático ====================

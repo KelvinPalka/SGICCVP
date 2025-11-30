@@ -70,7 +70,7 @@ namespace WPF_Projeto_BD.Controllers
         // =========================
         // Atualizar usuário
         // =========================
-        public string AtualizarUsuario(Usuario usuario)
+        public string AtualizarUsuario(Usuario usuario, string novaSenha)
         {
             if (string.IsNullOrWhiteSpace(usuario.Nome))
                 return "O nome é obrigatório.";
@@ -83,13 +83,24 @@ namespace WPF_Projeto_BD.Controllers
                 return "O tipo de conta deve ser 'admin' ou 'user'.";
 
             // ================= VALIDAÇÃO DE SENHA =================
-            if (string.IsNullOrWhiteSpace(usuario.SenhaHash))
-                return "A senha não pode ficar vazia.";
+            if (string.IsNullOrWhiteSpace(novaSenha))
+            {
+                if (string.IsNullOrWhiteSpace(usuario.SenhaHash))
+                    return "A senha não pode ficar vazia.";
+                // Senha antiga permanece
+            }
+            else
+            {
+                if (!SenhaValida(novaSenha, false))
+                    return "A senha deve ter pelo menos 6 caracteres, com letras e números.";
 
-            if (!SenhaValida(usuario.SenhaHash, false))
-                return "A senha deve ter pelo menos 6 caracteres, incluindo letras e números.";
+                // Atualiza hash e salt
+                var resultado = HashService.GerarHashComSalt(novaSenha);
+                usuario.SenhaHash = resultado.hash;
+                usuario.Salt = resultado.salt;
+            }
 
-            // Verifica duplicidade de e-mail, exceto o próprio usuário
+            // Verifica duplicidade de e-mail
             var todosUsuarios = usuarioDao.ObterTodos(usuario.IdEmpresa);
             foreach (var u in todosUsuarios)
             {
@@ -97,14 +108,10 @@ namespace WPF_Projeto_BD.Controllers
                     return "Este e-mail já está cadastrado por outro usuário.";
             }
 
-            // Atualiza hash/salt
-            var resultadoHash = HashService.GerarHashComSalt(usuario.SenhaHash);
-            usuario.SenhaHash = resultadoHash.hash;
-            usuario.Salt = resultadoHash.salt;
-
             bool sucesso = usuarioDao.Atualizar(usuario);
             return sucesso ? "ok" : "erro";
         }
+
 
         // =========================
         // Excluir usuário
