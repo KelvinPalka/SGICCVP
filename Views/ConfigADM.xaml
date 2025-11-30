@@ -52,6 +52,7 @@
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
 
+        <!-- Cabeçalho -->
         <DockPanel Grid.Row="0" Margin="0,0,0,25">
             <TextBlock Text="Configurações do Sistema"
                        FontSize="28"
@@ -72,12 +73,12 @@
         <ScrollViewer Grid.Row="1" VerticalScrollBarVisibility="Auto">
             <StackPanel>
 
+                <!-- ================= EMPRESA ================= -->
                 <TextBlock Text="Empresa"
                            FontSize="20"
                            FontWeight="SemiBold"
                            Margin="0,0,0,10"
                            Foreground="#4A90E2"/>
-
                 <WrapPanel Margin="0,0,0,30">
                     <Button Style="{StaticResource CardButton}" Click="BtnDadosEmpresa_Click">
                         <StackPanel HorizontalAlignment="Center">
@@ -86,8 +87,7 @@
                         </StackPanel>
                     </Button>
 
-                    <Button Style="{StaticResource CardButton}"
-                            Click="BtnMateriais_Click">
+                    <Button Style="{StaticResource CardButton}" Click="BtnMateriais_Click">
                         <StackPanel HorizontalAlignment="Center">
                             <TextBlock Text="🧵" FontSize="35"/>
                             <TextBlock Text="Materiais Utilizados" FontSize="15"/>
@@ -95,25 +95,23 @@
                     </Button>
                 </WrapPanel>
 
+                <!-- ================= USUÁRIOS ================= -->
                 <TextBlock Text="Usuários e Acessos"
                            FontSize="20"
                            FontWeight="SemiBold"
                            Margin="0,0,0,10"
                            Foreground="#4A90E2"/>
-
                 <WrapPanel Margin="0,0,0,30">
-                    <Button Style="{StaticResource CardButton}"
-                            Click="BtnUsuarioCadastrar_Click">
+                    <Button Style="{StaticResource CardButton}" Click="BtnUsuarioCadastrar_Click">
                         <StackPanel HorizontalAlignment="Center">
                             <TextBlock Text="➕" FontSize="35"/>
                             <TextBlock Text="Cadastrar Usuário" FontSize="15"/>
                         </StackPanel>
                     </Button>
 
-                    <Button Style="{StaticResource CardButton}"
-                            Click="BtnUsuarioLista_Click">
+                    <Button Style="{StaticResource CardButton}" Click="BtnUsuarioLista_Click">
                         <StackPanel HorizontalAlignment="Center">
-                            <TextBlock Text="👤" FontSize="35"/>
+                            <TextBlock Text="👥" FontSize="35"/>
                             <TextBlock Text="Gerenciar Usuários" FontSize="15"/>
                         </StackPanel>
                     </Button>
@@ -125,13 +123,36 @@
                         </StackPanel>
                     </Button>
                 </WrapPanel>
+                
+                <!-- ================= FUNCIONÁRIOS ================= -->
+                <TextBlock Text="Funcionários"
+                           FontSize="20"
+                           FontWeight="SemiBold"
+                           Margin="0,0,0,10"
+                           Foreground="#4A90E2"/>
+                <WrapPanel Margin="0,0,0,30">
+                    <Button Style="{StaticResource CardButton}" Click="BtnFuncionarioCadastrar_Click">
+                        <StackPanel HorizontalAlignment="Center">
+                            <TextBlock Text="➕" FontSize="35"/>
+                            <TextBlock Text="Cadastrar Funcionário" FontSize="15"/>
+                        </StackPanel>
+                    </Button>
 
+                    <Button Style="{StaticResource CardButton}" Click="BtnFuncionarioLista_Click">
+                        <StackPanel HorizontalAlignment="Center">
+                            <TextBlock Text="👤" FontSize="35"/>
+                            <TextBlock Text="Gerenciar Funcionários" FontSize="15"/>
+                        </StackPanel>
+                    </Button>
+                </WrapPanel>
+
+
+                <!-- ================= SISTEMA ================= -->
                 <TextBlock Text="Sistema"
                            FontSize="20"
                            FontWeight="SemiBold"
                            Margin="0,0,0,10"
                            Foreground="#4A90E2"/>
-
                 <WrapPanel Margin="0,0,0,30">
                     <Button Style="{StaticResource CardButton}">
                         <StackPanel HorizontalAlignment="Center">

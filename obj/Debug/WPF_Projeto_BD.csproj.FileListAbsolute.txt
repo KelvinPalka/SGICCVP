@@ -1,61 +1,25 @@
-E:\Mini Tcc\WPF_Projeto_BD\bin\Debug\WPF_Projeto_BD.exe.config
-E:\Mini Tcc\WPF_Projeto_BD\bin\Debug\WPF_Projeto_BD.exe
-E:\Mini Tcc\WPF_Projeto_BD\bin\Debug\WPF_Projeto_BD.pdb
-E:\Mini Tcc\WPF_Projeto_BD\bin\Debug\BouncyCastle.Cryptography.dll
-E:\Mini Tcc\WPF_Projeto_BD\bin\Debug\Google.Protobuf.dll
-E:\Mini Tcc\WPF_Projeto_BD\bin\Debug\K4os.Compression.LZ4.dll
-E:\Mini Tcc\WPF_Projeto_BD\bin\Debug\K4os.Compression.LZ4.Streams.dll
-E:\Mini Tcc\WPF_Projeto_BD\bin\Debug\K4os.Hash.xxHash.dll
-E:\Mini Tcc\WPF_Projeto_BD\bin\Debug\Microsoft.Bcl.AsyncInterfaces.dll
-E:\Mini Tcc\WPF_Projeto_BD\bin\Debug\MySql.Data.dll
-E:\Mini Tcc\WPF_Projeto_BD\bin\Debug\System.Buffers.dll
-E:\Mini Tcc\WPF_Projeto_BD\bin\Debug\System.Configuration.ConfigurationManager.dll
-E:\Mini Tcc\WPF_Projeto_BD\bin\Debug\System.IO.Pipelines.dll
-E:\Mini Tcc\WPF_Projeto_BD\bin\Debug\System.Memory.dll
-E:\Mini Tcc\WPF_Projeto_BD\bin\Debug\System.Numerics.Vectors.dll
-E:\Mini Tcc\WPF_Projeto_BD\bin\Debug\System.Runtime.CompilerServices.Unsafe.dll
-E:\Mini Tcc\WPF_Projeto_BD\bin\Debug\System.Threading.Tasks.Extensions.dll
-E:\Mini Tcc\WPF_Projeto_BD\bin\Debug\ZstdSharp.dll
-E:\Mini Tcc\WPF_Projeto_BD\bin\Debug\BouncyCastle.Cryptography.xml
-E:\Mini Tcc\WPF_Projeto_BD\bin\Debug\Google.Protobuf.pdb
-E:\Mini Tcc\WPF_Projeto_BD\bin\Debug\Google.Protobuf.xml
-E:\Mini Tcc\WPF_Projeto_BD\bin\Debug\K4os.Compression.LZ4.xml
-E:\Mini Tcc\WPF_Projeto_BD\bin\Debug\K4os.Compression.LZ4.Streams.xml
-E:\Mini Tcc\WPF_Projeto_BD\bin\Debug\K4os.Hash.xxHash.xml
-E:\Mini Tcc\WPF_Projeto_BD\bin\Debug\Microsoft.Bcl.AsyncInterfaces.xml
-E:\Mini Tcc\WPF_Projeto_BD\bin\Debug\MySql.Data.xml
-E:\Mini Tcc\WPF_Projeto_BD\bin\Debug\System.Buffers.xml
-E:\Mini Tcc\WPF_Projeto_BD\bin\Debug\System.Configuration.ConfigurationManager.xml
-E:\Mini Tcc\WPF_Projeto_BD\bin\Debug\System.IO.Pipelines.xml
-E:\Mini Tcc\WPF_Projeto_BD\bin\Debug\System.Memory.xml
-E:\Mini Tcc\WPF_Projeto_BD\bin\Debug\System.Numerics.Vectors.xml
-E:\Mini Tcc\WPF_Projeto_BD\bin\Debug\System.Runtime.CompilerServices.Unsafe.xml
-E:\Mini Tcc\WPF_Projeto_BD\bin\Debug\System.Threading.Tasks.Extensions.xml
-E:\Mini Tcc\WPF_Projeto_BD\obj\Debug\WPF_Projeto_BD.csproj.AssemblyReference.cache
-E:\Mini Tcc\WPF_Projeto_BD\obj\Debug\MainWindow.g.cs
-E:\Mini Tcc\WPF_Projeto_BD\obj\Debug\App.g.cs
-E:\Mini Tcc\WPF_Projeto_BD\obj\Debug\WPF_Projeto_BD_MarkupCompile.cache
-E:\Mini Tcc\WPF_Projeto_BD\obj\Debug\WPF_Projeto_BD_MarkupCompile.lref
-E:\Mini Tcc\WPF_Projeto_BD\obj\Debug\MainWindow.baml
-E:\Mini Tcc\WPF_Projeto_BD\obj\Debug\WPF_Projeto_BD.g.resources
-E:\Mini Tcc\WPF_Projeto_BD\obj\Debug\WPF_Projeto_BD.Properties.Resources.resources
-E:\Mini Tcc\WPF_Projeto_BD\obj\Debug\WPF_Projeto_BD.csproj.GenerateResource.cache
-E:\Mini Tcc\WPF_Projeto_BD\obj\Debug\WPF_Projeto_BD.csproj.CoreCompileInputs.cache
-E:\Mini Tcc\WPF_Projeto_BD\obj\Debug\WPF_Proj.135C1339.Up2Date
-E:\Mini Tcc\WPF_Projeto_BD\obj\Debug\WPF_Projeto_BD.exe
-E:\Mini Tcc\WPF_Projeto_BD\obj\Debug\WPF_Projeto_BD.pdb
-E:\Mini Tcc\WPF_Projeto_BD\obj\Debug\Views\ClienteCadastro.baml
-E:\Mini Tcc\WPF_Projeto_BD\obj\Debug\Views\ClienteLista.baml
-E:\Mini Tcc\WPF_Projeto_BD\obj\Debug\Views\ClienteCadastro.g.cs
-E:\Mini Tcc\WPF_Projeto_BD\obj\Debug\Views\ClienteLista.g.cs
-E:\Mini Tcc\WPF_Projeto_BD\obj\Debug\Views\Home.baml
-E:\Mini Tcc\WPF_Projeto_BD\obj\Debug\Views\Login.baml
-E:\Mini Tcc\WPF_Projeto_BD\obj\Debug\Views\Home.g.cs
-E:\Mini Tcc\WPF_Projeto_BD\obj\Debug\Views\Login.g.cs
-E:\Mini Tcc\WPF_Projeto_BD\obj\Debug\Views\PedidosLista.baml
-E:\Mini Tcc\WPF_Projeto_BD\obj\Debug\Views\PedidosLista.g.cs
-E:\Mini Tcc\WPF_Projeto_BD\obj\Debug\Views\PedidoCadastro.baml
-E:\Mini Tcc\WPF_Projeto_BD\obj\Debug\Views\PedidoCadastro.g.cs
+C:\Users\kelvi\OneDrive\Documentos\SGICCVP\bin\Debug\runtimes\linux-arm64\native\libqpdf.so
+C:\Users\kelvi\OneDrive\Documentos\SGICCVP\bin\Debug\runtimes\linux-arm64\native\libQuestPdfSkia.so
+C:\Users\kelvi\OneDrive\Documentos\SGICCVP\bin\Debug\runtimes\linux-musl-x64\native\libqpdf.so
+C:\Users\kelvi\OneDrive\Documentos\SGICCVP\bin\Debug\runtimes\linux-musl-x64\native\libQuestPdfSkia.so
+C:\Users\kelvi\OneDrive\Documentos\SGICCVP\bin\Debug\runtimes\linux-x64\native\libqpdf.so
+C:\Users\kelvi\OneDrive\Documentos\SGICCVP\bin\Debug\runtimes\linux-x64\native\libQuestPdfSkia.so
+C:\Users\kelvi\OneDrive\Documentos\SGICCVP\bin\Debug\runtimes\osx-arm64\native\libqpdf.dylib
+C:\Users\kelvi\OneDrive\Documentos\SGICCVP\bin\Debug\runtimes\osx-arm64\native\libQuestPdfSkia.dylib
+C:\Users\kelvi\OneDrive\Documentos\SGICCVP\bin\Debug\runtimes\osx-x64\native\libqpdf.dylib
+C:\Users\kelvi\OneDrive\Documentos\SGICCVP\bin\Debug\runtimes\osx-x64\native\libQuestPdfSkia.dylib
+C:\Users\kelvi\OneDrive\Documentos\SGICCVP\bin\Debug\runtimes\win-x64\native\libgcc_s_seh-1.dll
+C:\Users\kelvi\OneDrive\Documentos\SGICCVP\bin\Debug\runtimes\win-x64\native\libstdc++-6.dll
+C:\Users\kelvi\OneDrive\Documentos\SGICCVP\bin\Debug\runtimes\win-x64\native\libwinpthread-1.dll
+C:\Users\kelvi\OneDrive\Documentos\SGICCVP\bin\Debug\runtimes\win-x64\native\qpdf.dll
+C:\Users\kelvi\OneDrive\Documentos\SGICCVP\bin\Debug\runtimes\win-x64\native\QuestPdfSkia.dll
+C:\Users\kelvi\OneDrive\Documentos\SGICCVP\bin\Debug\runtimes\win-x64\native\zlib1.dll
+C:\Users\kelvi\OneDrive\Documentos\SGICCVP\bin\Debug\runtimes\win-x86\native\libgcc_s_dw2-1.dll
+C:\Users\kelvi\OneDrive\Documentos\SGICCVP\bin\Debug\runtimes\win-x86\native\libstdc++-6.dll
+C:\Users\kelvi\OneDrive\Documentos\SGICCVP\bin\Debug\runtimes\win-x86\native\libwinpthread-1.dll
+C:\Users\kelvi\OneDrive\Documentos\SGICCVP\bin\Debug\runtimes\win-x86\native\qpdf.dll
+C:\Users\kelvi\OneDrive\Documentos\SGICCVP\bin\Debug\runtimes\win-x86\native\QuestPdfSkia.dll
+C:\Users\kelvi\OneDrive\Documentos\SGICCVP\bin\Debug\runtimes\win-x86\native\zlib1.dll
 C:\Users\kelvi\OneDrive\Documentos\SGICCVP\bin\Debug\WPF_Projeto_BD.exe.config
 C:\Users\kelvi\OneDrive\Documentos\SGICCVP\bin\Debug\WPF_Projeto_BD.exe
 C:\Users\kelvi\OneDrive\Documentos\SGICCVP\bin\Debug\WPF_Projeto_BD.pdb
@@ -66,6 +30,7 @@ C:\Users\kelvi\OneDrive\Documentos\SGICCVP\bin\Debug\K4os.Compression.LZ4.Stream
 C:\Users\kelvi\OneDrive\Documentos\SGICCVP\bin\Debug\K4os.Hash.xxHash.dll
 C:\Users\kelvi\OneDrive\Documentos\SGICCVP\bin\Debug\Microsoft.Bcl.AsyncInterfaces.dll
 C:\Users\kelvi\OneDrive\Documentos\SGICCVP\bin\Debug\MySql.Data.dll
+C:\Users\kelvi\OneDrive\Documentos\SGICCVP\bin\Debug\QuestPDF.dll
 C:\Users\kelvi\OneDrive\Documentos\SGICCVP\bin\Debug\System.Buffers.dll
 C:\Users\kelvi\OneDrive\Documentos\SGICCVP\bin\Debug\System.Configuration.ConfigurationManager.dll
 C:\Users\kelvi\OneDrive\Documentos\SGICCVP\bin\Debug\System.IO.Pipelines.dll
@@ -82,6 +47,7 @@ C:\Users\kelvi\OneDrive\Documentos\SGICCVP\bin\Debug\K4os.Compression.LZ4.Stream
 C:\Users\kelvi\OneDrive\Documentos\SGICCVP\bin\Debug\K4os.Hash.xxHash.xml
 C:\Users\kelvi\OneDrive\Documentos\SGICCVP\bin\Debug\Microsoft.Bcl.AsyncInterfaces.xml
 C:\Users\kelvi\OneDrive\Documentos\SGICCVP\bin\Debug\MySql.Data.xml
+C:\Users\kelvi\OneDrive\Documentos\SGICCVP\bin\Debug\QuestPDF.xml
 C:\Users\kelvi\OneDrive\Documentos\SGICCVP\bin\Debug\System.Buffers.xml
 C:\Users\kelvi\OneDrive\Documentos\SGICCVP\bin\Debug\System.Configuration.ConfigurationManager.xml
 C:\Users\kelvi\OneDrive\Documentos\SGICCVP\bin\Debug\System.IO.Pipelines.xml
@@ -90,18 +56,36 @@ C:\Users\kelvi\OneDrive\Documentos\SGICCVP\bin\Debug\System.Numerics.Vectors.xml
 C:\Users\kelvi\OneDrive\Documentos\SGICCVP\bin\Debug\System.Runtime.CompilerServices.Unsafe.xml
 C:\Users\kelvi\OneDrive\Documentos\SGICCVP\bin\Debug\System.Threading.Tasks.Extensions.xml
 C:\Users\kelvi\OneDrive\Documentos\SGICCVP\obj\Debug\WPF_Projeto_BD.csproj.AssemblyReference.cache
+C:\Users\kelvi\OneDrive\Documentos\SGICCVP\obj\Debug\Views\ConfigADM.baml
+C:\Users\kelvi\OneDrive\Documentos\SGICCVP\obj\Debug\Views\EmpresaDados.baml
+C:\Users\kelvi\OneDrive\Documentos\SGICCVP\obj\Debug\Views\EmpresaEditar.baml
+C:\Users\kelvi\OneDrive\Documentos\SGICCVP\obj\Debug\Views\FuncionarioCadastro.baml
+C:\Users\kelvi\OneDrive\Documentos\SGICCVP\obj\Debug\Views\FuncionarioLista.baml
+C:\Users\kelvi\OneDrive\Documentos\SGICCVP\obj\Debug\Views\MainWindow.baml
 C:\Users\kelvi\OneDrive\Documentos\SGICCVP\obj\Debug\Views\ClienteCadastro.baml
 C:\Users\kelvi\OneDrive\Documentos\SGICCVP\obj\Debug\Views\ClienteLista.baml
+C:\Users\kelvi\OneDrive\Documentos\SGICCVP\obj\Debug\Views\EmpresaCadastro.baml
 C:\Users\kelvi\OneDrive\Documentos\SGICCVP\obj\Debug\Views\Home.baml
 C:\Users\kelvi\OneDrive\Documentos\SGICCVP\obj\Debug\Views\Login.baml
 C:\Users\kelvi\OneDrive\Documentos\SGICCVP\obj\Debug\Views\PedidoCadastro.baml
 C:\Users\kelvi\OneDrive\Documentos\SGICCVP\obj\Debug\Views\PedidosLista.baml
+C:\Users\kelvi\OneDrive\Documentos\SGICCVP\obj\Debug\Views\UsuarioCadastro.baml
+C:\Users\kelvi\OneDrive\Documentos\SGICCVP\obj\Debug\Views\UsuarioLista.baml
+C:\Users\kelvi\OneDrive\Documentos\SGICCVP\obj\Debug\Views\ConfigADM.g.cs
+C:\Users\kelvi\OneDrive\Documentos\SGICCVP\obj\Debug\Views\EmpresaDados.g.cs
+C:\Users\kelvi\OneDrive\Documentos\SGICCVP\obj\Debug\Views\EmpresaEditar.g.cs
+C:\Users\kelvi\OneDrive\Documentos\SGICCVP\obj\Debug\Views\FuncionarioCadastro.g.cs
+C:\Users\kelvi\OneDrive\Documentos\SGICCVP\obj\Debug\Views\FuncionarioLista.g.cs
+C:\Users\kelvi\OneDrive\Documentos\SGICCVP\obj\Debug\Views\MainWindow.g.cs
 C:\Users\kelvi\OneDrive\Documentos\SGICCVP\obj\Debug\Views\ClienteCadastro.g.cs
 C:\Users\kelvi\OneDrive\Documentos\SGICCVP\obj\Debug\Views\ClienteLista.g.cs
+C:\Users\kelvi\OneDrive\Documentos\SGICCVP\obj\Debug\Views\EmpresaCadastro.g.cs
 C:\Users\kelvi\OneDrive\Documentos\SGICCVP\obj\Debug\Views\Home.g.cs
 C:\Users\kelvi\OneDrive\Documentos\SGICCVP\obj\Debug\Views\Login.g.cs
 C:\Users\kelvi\OneDrive\Documentos\SGICCVP\obj\Debug\Views\PedidoCadastro.g.cs
 C:\Users\kelvi\OneDrive\Documentos\SGICCVP\obj\Debug\Views\PedidosLista.g.cs
+C:\Users\kelvi\OneDrive\Documentos\SGICCVP\obj\Debug\Views\UsuarioCadastro.g.cs
+C:\Users\kelvi\OneDrive\Documentos\SGICCVP\obj\Debug\Views\UsuarioLista.g.cs
 C:\Users\kelvi\OneDrive\Documentos\SGICCVP\obj\Debug\App.g.cs
 C:\Users\kelvi\OneDrive\Documentos\SGICCVP\obj\Debug\WPF_Projeto_BD_MarkupCompile.cache
 C:\Users\kelvi\OneDrive\Documentos\SGICCVP\obj\Debug\WPF_Projeto_BD.g.resources
@@ -111,132 +95,4 @@ C:\Users\kelvi\OneDrive\Documentos\SGICCVP\obj\Debug\WPF_Projeto_BD.csproj.CoreC
 C:\Users\kelvi\OneDrive\Documentos\SGICCVP\obj\Debug\WPF_Proj.135C1339.Up2Date
 C:\Users\kelvi\OneDrive\Documentos\SGICCVP\obj\Debug\WPF_Projeto_BD.exe
 C:\Users\kelvi\OneDrive\Documentos\SGICCVP\obj\Debug\WPF_Projeto_BD.pdb
-C:\Users\kelvi\OneDrive\Documentos\SGICCVP\obj\Debug\Views\EmpresaCadastro.baml
-C:\Users\kelvi\OneDrive\Documentos\SGICCVP\obj\Debug\Views\EmpresaCadastro.g.cs
-C:\Users\kelvi\OneDrive\Documentos\SGICCVP\obj\Debug\Views\MainWindow.baml
-C:\Users\kelvi\OneDrive\Documentos\SGICCVP\obj\Debug\Views\MainWindow.g.cs
-E:\Mini Tcc\SGICCVP\bin\Debug\WPF_Projeto_BD.exe.config
-E:\Mini Tcc\SGICCVP\bin\Debug\WPF_Projeto_BD.exe
-E:\Mini Tcc\SGICCVP\bin\Debug\WPF_Projeto_BD.pdb
-E:\Mini Tcc\SGICCVP\bin\Debug\BouncyCastle.Cryptography.dll
-E:\Mini Tcc\SGICCVP\bin\Debug\Google.Protobuf.dll
-E:\Mini Tcc\SGICCVP\bin\Debug\K4os.Compression.LZ4.dll
-E:\Mini Tcc\SGICCVP\bin\Debug\K4os.Compression.LZ4.Streams.dll
-E:\Mini Tcc\SGICCVP\bin\Debug\K4os.Hash.xxHash.dll
-E:\Mini Tcc\SGICCVP\bin\Debug\Microsoft.Bcl.AsyncInterfaces.dll
-E:\Mini Tcc\SGICCVP\bin\Debug\MySql.Data.dll
-E:\Mini Tcc\SGICCVP\bin\Debug\System.Buffers.dll
-E:\Mini Tcc\SGICCVP\bin\Debug\System.Configuration.ConfigurationManager.dll
-E:\Mini Tcc\SGICCVP\bin\Debug\System.IO.Pipelines.dll
-E:\Mini Tcc\SGICCVP\bin\Debug\System.Memory.dll
-E:\Mini Tcc\SGICCVP\bin\Debug\System.Numerics.Vectors.dll
-E:\Mini Tcc\SGICCVP\bin\Debug\System.Runtime.CompilerServices.Unsafe.dll
-E:\Mini Tcc\SGICCVP\bin\Debug\System.Threading.Tasks.Extensions.dll
-E:\Mini Tcc\SGICCVP\bin\Debug\ZstdSharp.dll
-E:\Mini Tcc\SGICCVP\bin\Debug\BouncyCastle.Cryptography.xml
-E:\Mini Tcc\SGICCVP\bin\Debug\Google.Protobuf.pdb
-E:\Mini Tcc\SGICCVP\bin\Debug\Google.Protobuf.xml
-E:\Mini Tcc\SGICCVP\bin\Debug\K4os.Compression.LZ4.xml
-E:\Mini Tcc\SGICCVP\bin\Debug\K4os.Compression.LZ4.Streams.xml
-E:\Mini Tcc\SGICCVP\bin\Debug\K4os.Hash.xxHash.xml
-E:\Mini Tcc\SGICCVP\bin\Debug\Microsoft.Bcl.AsyncInterfaces.xml
-E:\Mini Tcc\SGICCVP\bin\Debug\MySql.Data.xml
-E:\Mini Tcc\SGICCVP\bin\Debug\System.Buffers.xml
-E:\Mini Tcc\SGICCVP\bin\Debug\System.Configuration.ConfigurationManager.xml
-E:\Mini Tcc\SGICCVP\bin\Debug\System.IO.Pipelines.xml
-E:\Mini Tcc\SGICCVP\bin\Debug\System.Memory.xml
-E:\Mini Tcc\SGICCVP\bin\Debug\System.Numerics.Vectors.xml
-E:\Mini Tcc\SGICCVP\bin\Debug\System.Runtime.CompilerServices.Unsafe.xml
-E:\Mini Tcc\SGICCVP\bin\Debug\System.Threading.Tasks.Extensions.xml
-E:\Mini Tcc\SGICCVP\obj\Debug\WPF_Projeto_BD.csproj.AssemblyReference.cache
-E:\Mini Tcc\SGICCVP\obj\Debug\Views\MainWindow.baml
-E:\Mini Tcc\SGICCVP\obj\Debug\Views\ClienteCadastro.baml
-E:\Mini Tcc\SGICCVP\obj\Debug\Views\ClienteLista.baml
-E:\Mini Tcc\SGICCVP\obj\Debug\Views\EmpresaCadastro.baml
-E:\Mini Tcc\SGICCVP\obj\Debug\Views\Home.baml
-E:\Mini Tcc\SGICCVP\obj\Debug\Views\Login.baml
-E:\Mini Tcc\SGICCVP\obj\Debug\Views\PedidoCadastro.baml
-E:\Mini Tcc\SGICCVP\obj\Debug\Views\PedidosLista.baml
-E:\Mini Tcc\SGICCVP\obj\Debug\Views\MainWindow.g.cs
-E:\Mini Tcc\SGICCVP\obj\Debug\Views\ClienteCadastro.g.cs
-E:\Mini Tcc\SGICCVP\obj\Debug\Views\ClienteLista.g.cs
-E:\Mini Tcc\SGICCVP\obj\Debug\Views\EmpresaCadastro.g.cs
-E:\Mini Tcc\SGICCVP\obj\Debug\Views\Home.g.cs
-E:\Mini Tcc\SGICCVP\obj\Debug\Views\Login.g.cs
-E:\Mini Tcc\SGICCVP\obj\Debug\Views\PedidoCadastro.g.cs
-E:\Mini Tcc\SGICCVP\obj\Debug\Views\PedidosLista.g.cs
-E:\Mini Tcc\SGICCVP\obj\Debug\App.g.cs
-E:\Mini Tcc\SGICCVP\obj\Debug\WPF_Projeto_BD_MarkupCompile.cache
-E:\Mini Tcc\SGICCVP\obj\Debug\WPF_Projeto_BD.g.resources
-E:\Mini Tcc\SGICCVP\obj\Debug\WPF_Projeto_BD.Properties.Resources.resources
-E:\Mini Tcc\SGICCVP\obj\Debug\WPF_Projeto_BD.csproj.GenerateResource.cache
-E:\Mini Tcc\SGICCVP\obj\Debug\WPF_Projeto_BD.csproj.CoreCompileInputs.cache
-E:\Mini Tcc\SGICCVP\obj\Debug\WPF_Proj.135C1339.Up2Date
-E:\Mini Tcc\SGICCVP\obj\Debug\WPF_Projeto_BD.exe
-E:\Mini Tcc\SGICCVP\obj\Debug\WPF_Projeto_BD.pdb
-D:\Mini Tcc\SGICCVP\bin\Debug\WPF_Projeto_BD.exe.config
-D:\Mini Tcc\SGICCVP\bin\Debug\WPF_Projeto_BD.exe
-D:\Mini Tcc\SGICCVP\bin\Debug\WPF_Projeto_BD.pdb
-D:\Mini Tcc\SGICCVP\bin\Debug\BouncyCastle.Cryptography.dll
-D:\Mini Tcc\SGICCVP\bin\Debug\Google.Protobuf.dll
-D:\Mini Tcc\SGICCVP\bin\Debug\K4os.Compression.LZ4.dll
-D:\Mini Tcc\SGICCVP\bin\Debug\K4os.Compression.LZ4.Streams.dll
-D:\Mini Tcc\SGICCVP\bin\Debug\K4os.Hash.xxHash.dll
-D:\Mini Tcc\SGICCVP\bin\Debug\Microsoft.Bcl.AsyncInterfaces.dll
-D:\Mini Tcc\SGICCVP\bin\Debug\MySql.Data.dll
-D:\Mini Tcc\SGICCVP\bin\Debug\System.Buffers.dll
-D:\Mini Tcc\SGICCVP\bin\Debug\System.Configuration.ConfigurationManager.dll
-D:\Mini Tcc\SGICCVP\bin\Debug\System.IO.Pipelines.dll
-D:\Mini Tcc\SGICCVP\bin\Debug\System.Memory.dll
-D:\Mini Tcc\SGICCVP\bin\Debug\System.Numerics.Vectors.dll
-D:\Mini Tcc\SGICCVP\bin\Debug\System.Runtime.CompilerServices.Unsafe.dll
-D:\Mini Tcc\SGICCVP\bin\Debug\System.Threading.Tasks.Extensions.dll
-D:\Mini Tcc\SGICCVP\bin\Debug\ZstdSharp.dll
-D:\Mini Tcc\SGICCVP\bin\Debug\BouncyCastle.Cryptography.xml
-D:\Mini Tcc\SGICCVP\bin\Debug\Google.Protobuf.pdb
-D:\Mini Tcc\SGICCVP\bin\Debug\Google.Protobuf.xml
-D:\Mini Tcc\SGICCVP\bin\Debug\K4os.Compression.LZ4.xml
-D:\Mini Tcc\SGICCVP\bin\Debug\K4os.Compression.LZ4.Streams.xml
-D:\Mini Tcc\SGICCVP\bin\Debug\K4os.Hash.xxHash.xml
-D:\Mini Tcc\SGICCVP\bin\Debug\Microsoft.Bcl.AsyncInterfaces.xml
-D:\Mini Tcc\SGICCVP\bin\Debug\MySql.Data.xml
-D:\Mini Tcc\SGICCVP\bin\Debug\System.Buffers.xml
-D:\Mini Tcc\SGICCVP\bin\Debug\System.Configuration.ConfigurationManager.xml
-D:\Mini Tcc\SGICCVP\bin\Debug\System.IO.Pipelines.xml
-D:\Mini Tcc\SGICCVP\bin\Debug\System.Memory.xml
-D:\Mini Tcc\SGICCVP\bin\Debug\System.Numerics.Vectors.xml
-D:\Mini Tcc\SGICCVP\bin\Debug\System.Runtime.CompilerServices.Unsafe.xml
-D:\Mini Tcc\SGICCVP\bin\Debug\System.Threading.Tasks.Extensions.xml
-D:\Mini Tcc\SGICCVP\obj\Debug\WPF_Projeto_BD.csproj.AssemblyReference.cache
-D:\Mini Tcc\SGICCVP\obj\Debug\WPF_Projeto_BD.exe.config
-D:\Mini Tcc\SGICCVP\obj\Debug\Views\MainWindow.baml
-D:\Mini Tcc\SGICCVP\obj\Debug\Views\ClienteCadastro.baml
-D:\Mini Tcc\SGICCVP\obj\Debug\Views\ClienteLista.baml
-D:\Mini Tcc\SGICCVP\obj\Debug\Views\EmpresaCadastro.baml
-D:\Mini Tcc\SGICCVP\obj\Debug\Views\Home.baml
-D:\Mini Tcc\SGICCVP\obj\Debug\Views\Login.baml
-D:\Mini Tcc\SGICCVP\obj\Debug\Views\PedidoCadastro.baml
-D:\Mini Tcc\SGICCVP\obj\Debug\Views\PedidosLista.baml
-D:\Mini Tcc\SGICCVP\obj\Debug\Views\MainWindow.g.cs
-D:\Mini Tcc\SGICCVP\obj\Debug\Views\ClienteCadastro.g.cs
-D:\Mini Tcc\SGICCVP\obj\Debug\Views\ClienteLista.g.cs
-D:\Mini Tcc\SGICCVP\obj\Debug\Views\EmpresaCadastro.g.cs
-D:\Mini Tcc\SGICCVP\obj\Debug\Views\Home.g.cs
-D:\Mini Tcc\SGICCVP\obj\Debug\Views\Login.g.cs
-D:\Mini Tcc\SGICCVP\obj\Debug\Views\PedidoCadastro.g.cs
-D:\Mini Tcc\SGICCVP\obj\Debug\Views\PedidosLista.g.cs
-D:\Mini Tcc\SGICCVP\obj\Debug\App.g.cs
-D:\Mini Tcc\SGICCVP\obj\Debug\WPF_Projeto_BD_MarkupCompile.cache
-D:\Mini Tcc\SGICCVP\obj\Debug\WPF_Projeto_BD.g.resources
-D:\Mini Tcc\SGICCVP\obj\Debug\WPF_Projeto_BD.Properties.Resources.resources
-D:\Mini Tcc\SGICCVP\obj\Debug\WPF_Projeto_BD.csproj.GenerateResource.cache
-D:\Mini Tcc\SGICCVP\obj\Debug\WPF_Projeto_BD.csproj.CoreCompileInputs.cache
-D:\Mini Tcc\SGICCVP\obj\Debug\WPF_Proj.135C1339.Up2Date
-D:\Mini Tcc\SGICCVP\obj\Debug\WPF_Projeto_BD.exe
-D:\Mini Tcc\SGICCVP\obj\Debug\WPF_Projeto_BD.pdb
-C:\Users\kelvi\OneDrive\Documentos\SGICCVP\obj\Debug\Views\ConfigADM.baml
-C:\Users\kelvi\OneDrive\Documentos\SGICCVP\obj\Debug\Views\ConfigADM.g.cs
-C:\Users\kelvi\OneDrive\Documentos\SGICCVP\obj\Debug\Views\EmpresaDados.baml
-C:\Users\kelvi\OneDrive\Documentos\SGICCVP\obj\Debug\Views\EmpresaDados.g.cs
-C:\Users\kelvi\OneDrive\Documentos\SGICCVP\obj\Debug\Views\EmpresaEditar.baml
-C:\Users\kelvi\OneDrive\Documentos\SGICCVP\obj\Debug\Views\EmpresaEditar.g.cs
+C:\Users\kelvi\OneDrive\Documentos\SGICCVP\obj\Debug\WPF_Projeto_BD.exe.config

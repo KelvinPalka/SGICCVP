@@ -24,21 +24,21 @@ namespace WPF_Projeto_BD.Views
     {
         public MainWindow()
         {
-            ConnectionTest.Test();                         
+            ConnectionTest.Test();
         }
 
         private void Login(object sender, RoutedEventArgs e)
         {
             var loginWindow = new Login();
             loginWindow.Show();
-            this.Hide();
+            this.Close();
         }
 
         private void Cadastro(object sender, RoutedEventArgs e)
         {
             var cadastroWindow = new EmpresaCadastro();
             cadastroWindow.Show();
-            this.Hide();
+            this.Close();
         }
 
     }

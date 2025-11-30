@@ -1,0 +1,105 @@
+﻿<Window x:Class="WPF_Projeto_BD.Views.UsuarioLista"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="Lista de Usuários" 
+        Height="700" Width="1000"
+        Background="#F2F4F7"
+        WindowStartupLocation="CenterScreen">
+
+    <Grid>
+
+        <!-- ================= Cabeçalho ================= -->
+        <Border Background="#1F2937" Height="60" VerticalAlignment="Top">
+            <DockPanel VerticalAlignment="Center" Margin="15,0">
+                <Button Content="Home"
+                        Width="120" Height="35"
+                        Background="#374151"
+                        Foreground="White"
+                        FontWeight="SemiBold"
+                        BorderThickness="0"
+                        Cursor="Hand"
+                        DockPanel.Dock="Left"
+                        Click="BtnVoltar_Click"/>
+                <TextBlock Text="Usuários da Empresa"
+                           FontSize="22"
+                           Foreground="White"
+                           FontWeight="Bold"
+                           VerticalAlignment="Center"
+                           Margin="20,0,0,0"/>
+            </DockPanel>
+        </Border>
+
+        <!-- ================= Conteúdo ================= -->
+        <Grid Margin="20,70,20,20">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+
+            <!-- Botão Exportar Lista -->
+            <StackPanel Orientation="Horizontal" Grid.Row="0" Margin="0,0,0,10">
+                <Button Content="📤 Exportar Lista"
+                        Width="180" Height="38"
+                        Background="#3B82F6"
+                        Foreground="White"
+                        FontWeight="Bold"
+                        BorderThickness="0"
+                        Cursor="Hand"
+                        Click="BtnExportarLista_Click"/>
+                <TextBlock Text="Clique para gerar um arquivo contendo todos os usuários e seus dados de acesso (Nome, Email, Tipo)."
+                           FontSize="13"
+                           Foreground="#555"
+                           Margin="15,8,0,0"
+                           TextWrapping="Wrap"/>
+            </StackPanel>
+
+            <!-- DataGrid de Usuários -->
+            <Border Grid.Row="1" Background="White" CornerRadius="8" BorderBrush="#D1D5DB" BorderThickness="1" Padding="10">
+                <DataGrid x:Name="dgUsuarios"
+                          AutoGenerateColumns="False"
+                          IsReadOnly="True"
+                          CanUserAddRows="False"
+                          HeadersVisibility="Column"
+                          GridLinesVisibility="Horizontal"
+                          RowHeight="33"
+                          BorderThickness="0"
+                          AlternatingRowBackground="#F9FAFB"
+                          Background="White">
+                    <DataGrid.Columns>
+                        <DataGridTextColumn Header="ID" Binding="{Binding Id}" Width="60"/>
+                        <DataGridTextColumn Header="Nome do Usuário" Binding="{Binding Nome}" Width="*"/>
+                        <DataGridTextColumn Header="Email" Binding="{Binding Email}" Width="200"/>
+                        <DataGridTextColumn Header="Tipo" Binding="{Binding TipoUsuario}" Width="120"/>
+                        <DataGridTemplateColumn Header="Ações" Width="160">
+                            <DataGridTemplateColumn.CellTemplate>
+                                <DataTemplate>
+                                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                                        <Button Content="Editar"
+                                                Width="65" Height="28"
+                                                Background="#3B82F6"
+                                                Foreground="White"
+                                                FontWeight="SemiBold"
+                                                BorderThickness="0"
+                                                Cursor="Hand"
+                                                Margin="5,0"
+                                                Click="Editar_Usuario"/>
+                                        <Button Content="Excluir"
+                                                Width="65" Height="28"
+                                                Background="#EF4444"
+                                                Foreground="White"
+                                                FontWeight="SemiBold"
+                                                BorderThickness="0"
+                                                Cursor="Hand"
+                                                Margin="5,0"
+                                                Click="Excluir_Usuario"/>
+                                    </StackPanel>
+                                </DataTemplate>
+                            </DataGridTemplateColumn.CellTemplate>
+                        </DataGridTemplateColumn>
+                    </DataGrid.Columns>
+                </DataGrid>
+            </Border>
+        </Grid>
+
+    </Grid>
+</Window>

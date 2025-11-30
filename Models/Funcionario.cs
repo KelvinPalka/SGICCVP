@@ -15,10 +15,13 @@ namespace Wpf_Projeto_BD.Models
         public string Cargo { get; set; }
         public string Telefone { get; set; }
         public string Email { get; set; }
+        public string Departamento { get; set; }
+
+        public int IdEmpresa { get; set; }
 
         public Funcionario() { }
 
-        public Funcionario(int id, string nome, string cPF, string cargo, string telefone, string email)
+        public Funcionario(int id, string nome, string cPF, string cargo, string telefone, string email, string departamento, int idEmpresa)
         {
             Id = id;
             Nome = nome;
@@ -26,6 +29,8 @@ namespace Wpf_Projeto_BD.Models
             Cargo = cargo;
             Telefone = telefone;
             Email = email;
+            Departamento = departamento;
+            IdEmpresa = idEmpresa;
         }
     }
 }
