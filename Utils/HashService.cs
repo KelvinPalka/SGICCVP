@@ -22,13 +22,13 @@ namespace WPF_Projeto_BD.Utils
 
             string hash = BytesParaHex(hashBytes);
 
-            // 🔍 DEBUG
+            // DEBUG
             Debug.WriteLine("====== HASH SERVICE: GERAR ======");
             Debug.WriteLine("Senha digitada: " + senha);
             Debug.WriteLine("Salt gerado: " + salt);
             Debug.WriteLine("Hash gerado: " + hash);
             Debug.WriteLine("=================================");
-            // 🔍 FIM DEBUG
+            // FIM DEBUG
 
             return (hash, salt);
         }

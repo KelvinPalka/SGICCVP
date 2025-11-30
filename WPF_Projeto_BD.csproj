@@ -143,6 +143,9 @@
     <Compile Include="Views\EmpresaEditar.xaml.cs">
       <DependentUpon>EmpresaEditar.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Views\EstoqueWindown.xaml.cs">
+      <DependentUpon>EstoqueWindown.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\FuncionarioCadastro.xaml.cs">
       <DependentUpon>FuncionarioCadastro.xaml</DependentUpon>
     </Compile>
@@ -161,11 +164,17 @@
     <Compile Include="Views\PedidosLista.xaml.cs">
       <DependentUpon>PedidosLista.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Views\ProducaoWindown.xaml.cs">
+      <DependentUpon>ProducaoWindown.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\UsuarioCadastro.xaml.cs">
       <DependentUpon>UsuarioCadastro.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\UsuarioLista.xaml.cs">
       <DependentUpon>UsuarioLista.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\VendasWindown.xaml.cs">
+      <DependentUpon>VendasWindown.xaml</DependentUpon>
     </Compile>
     <Page Include="Views\ConfigADM.xaml">
       <SubType>Designer</SubType>
@@ -176,6 +185,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\EmpresaEditar.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\EstoqueWindown.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -231,6 +244,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Views\ProducaoWindown.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Views\UsuarioCadastro.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -238,6 +255,10 @@
     <Page Include="Views\UsuarioLista.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\VendasWindown.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
     </Page>
   </ItemGroup>
   <ItemGroup>

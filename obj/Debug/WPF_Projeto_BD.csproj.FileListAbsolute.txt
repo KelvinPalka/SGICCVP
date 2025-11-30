@@ -96,3 +96,9 @@ C:\Users\kelvi\OneDrive\Documentos\SGICCVP\obj\Debug\WPF_Projeto_BD.pdb
 C:\Users\kelvi\OneDrive\Documentos\SGICCVP\bin\Debug\Syncfusion.Compression.Base.dll
 C:\Users\kelvi\OneDrive\Documentos\SGICCVP\bin\Debug\Syncfusion.Licensing.dll
 C:\Users\kelvi\OneDrive\Documentos\SGICCVP\bin\Debug\Syncfusion.Compression.Base.xml
+C:\Users\kelvi\OneDrive\Documentos\SGICCVP\obj\Debug\Views\EstoqueWindown.baml
+C:\Users\kelvi\OneDrive\Documentos\SGICCVP\obj\Debug\Views\ProducaoWindown.baml
+C:\Users\kelvi\OneDrive\Documentos\SGICCVP\obj\Debug\Views\VendasWindown.baml
+C:\Users\kelvi\OneDrive\Documentos\SGICCVP\obj\Debug\Views\EstoqueWindown.g.cs
+C:\Users\kelvi\OneDrive\Documentos\SGICCVP\obj\Debug\Views\ProducaoWindown.g.cs
+C:\Users\kelvi\OneDrive\Documentos\SGICCVP\obj\Debug\Views\VendasWindown.g.cs

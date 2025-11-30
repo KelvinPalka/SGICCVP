@@ -43,7 +43,9 @@ namespace WPF_Projeto_BD.Views
 
         private void BtnEstoque_Click(object sender, RoutedEventArgs e)
         {
-
+            var estoqueWindow = new EstoqueWindown(usuarioLogado);
+            estoqueWindow.Show();
+            this.Close();
         }
 
         private void BtnPedidos_Click(object sender, RoutedEventArgs e)
@@ -55,7 +57,9 @@ namespace WPF_Projeto_BD.Views
 
         private void BtnProducao_Click(object sender, RoutedEventArgs e)
         {
-
+            var producao = new ProducaoWindown(usuarioLogado);
+            producao.Show();
+            this.Close();
         }    
         
         private void BtnClientes_Click(object sender, RoutedEventArgs e)
@@ -70,7 +74,9 @@ namespace WPF_Projeto_BD.Views
 
         private void BtnVendas_Click(object sender, RoutedEventArgs e)
         {
-
+            var vendas = new VendasWindown(usuarioLogado);
+            vendas.Show();
+            this.Close();
         }
 
         private void BtnFechar_Click(object sender, RoutedEventArgs e)

@@ -1,0 +1,218 @@
+﻿<Window x:Class="WPF_Projeto_BD.Views.VendasWindown"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="Vendas" Height="780" Width="1280" Background="#F3F3F3">
+
+    <Grid Margin="20">
+
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+        <!-- TÍTULO -->
+        <TextBlock Text="Painel de Vendas"
+                   FontSize="32"
+                   FontWeight="Bold"
+                   Foreground="#333"
+                   Margin="0 0 0 20"/>
+
+        <!-- FILTROS -->
+        <Border Grid.Row="1"
+                Background="White"
+                CornerRadius="8"
+                BorderBrush="#DDD"
+                BorderThickness="1"
+                Padding="15"
+                Margin="0 0 0 20">
+
+            <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
+
+                <!-- Período -->
+                <StackPanel Margin="0 0 20 0">
+                    <TextBlock Text="Período" FontWeight="Bold"/>
+                    <ComboBox x:Name="cbPeriodo" Width="180" SelectedIndex="0">
+                        <ComboBoxItem Content="Hoje"/>
+                        <ComboBoxItem Content="Últimos 7 dias"/>
+                        <ComboBoxItem Content="Últimos 30 dias"/>
+                        <ComboBoxItem Content="Este ano"/>
+                        <ComboBoxItem Content="Personalizado"/>
+                    </ComboBox>
+                </StackPanel>
+
+                <!-- Data inicial -->
+                <StackPanel Margin="0 0 20 0">
+                    <TextBlock Text="Data Inicial" FontWeight="Bold"/>
+                    <DatePicker x:Name="dtInicio" Width="160"/>
+                </StackPanel>
+
+                <!-- Data final -->
+                <StackPanel Margin="0 0 20 0">
+                    <TextBlock Text="Data Final" FontWeight="Bold"/>
+                    <DatePicker x:Name="dtFim" Width="160"/>
+                </StackPanel>
+
+                <!-- Cliente -->
+                <StackPanel Margin="0 0 20 0">
+                    <TextBlock Text="Cliente" FontWeight="Bold"/>
+                    <TextBox x:Name="txtClienteFiltro"
+                             Width="180"
+                             Foreground="#888"
+                             Text="Digite o nome do cliente"
+                             GotFocus="TextBoxPlaceholder_GotFocus"
+                             LostFocus="TextBoxPlaceholder_LostFocus" TextChanged="txtClienteFiltro_TextChanged"/>
+                </StackPanel>
+
+                <!-- Botão aplicar filtro -->
+                <Button x:Name="btnFiltrar"
+                        Content="Aplicar Filtros"
+                        Width="160"
+                        Height="38"
+                        Margin="10 22 0 0"
+                        Background="#4CAF50"
+                        Foreground="White"
+                        FontWeight="SemiBold"
+                        Cursor="Hand"/>
+
+            </StackPanel>
+
+        </Border>
+
+        <!-- ÁREA PRINCIPAL -->
+        <Grid Grid.Row="2">
+
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="3*"/>
+                <ColumnDefinition Width="2*"/>
+            </Grid.ColumnDefinitions>
+
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+
+            <!-- CARDS DE INDICADORES -->
+            <StackPanel Grid.Row="0" Grid.ColumnSpan="2" Orientation="Horizontal">
+
+                <!-- CARD FATURAMENTO -->
+                <Border Background="White" Padding="20" Width="250"
+                        CornerRadius="8" BorderBrush="#DDD" BorderThickness="1"
+                        Margin="0 0 20 0">
+                    <StackPanel>
+                        <TextBlock Text="Faturamento" FontSize="18" FontWeight="Bold"/>
+                        <TextBlock x:Name="txtFaturamento" Text="R$ 0,00"
+                                   FontSize="24" FontWeight="Bold"
+                                   Margin="0 10 0 0" Foreground="#4CAF50"/>
+                    </StackPanel>
+                </Border>
+
+                <!-- CARD VENDAS REALIZADAS -->
+                <Border Background="White" Padding="20" Width="250"
+                        CornerRadius="8" BorderBrush="#DDD" BorderThickness="1"
+                        Margin="0 0 20 0">
+                    <StackPanel>
+                        <TextBlock Text="Total de Vendas" FontSize="18" FontWeight="Bold"/>
+                        <TextBlock x:Name="txtTotalVendas" Text="0"
+                                   FontSize="24" FontWeight="Bold"
+                                   Margin="0 10 0 0" Foreground="#2196F3"/>
+                    </StackPanel>
+                </Border>
+
+                <!-- CARD TICKET MÉDIO -->
+                <Border Background="White" Padding="20" Width="250"
+                        CornerRadius="8" BorderBrush="#DDD" BorderThickness="1">
+                    <StackPanel>
+                        <TextBlock Text="Ticket Médio" FontSize="18" FontWeight="Bold"/>
+                        <TextBlock x:Name="txtTicketMedio" Text="R$ 0,00"
+                                   FontSize="24" FontWeight="Bold"
+                                   Margin="0 10 0 0" Foreground="#FF9800"/>
+                    </StackPanel>
+                </Border>
+
+            </StackPanel>
+
+            <!-- LISTA DE VENDAS -->
+            <Border Grid.Row="1" Grid.Column="0"
+                    Margin="0 20 20 0"
+                    Background="White"
+                    CornerRadius="8"
+                    BorderBrush="#DDD"
+                    BorderThickness="1"
+                    Padding="15">
+
+                <StackPanel>
+                    <TextBlock Text="Vendas Realizadas"
+                               FontSize="20"
+                               FontWeight="SemiBold"
+                               Margin="0 0 0 10"/>
+
+                    <DataGrid x:Name="dgVendas"
+                              AutoGenerateColumns="False"
+                              Height="500"
+                              HeadersVisibility="Column"
+                              GridLinesVisibility="None"
+                              Background="White"
+                              BorderThickness="0"
+                              AlternatingRowBackground="#F5F5F5">
+
+                        <DataGrid.Columns>
+                            <DataGridTextColumn Header="ID" Binding="{Binding Id}" Width="60"/>
+                            <DataGridTextColumn Header="Cliente" Binding="{Binding Cliente}" Width="*"/>
+                            <DataGridTextColumn Header="Data" Binding="{Binding Data}" Width="120"/>
+                            <DataGridTextColumn Header="Valor" Binding="{Binding Valor}" Width="120"/>
+                            <DataGridTextColumn Header="Status" Binding="{Binding Status}" Width="150"/>
+                        </DataGrid.Columns>
+
+                    </DataGrid>
+                </StackPanel>
+
+            </Border>
+
+            <!-- DETALHES + GRÁFICOS -->
+            <StackPanel Grid.Row="1" Grid.Column="1">
+
+                <!-- DETALHES -->
+                <Border Background="White" Padding="15"
+                        CornerRadius="8" BorderBrush="#DDD" BorderThickness="1"
+                        Margin="0 0 0 20">
+
+                    <StackPanel>
+                        <TextBlock Text="Detalhes da Venda Selecionada"
+                                   FontSize="20"
+                                   FontWeight="SemiBold"/>
+                        <Separator Margin="0 10"/>
+
+                        <StackPanel>
+                            <TextBlock Text="Cliente:" FontWeight="Bold"/>
+                            <TextBlock x:Name="txtDetCliente"/>
+
+                            <TextBlock Text="Data:" Margin="0 10 0 0" FontWeight="Bold"/>
+                            <TextBlock x:Name="txtDetData"/>
+
+                            <TextBlock Text="Valor:" Margin="0 10 0 0" FontWeight="Bold"/>
+                            <TextBlock x:Name="txtDetValor"/>
+
+                            <TextBlock Text="Status:" Margin="0 10 0 0" FontWeight="Bold"/>
+                            <TextBlock x:Name="txtDetStatus"/>
+
+                            <TextBlock Text="Produtos:" Margin="0 10 0 0" FontWeight="Bold"/>
+                            <TextBlock x:Name="txtDetProdutos" TextWrapping="Wrap"/>
+                        </StackPanel>
+                    </StackPanel>
+
+                </Border>
+
+                <!-- GRÁFICOS -->
+                <Border Background="White" Padding="15" Height="250"
+                        CornerRadius="8" BorderBrush="#DDD" BorderThickness="1">
+                    <TextBlock Text="(Área para gráficos – exemplo: vendas por mês)"
+                               VerticalAlignment="Center" HorizontalAlignment="Center"
+                               Foreground="#777"/>
+                </Border>
+
+            </StackPanel>
+
+        </Grid>
+    </Grid>
+</Window>
