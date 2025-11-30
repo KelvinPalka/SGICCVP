@@ -1,74 +1,98 @@
 ﻿using System.Collections.Generic;
 using MySql.Data.MySqlClient;
 using WPF_Projeto_BD.Models;
+using WPF_Projeto_BD.Utils; // onde está o HashService
 
 namespace WPF_Projeto_BD.Data.DAO
 {
     public class UsuarioDAO
     {
+        private readonly string conexao =
+            "server=localhost;user id=alunos;password=etec;database=MiniTCC_PNTJ;";
+
+        // -------------------------------
+        //  INSERIR (gera hash + salt)
+        // -------------------------------
         public void Inserir(Usuario usuario)
         {
-            using (var conn = Connection.GetConnection())
+            var resultado = HashService.GerarHashComSalt(usuario.SenhaHash);
+
+            usuario.SenhaHash = resultado.hash;
+            usuario.Salt = resultado.salt;
+
+            using (var conn = new MySqlConnection(conexao))
             {
+                conn.Open();
+
                 var cmd = new MySqlCommand(@"
                     INSERT INTO usuario
-                    (id_empresa, nome, email, senha, tipo_usuario)
+                    (id_empresa, nome, email, senha_hash, salt, tipo_usuario)
                     VALUES
-                    (@IdEmp, @Nome, @Email, @Senha, @Tipo);
+                    (@IdEmpresa, @Nome, @Email, @SenhaHash, @Salt, @TipoUsuario);
                 ", conn);
 
-                cmd.Parameters.AddWithValue("@IdEmp", usuario.IdEmpresa);
+                cmd.Parameters.AddWithValue("@IdEmpresa", usuario.IdEmpresa);
                 cmd.Parameters.AddWithValue("@Nome", usuario.Nome);
                 cmd.Parameters.AddWithValue("@Email", usuario.Email);
-                cmd.Parameters.AddWithValue("@Senha", usuario.Senha);
-                cmd.Parameters.AddWithValue("@Tipo", usuario.TipoUsuario);
+                cmd.Parameters.AddWithValue("@SenhaHash", usuario.SenhaHash);
+                cmd.Parameters.AddWithValue("@Salt", usuario.Salt);
+                cmd.Parameters.AddWithValue("@TipoUsuario", usuario.TipoUsuario);
 
                 cmd.ExecuteNonQuery();
             }
         }
 
-        private readonly string conexao = "server=localhost;user id=alunos;password=etec;database=MiniTCC_PNTJ;";
-
-        public Usuario Login(string email, string senha)
+        // -------------------------------
+        //  LOGIN (verifica hash + salt)
+        // -------------------------------
+        public Usuario Login(string email, string senhaDigitada)
         {
-            Usuario usuario = null;
-
-            using (MySqlConnection conn = new MySqlConnection(conexao))
+            using (var conn = new MySqlConnection(conexao))
             {
                 conn.Open();
-                string sql = "SELECT * FROM usuario WHERE email = @email AND senha = @senha";
+
+                string sql = "SELECT * FROM usuario WHERE email = @Email";
                 MySqlCommand cmd = new MySqlCommand(sql, conn);
-                cmd.Parameters.AddWithValue("@email", email);
-                cmd.Parameters.AddWithValue("@senha", senha); // depois vamos criptografar
+                cmd.Parameters.AddWithValue("@Email", email);
 
                 MySqlDataReader dr = cmd.ExecuteReader();
 
-                if (dr.Read())
-                {
-                    usuario = new Usuario
-                    {
-                        Id = dr.GetInt32("id_usuario"),
-                        IdEmpresa = dr.GetInt32("id_empresa"),
-                        Nome = dr.GetString("nome"),
-                        Email = dr.GetString("email"),
-                        Senha = dr.GetString("senha"),
-                        TipoUsuario = dr.GetString("tipo_usuario")
-                    };
-                }
-            }
+                if (!dr.Read())
+                    return null; // email não existe
 
-            return usuario;
+                string hashBanco = dr.GetString("senha_hash");
+                string saltBanco = dr.GetString("salt");
+
+                if (!HashService.VerificarHashComSalt(senhaDigitada, hashBanco, saltBanco))
+                    return null; // senha incorreta
+
+                return new Usuario
+                {
+                    IdUsuario = dr.GetInt32("id_usuario"),
+                    IdEmpresa = dr.GetInt32("id_empresa"),
+                    Nome = dr.GetString("nome"),
+                    Email = dr.GetString("email"),
+                    SenhaHash = hashBanco,
+                    Salt = saltBanco,
+                    TipoUsuario = dr.GetString("tipo_usuario")
+                };
+            }
         }
 
+        // -------------------------------
+        //  OBTER TODOS
+        // -------------------------------
         public List<Usuario> ObterTodos(int idEmpresa)
         {
             var lista = new List<Usuario>();
 
-            using (var conn = Connection.GetConnection())
+            using (var conn = new MySqlConnection(conexao))
             {
-                string sql = "SELECT * FROM usuario WHERE id_empresa = @idEmpresa";
+                conn.Open();
+                string sql = "SELECT * FROM usuario WHERE id_empresa = @IdEmpresa";
+
                 var cmd = new MySqlCommand(sql, conn);
-                cmd.Parameters.AddWithValue("@idEmpresa", idEmpresa);
+                cmd.Parameters.AddWithValue("@IdEmpresa", idEmpresa);
 
                 using (var dr = cmd.ExecuteReader())
                 {
@@ -76,12 +100,13 @@ namespace WPF_Projeto_BD.Data.DAO
                     {
                         lista.Add(new Usuario
                         {
-                            Id = dr.GetInt32("id_usuario"),
+                            IdUsuario = dr.GetInt32("id_usuario"),
                             Nome = dr.GetString("nome"),
                             Email = dr.GetString("email"),
-                            Senha = dr.GetString("senha"),
+                            SenhaHash = dr.GetString("senha_hash"),
+                            Salt = dr.GetString("salt"),
                             TipoUsuario = dr.GetString("tipo_usuario"),
-                            IdEmpresa = dr.GetInt32("id_empresa") // <-- aqui!
+                            IdEmpresa = dr.GetInt32("id_empresa")
                         });
                     }
                 }
@@ -90,62 +115,82 @@ namespace WPF_Projeto_BD.Data.DAO
             return lista;
         }
 
+        // -------------------------------
+        //  EXCLUIR
+        // -------------------------------
         public bool Excluir(int idUsuario)
         {
-            using (var conn = Connection.GetConnection())
+            using (var conn = new MySqlConnection(conexao))
             {
-                string sql = "DELETE FROM usuario WHERE id = @id";
+                conn.Open();
+
+                string sql = "DELETE FROM usuario WHERE id_usuario = @Id";
                 var cmd = new MySqlCommand(sql, conn);
-                cmd.Parameters.AddWithValue("@id", idUsuario);
-                int rows = cmd.ExecuteNonQuery();
-                return rows > 0;
+                cmd.Parameters.AddWithValue("@Id", idUsuario);
+
+                return cmd.ExecuteNonQuery() > 0;
             }
         }
 
+        // -------------------------------
+        //  EDITAR (opcional: pode gerar novo hash/salt)
+        // -------------------------------
         public bool Editar(Usuario usuario)
         {
-            using (var conn = Connection.GetConnection())
+            using (var conn = new MySqlConnection(conexao))
             {
-                string sql = @"UPDATE usuario 
-                               SET nome=@nome, email=@email, senha=@senha, tipoUsuario=@tipoUsuario 
-                               WHERE id=@id";
+                conn.Open();
+
+                string sql = @"
+                    UPDATE usuario SET 
+                        nome = @Nome,
+                        email = @Email,
+                        tipo_usuario = @TipoUsuario
+                    WHERE id_usuario = @IdUsuario";
+
                 var cmd = new MySqlCommand(sql, conn);
-                cmd.Parameters.AddWithValue("@nome", usuario.Nome);
-                cmd.Parameters.AddWithValue("@email", usuario.Email);
-                cmd.Parameters.AddWithValue("@senha", usuario.Senha);
-                cmd.Parameters.AddWithValue("@tipoUsuario", usuario.TipoUsuario);
-                cmd.Parameters.AddWithValue("@id", usuario.Id);
-                int rows = cmd.ExecuteNonQuery();
-                return rows > 0;
+
+                cmd.Parameters.AddWithValue("@Nome", usuario.Nome);
+                cmd.Parameters.AddWithValue("@Email", usuario.Email);
+                cmd.Parameters.AddWithValue("@TipoUsuario", usuario.TipoUsuario);
+                cmd.Parameters.AddWithValue("@IdUsuario", usuario.IdUsuario);
+
+                return cmd.ExecuteNonQuery() > 0;
             }
         }
 
+        // -------------------------------
+        //  OBTER POR ID
+        // -------------------------------
         public Usuario ObterPorId(int idUsuario)
         {
-            Usuario u = null;
-            using (var conn = Connection.GetConnection())
+            using (var conn = new MySqlConnection(conexao))
             {
-                string sql = "SELECT * FROM usuario WHERE id=@id";
+                conn.Open();
+
+                string sql = "SELECT * FROM usuario WHERE id_usuario = @Id";
                 var cmd = new MySqlCommand(sql, conn);
-                cmd.Parameters.AddWithValue("@id", idUsuario);
+                cmd.Parameters.AddWithValue("@Id", idUsuario);
 
                 using (var dr = cmd.ExecuteReader())
                 {
                     if (dr.Read())
                     {
-                        u = new Usuario
+                        return new Usuario
                         {
-                            Id = dr.GetInt32("id"),
+                            IdUsuario = dr.GetInt32("id_usuario"),
                             Nome = dr.GetString("nome"),
                             Email = dr.GetString("email"),
-                            Senha = dr.GetString("senha"),
-                            TipoUsuario = dr.GetString("tipoUsuario"),
-                            IdEmpresa = dr.GetInt32("idEmpresa")
+                            SenhaHash = dr.GetString("senha_hash"),
+                            Salt = dr.GetString("salt"),
+                            TipoUsuario = dr.GetString("tipo_usuario"),
+                            IdEmpresa = dr.GetInt32("id_empresa")
                         };
                     }
                 }
             }
-            return u;
+
+            return null;
         }
     }
 }

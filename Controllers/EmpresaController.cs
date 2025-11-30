@@ -42,7 +42,7 @@ namespace WPF_Projeto_BD.Controllers
             {
                 Nome = nomeADM,
                 Email = emailADM,
-                Senha = senhaADM,
+                SenhaHash = senhaADM,
                 TipoUsuario = "admin",
                 IdEmpresa = idEmpresa
             };

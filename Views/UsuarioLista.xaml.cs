@@ -53,7 +53,7 @@ namespace WPF_Projeto_BD.Views
 
                 if (result == MessageBoxResult.Yes)
                 {
-                    bool excluido = controller.ExcluirUsuario(usuarioSelecionado.Id);
+                    bool excluido = controller.ExcluirUsuario(usuarioSelecionado.IdUsuario);
                     if (excluido)
                     {
                         MessageBox.Show("Usuário excluído com sucesso!", "Sucesso", MessageBoxButton.OK, MessageBoxImage.Information);
@@ -70,7 +70,11 @@ namespace WPF_Projeto_BD.Views
         // ================== Exportar Lista ==================
         private void BtnExportarLista_Click(object sender, RoutedEventArgs e)
         {
-            
+            // Chama o método GerarPDF no controller
+            controller.GerarPDF();
+
+            // Exibe mensagem de sucesso
+            MessageBox.Show("PDF gerado com sucesso!", "Sucesso", MessageBoxButton.OK, MessageBoxImage.Information);
         }
 
         // ================== Voltar para Home ==================

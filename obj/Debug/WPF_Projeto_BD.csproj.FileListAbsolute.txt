@@ -30,7 +30,6 @@ C:\Users\kelvi\OneDrive\Documentos\SGICCVP\bin\Debug\K4os.Compression.LZ4.Stream
 C:\Users\kelvi\OneDrive\Documentos\SGICCVP\bin\Debug\K4os.Hash.xxHash.dll
 C:\Users\kelvi\OneDrive\Documentos\SGICCVP\bin\Debug\Microsoft.Bcl.AsyncInterfaces.dll
 C:\Users\kelvi\OneDrive\Documentos\SGICCVP\bin\Debug\MySql.Data.dll
-C:\Users\kelvi\OneDrive\Documentos\SGICCVP\bin\Debug\QuestPDF.dll
 C:\Users\kelvi\OneDrive\Documentos\SGICCVP\bin\Debug\System.Buffers.dll
 C:\Users\kelvi\OneDrive\Documentos\SGICCVP\bin\Debug\System.Configuration.ConfigurationManager.dll
 C:\Users\kelvi\OneDrive\Documentos\SGICCVP\bin\Debug\System.IO.Pipelines.dll
@@ -47,7 +46,6 @@ C:\Users\kelvi\OneDrive\Documentos\SGICCVP\bin\Debug\K4os.Compression.LZ4.Stream
 C:\Users\kelvi\OneDrive\Documentos\SGICCVP\bin\Debug\K4os.Hash.xxHash.xml
 C:\Users\kelvi\OneDrive\Documentos\SGICCVP\bin\Debug\Microsoft.Bcl.AsyncInterfaces.xml
 C:\Users\kelvi\OneDrive\Documentos\SGICCVP\bin\Debug\MySql.Data.xml
-C:\Users\kelvi\OneDrive\Documentos\SGICCVP\bin\Debug\QuestPDF.xml
 C:\Users\kelvi\OneDrive\Documentos\SGICCVP\bin\Debug\System.Buffers.xml
 C:\Users\kelvi\OneDrive\Documentos\SGICCVP\bin\Debug\System.Configuration.ConfigurationManager.xml
 C:\Users\kelvi\OneDrive\Documentos\SGICCVP\bin\Debug\System.IO.Pipelines.xml
@@ -95,4 +93,6 @@ C:\Users\kelvi\OneDrive\Documentos\SGICCVP\obj\Debug\WPF_Projeto_BD.csproj.CoreC
 C:\Users\kelvi\OneDrive\Documentos\SGICCVP\obj\Debug\WPF_Proj.135C1339.Up2Date
 C:\Users\kelvi\OneDrive\Documentos\SGICCVP\obj\Debug\WPF_Projeto_BD.exe
 C:\Users\kelvi\OneDrive\Documentos\SGICCVP\obj\Debug\WPF_Projeto_BD.pdb
-C:\Users\kelvi\OneDrive\Documentos\SGICCVP\obj\Debug\WPF_Projeto_BD.exe.config
+C:\Users\kelvi\OneDrive\Documentos\SGICCVP\bin\Debug\Syncfusion.Compression.Base.dll
+C:\Users\kelvi\OneDrive\Documentos\SGICCVP\bin\Debug\Syncfusion.Licensing.dll
+C:\Users\kelvi\OneDrive\Documentos\SGICCVP\bin\Debug\Syncfusion.Compression.Base.xml

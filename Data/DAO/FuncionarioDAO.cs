@@ -60,7 +60,7 @@ namespace WPF_Projeto_BD.Data.DAO
                             Telefone = dr.GetString("telefone"),
                             Email = dr.GetString("email"),
                             Departamento = dr.GetString("Departamento"),
-                            IdEmpresa = dr.GetInt32("Id_empresa")
+                            IdEmpresa = dr.GetInt32("Idempresa")
                         };
                         lista.Add(f);
                     }
