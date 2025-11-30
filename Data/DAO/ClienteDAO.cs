@@ -114,6 +114,48 @@ namespace WPF_Projeto_BD.Data.DAO // Define o namespace da aplicação (Data/DAO
             return lista;
         }
 
+        // Verifica se já existe outro cliente com este CPF/CNPJ
+        public bool ExisteCPF_CNPJ(string cpf_cnpj, int? idIgnorar = null)
+        {
+            using (var conn = Connection.GetConnection())
+            {
+                string sql = "SELECT COUNT(*) FROM Cliente WHERE cpf_cnpj = @cpf";
+                if (idIgnorar.HasValue)
+                {
+                    sql += " AND id_cliente != @id";
+                }
+
+                MySqlCommand cmd = new MySqlCommand(sql, conn);
+                cmd.Parameters.AddWithValue("@cpf", cpf_cnpj);
+                if (idIgnorar.HasValue)
+                    cmd.Parameters.AddWithValue("@id", idIgnorar.Value);
+
+                long count = (long)cmd.ExecuteScalar();
+                return count > 0;
+            }
+        }
+
+        // Verifica se já existe outro cliente com este e-mail
+        public bool ExisteEmail(string email, int? idIgnorar = null)
+        {
+            using (var conn = Connection.GetConnection())
+            {
+                string sql = "SELECT COUNT(*) FROM Cliente WHERE email = @Email";
+                if (idIgnorar.HasValue)
+                {
+                    sql += " AND id_cliente != @id";
+                }
+
+                MySqlCommand cmd = new MySqlCommand(sql, conn);
+                cmd.Parameters.AddWithValue("@Email", email);
+                if (idIgnorar.HasValue)
+                    cmd.Parameters.AddWithValue("@id", idIgnorar.Value);
+
+                long count = (long)cmd.ExecuteScalar();
+                return count > 0;
+            }
+        }
+
 
     }
 }

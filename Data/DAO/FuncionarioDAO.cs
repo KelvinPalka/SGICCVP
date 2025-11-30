@@ -73,7 +73,7 @@ namespace WPF_Projeto_BD.Data.DAO
         // ==========================
         // Atualizar funcionário
         // ==========================
-        public bool Editar(Funcionario funcionario)
+        public bool Atualizar(Funcionario funcionario)
         {
             try
             {

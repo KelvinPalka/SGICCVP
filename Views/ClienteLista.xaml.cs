@@ -1,50 +1,99 @@
-﻿// Importações padrão
+﻿using System;
 using System.Windows;
-using WPF_Projeto_BD.Controllers; // Importa o namespace dos controllers (Contrllers)
-using WPF_Projeto_BD.Models; // Importa o namespace dos modelos (Models)
+using WPF_Projeto_BD.Controllers;
+using WPF_Projeto_BD.Models;
 
-namespace WPF_Projeto_BD.Views // Define o namespace da aplicação (Views)
+namespace WPF_Projeto_BD.Views
 {
-    public partial class ClienteLista : Window // Define a classe parcial ClienteLista que herda de Window
+    public partial class ClienteLista : Window
     {
-        private readonly ClienteController controller; // Declara uma variável privada para o controller
+        private readonly ClienteController controller;
 
-        public ClienteLista(ClienteController controller) // Construtor da classe que recebe um ClienteController como parâmetro
+        public ClienteLista(ClienteController controller)
         {
-            InitializeComponent(); // Inicializa os componentes da interface gráfica
-            this.controller = controller; // Atribui o controller recebido à variável privada
+            InitializeComponent();
+            this.controller = controller;
 
-            dgClientes.ItemsSource = controller.ObterListaClientes(); // Define a fonte de dados do DataGrid com a lista de clientes obtida do controller
+            AtualizarLista();
         }
 
-        private void BtnVoltar_Click(object sender, RoutedEventArgs e) // Evento de clique do botão "Voltar"
+        private void AtualizarLista()
         {
-            controller.VoltarHome(); // Chama o método do controller para voltar à tela inicial
-            Close(); // Fecha a janela atual
+            try
+            {
+                dgClientes.ItemsSource = null;
+                dgClientes.ItemsSource = controller.ObterListaClientes();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Erro ao carregar lista de clientes: " + ex.Message, "Erro", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
         }
 
-        private void Adicionar_Cliente(object sender, RoutedEventArgs e) // Evento de clique do botão "Adicionar Cliente"
+        private void BtnVoltar_Click(object sender, RoutedEventArgs e)
         {
-            controller.AbrirTelaCadastroCliente(); // Chama o método do controller para abrir a tela de cadastro de cliente
-            Close(); // Fecha a janela atual
+            try
+            {
+                controller.VoltarHome(this);
+                Close();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Erro ao voltar para a tela inicial: " + ex.Message, "Erro", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
         }
 
-        private void Editar_Cliente(object sender, RoutedEventArgs e) // Evento de clique do botão "Editar Cliente"
+        private void Adicionar_Cliente(object sender, RoutedEventArgs e)
         {
-            var cliente = dgClientes.SelectedItem as Cliente; // Obtém o cliente selecionado no DataGrid
-            if (cliente == null) return; // Se nenhum cliente estiver selecionado, retorna
-
-            controller.AbrirTelaEdicaoCliente(cliente); // Chama o método do controller para abrir a tela de edição do cliente selecionado
-            Close(); // Fecha a janela atual
+            try
+            {
+                controller.AbrirTelaCadastroCliente();
+                Close();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Erro ao abrir cadastro de cliente: " + ex.Message, "Erro", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
         }
 
-        private void Excluir_Cliente(object sender, RoutedEventArgs e) // Evento de clique do botão "Excluir Cliente"
+        private void Editar_Cliente(object sender, RoutedEventArgs e)
         {
-            var cliente = dgClientes.SelectedItem as Cliente; // Obtém o cliente selecionado no DataGrid
-            if (cliente == null) return; // Se nenhum cliente estiver selecionado, retorna
+            var cliente = dgClientes.SelectedItem as Cliente;
+            if (cliente == null)
+            {
+                MessageBox.Show("Selecione um cliente para editar.", "Atenção", MessageBoxButton.OK, MessageBoxImage.Warning);
+                return;
+            }
 
-            controller.ExcluirCliente(cliente); // Chama o método do controller para excluir o cliente selecionado
-            dgClientes.ItemsSource = controller.ObterListaClientes(); // Atualiza a fonte de dados do DataGrid com a lista atualizada de clientes
+            try
+            {
+                controller.AbrirTelaEdicaoCliente(cliente);
+                Close();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Erro ao abrir edição do cliente: " + ex.Message, "Erro", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+        }
+
+        private void Excluir_Cliente(object sender, RoutedEventArgs e)
+        {
+            var cliente = dgClientes.SelectedItem as Cliente;
+            if (cliente == null)
+            {
+                MessageBox.Show("Selecione um cliente para excluir.", "Atenção", MessageBoxButton.OK, MessageBoxImage.Warning);
+                return;
+            }
+
+            try
+            {
+                controller.ExcluirCliente(cliente);
+                AtualizarLista();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Erro ao excluir cliente: " + ex.Message, "Erro", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
         }
     }
 }

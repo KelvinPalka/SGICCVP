@@ -62,6 +62,7 @@
         <!-- BOTÃO -->
         <Button Grid.Row="2"
                 Content="Salvar"
+                x:Name="btnSalvar"
                 Height="45"
                 Margin="0 30 0 0"
                 Background="#1C7ED6"

@@ -100,5 +100,45 @@ namespace WPF_Projeto_BD.Data.DAO
             }
         }
 
+        public bool ExisteCNPJ(string cnpj)
+        {
+            using (var conn = Connection.GetConnection())
+            {
+                string sql = "SELECT COUNT(*) FROM empresa WHERE cnpj = @cnpj";
+                var cmd = new MySqlCommand(sql, conn);
+                cmd.Parameters.AddWithValue("@cnpj", cnpj);
+
+                long count = (long)cmd.ExecuteScalar();
+                return count > 0;
+            }
+        }
+
+        public bool ExisteEmail(string email)
+        {
+            using (var conn = Connection.GetConnection())
+            {
+                string sql = "SELECT COUNT(*) FROM empresa WHERE email = @email";
+                MySqlCommand cmd = new MySqlCommand(sql, conn);
+                cmd.Parameters.AddWithValue("@email", email);
+
+                long count = (long)cmd.ExecuteScalar();
+                return count > 0;
+            }
+        }
+
+        public bool ExisteRazaoSocial(string razaoSocial)
+        {
+            using (var conn = Connection.GetConnection())
+            {
+                string sql = "SELECT COUNT(*) FROM empresa WHERE razao_social = @razaoSocial";
+                var cmd = new MySqlCommand(sql, conn);
+                cmd.Parameters.AddWithValue("@razaoSocial", razaoSocial);
+
+                long count = (long)cmd.ExecuteScalar();
+                return count > 0;
+            }
+        }
+
+
     }
 }

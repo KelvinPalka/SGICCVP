@@ -23,13 +23,14 @@ namespace WPF_Projeto_BD.Views
     {
         private Usuario usuarioLogado;
         private int idEmpresa; // Campo da classe
-        private EmpresaController controller = new EmpresaController();
+        private EmpresaController controller;
 
         public EmpresaDados(Usuario usuario)
         {
             InitializeComponent();
             usuarioLogado = usuario;
             idEmpresa = usuarioLogado.IdEmpresa;
+            controller = new EmpresaController(usuarioLogado);
             CarregarEmpresa();
         }
 

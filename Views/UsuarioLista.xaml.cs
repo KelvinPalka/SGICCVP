@@ -34,11 +34,12 @@ namespace WPF_Projeto_BD.Views
         {
             if (dgUsuarios.SelectedItem is Usuario usuarioSelecionado)
             {
-                var editar = new Home(usuarioLogado);
-                editar.Show();
-                CarregarUsuarios();
+                var telaEdicao = new UsuarioCadastro(usuarioLogado, usuarioSelecionado);
+                telaEdicao.Show();
+                this.Close();
             }
         }
+
 
         // ================== Excluir Usuário ==================
         private void Excluir_Usuario(object sender, RoutedEventArgs e)

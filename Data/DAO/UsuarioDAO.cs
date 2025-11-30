@@ -1,7 +1,8 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using MySql.Data.MySqlClient;
 using WPF_Projeto_BD.Models;
-using WPF_Projeto_BD.Utils; // onde está o HashService
+using WPF_Projeto_BD.Utils; // HashService
 
 namespace WPF_Projeto_BD.Data.DAO
 {
@@ -55,27 +56,28 @@ namespace WPF_Projeto_BD.Data.DAO
                 MySqlCommand cmd = new MySqlCommand(sql, conn);
                 cmd.Parameters.AddWithValue("@Email", email);
 
-                MySqlDataReader dr = cmd.ExecuteReader();
-
-                if (!dr.Read())
-                    return null; // email não existe
-
-                string hashBanco = dr.GetString("senha_hash");
-                string saltBanco = dr.GetString("salt");
-
-                if (!HashService.VerificarHashComSalt(senhaDigitada, hashBanco, saltBanco))
-                    return null; // senha incorreta
-
-                return new Usuario
+                using (var dr = cmd.ExecuteReader())
                 {
-                    IdUsuario = dr.GetInt32("id_usuario"),
-                    IdEmpresa = dr.GetInt32("id_empresa"),
-                    Nome = dr.GetString("nome"),
-                    Email = dr.GetString("email"),
-                    SenhaHash = hashBanco,
-                    Salt = saltBanco,
-                    TipoUsuario = dr.GetString("tipo_usuario")
-                };
+                    if (!dr.Read())
+                        return null; // email não existe
+
+                    string hashBanco = dr.GetString("senha_hash");
+                    string saltBanco = dr.GetString("salt");
+
+                    if (!HashService.VerificarHashComSalt(senhaDigitada, hashBanco, saltBanco))
+                        return null; // senha incorreta
+
+                    return new Usuario
+                    {
+                        IdUsuario = dr.GetInt32("id_usuario"),
+                        IdEmpresa = dr.GetInt32("id_empresa"),
+                        Nome = dr.GetString("nome"),
+                        Email = dr.GetString("email"),
+                        SenhaHash = hashBanco,
+                        Salt = saltBanco,
+                        TipoUsuario = dr.GetString("tipo_usuario")
+                    };
+                }
             }
         }
 
@@ -133,10 +135,15 @@ namespace WPF_Projeto_BD.Data.DAO
         }
 
         // -------------------------------
-        //  EDITAR (opcional: pode gerar novo hash/salt)
+        //  EDITAR (gera novo hash + salt)
         // -------------------------------
-        public bool Editar(Usuario usuario)
+        public bool Atualizar(Usuario usuario)
         {
+            var resultado = HashService.GerarHashComSalt(usuario.SenhaHash);
+
+            usuario.SenhaHash = resultado.hash;
+            usuario.Salt = resultado.salt;
+
             using (var conn = new MySqlConnection(conexao))
             {
                 conn.Open();
@@ -145,6 +152,8 @@ namespace WPF_Projeto_BD.Data.DAO
                     UPDATE usuario SET 
                         nome = @Nome,
                         email = @Email,
+                        senha_hash = @SenhaHash,
+                        salt = @Salt,
                         tipo_usuario = @TipoUsuario
                     WHERE id_usuario = @IdUsuario";
 
@@ -152,6 +161,8 @@ namespace WPF_Projeto_BD.Data.DAO
 
                 cmd.Parameters.AddWithValue("@Nome", usuario.Nome);
                 cmd.Parameters.AddWithValue("@Email", usuario.Email);
+                cmd.Parameters.AddWithValue("@SenhaHash", usuario.SenhaHash);
+                cmd.Parameters.AddWithValue("@Salt", usuario.Salt);
                 cmd.Parameters.AddWithValue("@TipoUsuario", usuario.TipoUsuario);
                 cmd.Parameters.AddWithValue("@IdUsuario", usuario.IdUsuario);
 
@@ -192,5 +203,23 @@ namespace WPF_Projeto_BD.Data.DAO
 
             return null;
         }
+
+        // -------------------------------
+        //  VERIFICAR DUPLICIDADE DE E-MAIL
+        // -------------------------------
+        public bool ExisteEmail(string email)
+        {
+            using (var conn = new MySqlConnection(conexao))
+            {
+                conn.Open();
+                string sql = "SELECT COUNT(*) FROM usuario WHERE email = @Email";
+                var cmd = new MySqlCommand(sql, conn);
+                cmd.Parameters.AddWithValue("@Email", email);
+
+                long count = (long)cmd.ExecuteScalar();
+                return count > 0;
+            }
+        }
+
     }
 }

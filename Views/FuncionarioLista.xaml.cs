@@ -45,10 +45,10 @@ namespace WPF_Projeto_BD.Views
         // =========================
         private void Editar_Funcionario(object sender, RoutedEventArgs e)
         {
-            if (dgFuncionarios.SelectedItem is Funcionario f)
+            if (dgFuncionarios.SelectedItem is Funcionario funcionarioSelecionado)
             {
-                var editar = new Home(usuarioLogado);
-                editar.Show();
+                var editarWindow = new FuncionarioCadastro(usuarioLogado, funcionarioSelecionado);
+                editarWindow.Show();
                 this.Close();
             }
         }

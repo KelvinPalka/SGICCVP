@@ -12,14 +12,14 @@ namespace WPF_Projeto_BD.Views
         private Usuario usuarioLogado;
         private int idEmpresa;
         private Empresa empresaAtual;
-        private EmpresaController controller = new EmpresaController();
+        private EmpresaController controller;
 
         public EmpresaEditar(Usuario usuario, int id_empresa)
         {
             InitializeComponent();
             usuarioLogado = usuario;
             idEmpresa = id_empresa;
-
+            controller = new EmpresaController(usuarioLogado);
             // Carrega os dados da empresa ao abrir a tela
             ObterEmpresaPorId();
         }

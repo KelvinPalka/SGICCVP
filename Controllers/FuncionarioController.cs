@@ -6,13 +6,13 @@ namespace WPF_Projeto_BD.Controllers
 {
     internal class FuncionarioController
     {
-        private FuncionarioDAO dao = new FuncionarioDAO();
+        private FuncionarioDAO funcionarioDao = new FuncionarioDAO();
 
         // ==========================
         // Cadastrar novo funcionário
         // ==========================
         public string CadastrarFuncionario(string nome, string cpf, string cargo, string telefone,
-                                    string email, int idEmpresa, string departamento)
+                                           string email, int idEmpresa, string departamento)
         {
             var funcionario = new Funcionario(
                 0,          // id será gerado pelo banco
@@ -22,28 +22,28 @@ namespace WPF_Projeto_BD.Controllers
                 telefone,
                 email,
                 departamento,
-                idEmpresa   // passa o IdEmpresa da View
+                idEmpresa
             );
 
-            dao.Inserir(funcionario);
+            funcionarioDao.Inserir(funcionario); // CORRIGIDO
             return "ok";
         }
-
 
         // ==========================
         // Obter todos os funcionários de uma empresa
         // ==========================
         public List<Funcionario> ObterTodos(int idEmpresa)
         {
-            return dao.ObterTodos(idEmpresa);
+            return funcionarioDao.ObterTodos(idEmpresa); // CORRIGIDO
         }
 
         // ==========================
         // Editar um funcionário existente
         // ==========================
-        public bool EditarFuncionario(Funcionario funcionario)
+        public string AtualizarFuncionario(Funcionario func)
         {
-            return dao.Editar(funcionario);
+            bool ok = funcionarioDao.Atualizar(func);
+            return ok ? "ok" : "erro";
         }
 
         // ==========================
@@ -51,7 +51,7 @@ namespace WPF_Projeto_BD.Controllers
         // ==========================
         public bool ExcluirFuncionario(int idFuncionario)
         {
-            return dao.Excluir(idFuncionario);
+            return funcionarioDao.Excluir(idFuncionario); // CORRIGIDO
         }
 
         // ==========================
@@ -59,7 +59,7 @@ namespace WPF_Projeto_BD.Controllers
         // ==========================
         public Funcionario ObterPorId(int idFuncionario)
         {
-            return dao.ObterPorId(idFuncionario);
+            return funcionarioDao.ObterPorId(idFuncionario); // CORRIGIDO
         }
     }
 }

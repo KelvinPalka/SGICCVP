@@ -1,39 +1,56 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
+using System.Text.RegularExpressions;
 using System.Windows;
 using System.Windows.Controls;
 using Wpf_Projeto_BD.Models;
 using WPF_Projeto_BD.Controllers;
-using WPF_Projeto_BD.Models;
 
 namespace WPF_Projeto_BD.Views
 {
-    /// <summary>
-    /// Lógica interna para UsuarioCadastro.xaml
-    /// </summary>
     public partial class UsuarioCadastro : Window
     {
         private Usuario usuarioLogado;
         private UsuarioController usuarioController = new UsuarioController();
         private FuncionarioController funcionarioController = new FuncionarioController();
+        private Usuario usuarioEmEdicao;
 
-        public UsuarioCadastro(Usuario usuario)
+        public UsuarioCadastro(Usuario usuarioLogado, Usuario usuarioParaEditar = null)
         {
             InitializeComponent();
+            this.usuarioLogado = usuarioLogado;
+            this.usuarioEmEdicao = usuarioParaEditar;
 
-            usuarioLogado = usuario;
-
-            // Inicializa visibilidade inicial
+            // Modo inicial
             spManual.Visibility = Visibility.Visible;
             spPadrao.Visibility = Visibility.Collapsed;
 
-            // Associa eventos após InitializeComponent
+            // Eventos
             rbManual.Checked += RbModo_Checked;
             rbPadrao.Checked += RbModo_Checked;
 
-            // Carrega lista de funcionários para modo automático
             CarregarFuncionarios();
+
+            // Preencher dados se estiver editando
+            if (usuarioEmEdicao != null)
+            {
+                PreencherCamposEdicao();
+            }
+        }
+
+        private void PreencherCamposEdicao()
+        {
+            rbManual.IsChecked = true;
+
+            txtNomeUsuario.Text = usuarioEmEdicao.Nome;
+            txtEmailUsuario.Text = usuarioEmEdicao.Email;
+            txtSenhaUsuario.Password = ""; // por segurança não preenche
+
+            cmbTipoUsuario.SelectedItem =
+                cmbTipoUsuario.Items.Cast<ComboBoxItem>()
+                .FirstOrDefault(item => item.Content.ToString() == usuarioEmEdicao.TipoUsuario);
+
+            btnSalvarManual.Content = "Atualizar Usuário";
         }
 
         private void CarregarFuncionarios()
@@ -44,16 +61,8 @@ namespace WPF_Projeto_BD.Views
 
         private void RbModo_Checked(object sender, RoutedEventArgs e)
         {
-            if (rbManual.IsChecked == true)
-            {
-                spManual.Visibility = Visibility.Visible;
-                spPadrao.Visibility = Visibility.Collapsed;
-            }
-            else
-            {
-                spManual.Visibility = Visibility.Collapsed;
-                spPadrao.Visibility = Visibility.Visible;
-            }
+            spManual.Visibility = rbManual.IsChecked == true ? Visibility.Visible : Visibility.Collapsed;
+            spPadrao.Visibility = rbPadrao.IsChecked == true ? Visibility.Visible : Visibility.Collapsed;
         }
 
         private void BtnVoltar_Click(object sender, RoutedEventArgs e)
@@ -69,27 +78,102 @@ namespace WPF_Projeto_BD.Views
             string nome = txtNomeUsuario.Text.Trim();
             string email = txtEmailUsuario.Text.Trim();
             string senha = txtSenhaUsuario.Password;
-            string tipo = ((ComboBoxItem)cmbTipoUsuario.SelectedItem).Content.ToString();
-            int idEmpresa = usuarioLogado.IdEmpresa;
+            string tipoSelecionado = ((ComboBoxItem)cmbTipoUsuario.SelectedItem)?.Content?.ToString() ?? "";
 
-            if (string.IsNullOrEmpty(nome) || string.IsNullOrEmpty(email) || string.IsNullOrEmpty(senha))
+            try
             {
-                MessageBox.Show("Preencha todos os campos obrigatórios.", "Erro", MessageBoxButton.OK, MessageBoxImage.Warning);
-                return;
+                // Valida campos obrigatórios
+                if (string.IsNullOrWhiteSpace(nome) || string.IsNullOrWhiteSpace(email))
+                {
+                    MessageBox.Show("Nome e e-mail são obrigatórios.", "Erro", MessageBoxButton.OK, MessageBoxImage.Warning);
+                    return;
+                }
+
+                // Valida formato de e-mail
+                if (!Regex.IsMatch(email, @"^[^@\s]+@[^@\s]+\.[^@\s]+$"))
+                {
+                    MessageBox.Show("E-mail inválido.", "Erro", MessageBoxButton.OK, MessageBoxImage.Warning);
+                    return;
+                }
+
+                // Validação obrigatória do tipo de conta
+                if (string.IsNullOrWhiteSpace(tipoSelecionado) || (tipoSelecionado != "admin" && tipoSelecionado != "user"))
+                {
+                    MessageBox.Show("Selecione o tipo de conta ('admin' ou 'user').", "Erro", MessageBoxButton.OK, MessageBoxImage.Warning);
+                    return;
+                }
+
+                string resultado;
+
+                if (usuarioEmEdicao == null)
+                {
+                    // ================= CADASTRO =================
+                    if (!SenhaValida(senha, false))
+                    {
+                        MessageBox.Show("Senha inválida. Mínimo 6 caracteres, com letras e números.", "Erro", MessageBoxButton.OK, MessageBoxImage.Warning);
+                        return;
+                    }
+
+                    resultado = usuarioController.CadastrarUsuario(nome, email, senha, tipoSelecionado, usuarioLogado.IdEmpresa);
+
+                    if (resultado == "ok")
+                    {
+                        MessageBox.Show("Usuário cadastrado com sucesso!", "Sucesso", MessageBoxButton.OK, MessageBoxImage.Information);
+                        this.Close();
+                    }
+                    else
+                    {
+                        MessageBox.Show("Erro ao cadastrar usuário: " + resultado, "Erro", MessageBoxButton.OK, MessageBoxImage.Warning);
+                    }
+                }
+                else
+                {
+                    // ================= EDIÇÃO =================
+                    usuarioEmEdicao.Nome = nome;
+                    usuarioEmEdicao.Email = email;
+                    usuarioEmEdicao.TipoUsuario = tipoSelecionado;
+
+                    // ================= VALIDAÇÃO DE SENHA =================
+                    if (string.IsNullOrWhiteSpace(usuarioEmEdicao.SenhaHash) && string.IsNullOrWhiteSpace(senha))
+                    {
+                        // Caso não exista senha anterior e o campo está vazio, não permite
+                        MessageBox.Show("A senha não pode ficar vazia.", "Erro", MessageBoxButton.OK, MessageBoxImage.Warning);
+                        return;
+                    }
+
+                    if (!string.IsNullOrWhiteSpace(senha) && !SenhaValida(senha, false))
+                    {
+                        MessageBox.Show("A senha deve ter pelo menos 6 caracteres, com letras e números.", "Erro", MessageBoxButton.OK, MessageBoxImage.Warning);
+                        return;
+                    }
+
+                    // Atualiza hash apenas se nova senha for preenchida
+                    if (!string.IsNullOrWhiteSpace(senha))
+                    {
+                        usuarioEmEdicao.SenhaHash = senha; // o controller irá gerar hash
+                    }
+
+                    resultado = usuarioController.AtualizarUsuario(usuarioEmEdicao);
+
+                    if (resultado == "ok")
+                    {
+                        MessageBox.Show("Usuário atualizado com sucesso!", "Sucesso", MessageBoxButton.OK, MessageBoxImage.Information);
+                        var usuarioLista = new UsuarioLista(usuarioLogado);
+                        usuarioLista.Show();
+                        this.Close();
+                    }
+                    else
+                    {
+                        MessageBox.Show("Erro ao atualizar usuário: " + resultado, "Erro", MessageBoxButton.OK, MessageBoxImage.Warning);
+                    }
+                }
             }
-
-            string resultado = usuarioController.CadastrarUsuario(nome, email, senha, tipo, idEmpresa);
-
-            if (resultado == "ok")
+            catch (Exception ex)
             {
-                MessageBox.Show("Usuário cadastrado com sucesso!", "Sucesso", MessageBoxButton.OK, MessageBoxImage.Information);
-                this.Close();
-            }
-            else
-            {
-                MessageBox.Show("Erro ao cadastrar usuário: " + resultado, "Erro", MessageBoxButton.OK, MessageBoxImage.Error);
+                MessageBox.Show("Ocorreu um erro inesperado: " + ex.Message, "Erro", MessageBoxButton.OK, MessageBoxImage.Error);
             }
         }
+
 
         // ==================== Cadastro Automático ====================
         private void BtnGerarPadrao_Click(object sender, RoutedEventArgs e)
@@ -115,10 +199,16 @@ namespace WPF_Projeto_BD.Views
                 string tipo = "user";
                 int idEmpresa = usuarioLogado.IdEmpresa;
 
-                usuarioController.CadastrarUsuario(nome, email, senha, tipo, idEmpresa);
+                string resultado = usuarioController.CadastrarUsuario(nome, email, senha, tipo, idEmpresa, true);
+
+                if (resultado != "ok")
+                {
+                    MessageBox.Show($"Erro ao gerar usuário {nome}: {resultado}", "Erro", MessageBoxButton.OK, MessageBoxImage.Warning);
+                }
             }
 
             MessageBox.Show("Usuários gerados com sucesso!", "Sucesso", MessageBoxButton.OK, MessageBoxImage.Information);
+
             var configWindow = new Config(usuarioLogado);
             configWindow.Show();
             this.Close();
@@ -152,6 +242,21 @@ namespace WPF_Projeto_BD.Views
                     return childOfChild;
             }
             return null;
+        }
+
+        // Valida se a senha contém pelo menos 6 caracteres, com letra e número
+        private bool SenhaValida(string senha, bool permitirApenasNumeros)
+        {
+            if (string.IsNullOrWhiteSpace(senha) || senha.Length < 6)
+                return false;
+
+            if (permitirApenasNumeros)
+                return true; // permite CPF numérico
+
+            bool temLetra = senha.Any(char.IsLetter);
+            bool temNumero = senha.Any(char.IsDigit);
+
+            return temLetra && temNumero;
         }
     }
 }

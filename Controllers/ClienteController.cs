@@ -1,26 +1,29 @@
-﻿//importações padrão
-using System;
+﻿using System;
 using System.Collections.Generic;
+using System.Linq;
+using System.Text.RegularExpressions;
 using System.Windows;
-using WPF_Projeto_BD.Models;
 using WPF_Projeto_BD.Data.DAO;
+using Wpf_Projeto_BD.Models;
 using WPF_Projeto_BD.Views;
+using WPF_Projeto_BD.Models;
 
-namespace WPF_Projeto_BD.Controllers // Define o namespace da aplicação (Controllers)
+namespace WPF_Projeto_BD.Controllers
 {
-    public class ClienteController 
+    public class ClienteController
     {
-        private Usuario usuarioLogado; // Armazena o usuário logado na aplicação
-        private ClienteDAO dao = new ClienteDAO(); // Instancia o objeto DAO para operações de banco de dados
-
+        private readonly Usuario usuarioLogado;
+        private readonly ClienteDAO dao = new ClienteDAO();
 
         public ClienteController(Usuario usuario)
         {
             usuarioLogado = usuario;
         }
 
-        // ---- REGRAS DE NEGÓCIO ----
-        private string Validar(string nome, string cpf, string endereco, string telefone, string email)
+        // ============================
+        // Validação de campos
+        // ============================
+        private string Validar(string nome, string cpf, string endereco, string telefone, string email, int? idIgnorar = null)
         {
             if (string.IsNullOrWhiteSpace(nome))
                 return "O nome não pode estar vazio.";
@@ -35,73 +38,143 @@ namespace WPF_Projeto_BD.Controllers // Define o namespace da aplicação (Contr
                 return "Telefone inválido.";
 
             if (string.IsNullOrWhiteSpace(email) || !email.Contains("@"))
-                return "Email inválido.";
+                return "E-mail inválido.";
+
+            // Verificar duplicidade no banco, ignorando o cliente atual
+            var todos = dao.Listar();
+            foreach (var c in todos)
+            {
+                if (idIgnorar.HasValue && c.Id == idIgnorar.Value)
+                    continue; // ignora o próprio cliente
+
+                if (c.CPF_CNPJ == cpf)
+                    return "Este CPF/CNPJ já está cadastrado.";
+
+                if (c.Email == email)
+                    return "Este e-mail já está cadastrado.";
+            }
 
             return "OK";
         }
 
-        // ---- CRUD ----
-
+        // ============================
+        // Salvar novo cliente
+        // ============================
         public string Salvar(string nome, string cpf, string endereco, string telefone, string email)
         {
-            var validar = Validar(nome, cpf, endereco, telefone, email);
-            if (validar != "OK") return validar;
+            try
+            {
+                cpf = Regex.Replace(cpf, "[^0-9]", "");
+                telefone = Regex.Replace(telefone, "[^0-9]", "");
 
-            var cliente = new Cliente(nome, cpf, endereco, telefone, email);
-            dao.Inserir(cliente);
+                var validar = Validar(nome, cpf, endereco, telefone, email);
+                if (validar != "OK") return validar;
 
-            return "OK";
+                var cliente = new Cliente(nome, cpf, endereco, telefone, email);
+                dao.Inserir(cliente);
+
+                return "OK";
+            }
+            catch (Exception ex)
+            {
+                return "Erro ao salvar cliente: " + ex.Message;
+            }
         }
 
-        public string Editar(Cliente cliente, string nome, string cpf, string endereco, string telefone, string email) 
+        // ============================
+        // Editar cliente existente
+        // ============================
+        public string Editar(Cliente cliente, string nome, string cpf, string endereco, string telefone, string email)
         {
-            var validar = Validar(nome, cpf, endereco, telefone, email);
-            if (validar != "OK") return validar;
+            try
+            {
+                cpf = Regex.Replace(cpf, "[^0-9]", "");
+                telefone = Regex.Replace(telefone, "[^0-9]", "");
 
-            cliente.Nome = nome;
-            cliente.CPF_CNPJ = cpf;
-            cliente.Endereco = endereco;
-            cliente.Telefone = telefone;
-            cliente.Email = email;
+                var validar = Validar(nome, cpf, endereco, telefone, email, cliente.Id);
+                if (validar != "OK") return validar;
 
-            dao.Editar(cliente);
-            return "OK";
+                cliente.Nome = nome;
+                cliente.CPF_CNPJ = cpf;
+                cliente.Endereco = endereco;
+                cliente.Telefone = telefone;
+                cliente.Email = email;
+
+                dao.Editar(cliente);
+
+                return "OK";
+            }
+            catch (Exception ex)
+            {
+                return "Erro ao editar cliente: " + ex.Message;
+            }
         }
 
-        public void ExcluirCliente(Cliente c)
+        // ============================
+        // Excluir cliente
+        // ============================
+        public void ExcluirCliente(Cliente cliente)
         {
             var confirm = MessageBox.Show(
-                $"Excluir {c.Nome}?",
+                $"Deseja realmente excluir {cliente.Nome}?",
                 "Confirmação",
                 MessageBoxButton.YesNo,
                 MessageBoxImage.Warning
             );
 
             if (confirm == MessageBoxResult.Yes)
-                dao.Excluir(c.Id);
+            {
+                try
+                {
+                    dao.Excluir(cliente.Id);
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show("Erro ao excluir cliente: " + ex.Message,
+                        "Erro", MessageBoxButton.OK, MessageBoxImage.Error);
+                }
+            }
         }
 
-        // ---- LEITURA ----
+        // ============================
+        // Obter lista de clientes
+        // ============================
         public List<Cliente> ObterListaClientes()
         {
-            return dao.Listar();
+            try
+            {
+                return dao.Listar();
+            }
+            catch
+            {
+                return new List<Cliente>();
+            }
         }
 
-        // ---- NAVEGAÇÃO (TELAS) ----
+        // ============================
+        // Navegação
+        // ============================
+        public void VoltarHome(Window telaAtual)
+        {
+            if (usuarioLogado != null)
+            {
+                new Home(usuarioLogado).Show();
+                telaAtual.Close();
+            }
+            else
+            {
+                MessageBox.Show("Usuário não definido.", "Erro", MessageBoxButton.OK, MessageBoxImage.Warning);
+            }
+        }
 
         public void AbrirTelaCadastroCliente()
         {
             new ClienteCadastro(this).Show();
         }
 
-        public void AbrirTelaEdicaoCliente(Cliente c)
+        public void AbrirTelaEdicaoCliente(Cliente cliente)
         {
-            new ClienteCadastro(c, this).Show();
-        }
-
-        public void VoltarHome()
-        {
-            new Home(usuarioLogado).Show();
+            new ClienteCadastro(cliente, this).Show();
         }
     }
 }
