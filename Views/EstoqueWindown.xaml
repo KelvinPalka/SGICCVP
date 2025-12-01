@@ -11,11 +11,25 @@
         </Grid.RowDefinitions>
 
         <!-- TÍTULO -->
-        <TextBlock Text="Gestão de Estoque"
-                   FontSize="32"
-                   FontWeight="Bold"
-                   Foreground="#333"
-                   Margin="0 0 0 20"/>
+        <DockPanel Grid.Row="0" Margin="0,0,0,20">
+            <TextBlock Text="Estoque"
+               FontSize="30"
+               FontWeight="Bold"
+               Foreground="#2E2E2E"
+               DockPanel.Dock="Left"/>
+
+            <Button Content="⟵ Voltar"
+            Background="#E1E5ED"
+            Foreground="#2E2E2E"
+            BorderThickness="0"
+            Padding="10,5"
+            Width="100"
+            Cursor="Hand"
+            Click="BtnVoltar_Click"
+            DockPanel.Dock="Right"
+            HorizontalAlignment="Right"/>
+        </DockPanel>
+
 
         <!-- ÁREA DE ABAS -->
         <TabControl Grid.Row="1" Background="White" BorderThickness="0">

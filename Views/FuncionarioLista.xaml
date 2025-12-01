@@ -16,7 +16,7 @@
         <!-- ================= CABEÇALHO ================= -->
         <Border Grid.Row="0" Background="#1F2937">
             <DockPanel VerticalAlignment="Center" Margin="15,0">
-                <Button Content="Home"
+                <Button Content="Voltar"
                         Width="120" Height="35"
                         Background="#374151"
                         Foreground="White"

@@ -37,6 +37,13 @@ namespace WPF_Projeto_BD.Views // Define o namespace da aplicação (Views)
         {
             // TODO: implementar lógica de finalizar produção
         }
+
+        private void BtnVoltar_Click(object sender, RoutedEventArgs e)
+        {
+            var homeWindow = new Home(usuarioLogado); // Cria a janela inicial passando o usuário logado
+            homeWindow.Show(); // Exibe a janela inicial
+            this.Close(); // Fecha a janela atual
+        }
     }
 }
 

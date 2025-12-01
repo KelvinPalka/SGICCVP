@@ -82,7 +82,7 @@ namespace WPF_Projeto_BD.Views // Define o namespace da aplicação (Views)
         // ================== Voltar para Home ==================
         private void BtnVoltar_Click(object sender, RoutedEventArgs e)
         {
-            var home = new Home(usuarioLogado); // Cria a tela Home
+            var home = new Config(usuarioLogado); // Volta para a tela de configurações
             home.Show(); // Exibe a tela Home
             this.Close(); // Fecha a tela de listagem de usuários
         }

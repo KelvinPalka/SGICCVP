@@ -77,6 +77,13 @@ namespace WPF_Projeto_BD.Views // Define o namespace da aplicação (Views)
         {
             // TODO: implementar ação ao selecionar movimentação de estoque
         }
+
+        private void BtnVoltar_Click(object sender, RoutedEventArgs e)
+        {
+            var homeWindow = new Home(usuarioLogado);
+            homeWindow.Show(); // Abre a tela inicial
+            this.Close(); // Fecha a tela atual
+        }
     }
 }
 
