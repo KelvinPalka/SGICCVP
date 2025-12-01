@@ -1,11 +1,12 @@
-﻿using System;
+﻿// Importação padrão
+using System;
 using System.Windows;
-
+// Importação das Views necessários
 using WPF_Projeto_BD.Views;
 
-namespace WPF_Projeto_BD.Controllers
+namespace WPF_Projeto_BD.Controllers // Definindo o namespace da aplicação
 {
-    public class ConfigController
+    public class ConfigController // Definição da classe ConfigController
     {
         private readonly Usuario usuarioLogado; // Armazena o usuário logado para ser usado nas telas
 
@@ -34,27 +35,27 @@ namespace WPF_Projeto_BD.Controllers
 
         public void AbrirEmpresaDados(Window viewAtual) // Abre a tela de dados da empresa
         {
-            try
+            try // Tenta executar o bloco
             {
                 new EmpresaDados(usuarioLogado).Show(); // Mostra a tela EmpresaDados
                 viewAtual.Close(); // Fecha a tela atual
             }
-            catch (Exception ex)
+            catch (Exception ex) // Captura qualquer exceção
             {
-                MessageBox.Show("Erro ao abrir tela da Empresa: " + ex.Message, "Erro", MessageBoxButton.OK, MessageBoxImage.Error);
+                MessageBox.Show("Erro ao abrir tela da Empresa: " + ex.Message, "Erro", MessageBoxButton.OK, MessageBoxImage.Error); // Exibe mensagem de erro
             }
         }
 
         public void AbrirUsuarioCadastro(Window viewAtual) // Abre a tela de cadastro de usuário
         {
-            try
+            try // Tenta executar o bloco
             {
                 new UsuarioCadastro(usuarioLogado).Show(); // Mostra a tela UsuarioCadastro
                 viewAtual.Close(); // Fecha a tela atual
             }
-            catch (Exception ex)
+            catch (Exception ex) // Captura qualquer exceção
             {
-                MessageBox.Show("Erro ao abrir cadastro de usuário: " + ex.Message, "Erro", MessageBoxButton.OK, MessageBoxImage.Error);
+                MessageBox.Show("Erro ao abrir cadastro de usuário: " + ex.Message, "Erro", MessageBoxButton.OK, MessageBoxImage.Error); // Exibe mensagem de erro
             }
         }
 
@@ -65,38 +66,46 @@ namespace WPF_Projeto_BD.Controllers
                 new UsuarioLista(usuarioLogado).Show(); // Mostra a tela UsuarioLista
                 viewAtual.Close(); // Fecha a tela atual
             }
-            catch (Exception ex)
+            catch (Exception ex) // Captura qualquer exceção
             {
-                MessageBox.Show("Erro ao abrir lista de usuários: " + ex.Message, "Erro", MessageBoxButton.OK, MessageBoxImage.Error);
+                MessageBox.Show("Erro ao abrir lista de usuários: " + ex.Message, "Erro", MessageBoxButton.OK, MessageBoxImage.Error); // Exibe mensagem de erro
             }
         }
 
         public void AbrirFuncionarioCadastro(Window viewAtual) // Abre o cadastro de funcionário
         {
-            try
+            try // Tenta executar o bloco
             {
                 new FuncionarioCadastro(usuarioLogado).Show(); // Mostra a tela FuncionarioCadastro
                 viewAtual.Close(); // Fecha a tela atual
             }
-            catch (Exception ex)
+            catch (Exception ex) // Captura qualquer exceção
             {
-                MessageBox.Show("Erro ao abrir cadastro de funcionário: " + ex.Message, "Erro", MessageBoxButton.OK, MessageBoxImage.Error);
+                MessageBox.Show("Erro ao abrir cadastro de funcionário: " + ex.Message, "Erro", MessageBoxButton.OK, MessageBoxImage.Error); // Exibe mensagem de erro
             }
         }
 
         public void AbrirFuncionarioLista(Window viewAtual) // Abre a lista de funcionários
         {
-            try
+            try // Tenta executar o bloco
             {
                 new FuncionarioLista(usuarioLogado).Show(); // Mostra a tela FuncionarioLista
                 viewAtual.Close(); // Fecha a tela atual
             }
-            catch (Exception ex)
+            catch (Exception ex) // Captura qualquer exceção
             {
-                MessageBox.Show("Erro ao abrir lista de funcionários: " + ex.Message, "Erro", MessageBoxButton.OK, MessageBoxImage.Error);
+                MessageBox.Show("Erro ao abrir lista de funcionários: " + ex.Message, "Erro", MessageBoxButton.OK, MessageBoxImage.Error); //  Exibe mensagem de erro
             }
         }
 
         // Outros métodos de navegação do sistema (materiais, backup, preferências) implementação futura
+
+        /*
+        ConfigController gerencia a navegação entre telas do sistema, garantindo que o usuário logado seja considerado.
+        - Abre telas como Home, Empresa, Usuário e Funcionário (cadastro e lista), fechando a tela atual ao navegar.
+        - Trata exceções e exibe mensagens de erro detalhadas para a interface do usuário.
+        - Centraliza o fluxo de navegação, promovendo consistência e simplicidade na interação com a aplicação.
+        */
+
     }
 }

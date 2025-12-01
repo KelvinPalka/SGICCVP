@@ -1,15 +1,14 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using WPF_Projeto_BD.Data.DAO;
-using WPF_Projeto_BD.Models;
-using WPF_Projeto_BD.Utils;
+﻿using System; // Importa classes básicas do .NET
+using System.Collections.Generic; // Importa listas genéricas
+using System.Linq; // Importa LINQ para consultas em coleções
+using WPF_Projeto_BD.Data.DAO; // Importa os DAOs para acesso ao banco
+using WPF_Projeto_BD.Utils; // Importa utilitários (HashService)
 
 namespace WPF_Projeto_BD.Controllers
 {
-    internal class UsuarioController
+    internal class UsuarioController // Controller responsável pela lógica de negócios de usuários
     {
-        private readonly UsuarioDAO usuarioDao = new UsuarioDAO();
+        private readonly UsuarioDAO usuarioDao = new UsuarioDAO(); // DAO para operações de usuários
 
         // =========================
         // Cadastrar usuário (manual)
@@ -17,10 +16,11 @@ namespace WPF_Projeto_BD.Controllers
         public string CadastrarUsuario(string nome, string email, string senha, string tipoUsuario, int idEmpresa)
         {
             return CadastrarUsuario(nome, email, senha, tipoUsuario, idEmpresa, false);
+            // Chama método sobrecarregado permitindo apenas senhas normais (não numéricas)
         }
 
         // =========================
-        // Cadastrar usuário com opção de senha apenas numérica (automatico)
+        // Cadastrar usuário com opção de senha apenas numérica (automático)
         // =========================
         public string CadastrarUsuario(string nome, string email, string senha, string tipoUsuario, int idEmpresa, bool permitirApenasNumeros)
         {
@@ -40,7 +40,7 @@ namespace WPF_Projeto_BD.Controllers
             if (usuarioDao.ExisteEmail(email))
                 return "Este e-mail já está cadastrado.";
 
-            // 3) Gerar hash + salt
+            // 3) Gerar hash + salt da senha
             var (hash, salt) = HashService.GerarHashComSalt(senha);
 
             var usuario = new Usuario
@@ -56,22 +56,23 @@ namespace WPF_Projeto_BD.Controllers
             // 4) Inserir no banco
             usuarioDao.Inserir(usuario);
 
-            return "ok";
+            return "ok"; // Retorna "ok" se cadastro for bem-sucedido
         }
 
         // =========================
-        // Obter todos os usuários
+        // Obter todos os usuários de uma empresa
         // =========================
         public List<Usuario> ObterTodos(int idEmpresa)
         {
-            return usuarioDao.ObterTodos(idEmpresa);
+            return usuarioDao.ObterTodos(idEmpresa); // Retorna lista de usuários
         }
 
         // =========================
-        // Atualizar usuário
+        // Atualizar usuário existente
         // =========================
         public string AtualizarUsuario(Usuario usuario, string novaSenha)
         {
+            // Valida campos obrigatórios
             if (string.IsNullOrWhiteSpace(usuario.Nome))
                 return "O nome é obrigatório.";
 
@@ -86,8 +87,7 @@ namespace WPF_Projeto_BD.Controllers
             if (string.IsNullOrWhiteSpace(novaSenha))
             {
                 if (string.IsNullOrWhiteSpace(usuario.SenhaHash))
-                    return "A senha não pode ficar vazia.";
-                // Senha antiga permanece
+                    return "A senha não pode ficar vazia."; // Senha antiga permanece se preenchida
             }
             else
             {
@@ -100,7 +100,7 @@ namespace WPF_Projeto_BD.Controllers
                 usuario.Salt = resultado.salt;
             }
 
-            // Verifica duplicidade de e-mail
+            // Verifica duplicidade de e-mail entre outros usuários
             var todosUsuarios = usuarioDao.ObterTodos(usuario.IdEmpresa);
             foreach (var u in todosUsuarios)
             {
@@ -109,16 +109,15 @@ namespace WPF_Projeto_BD.Controllers
             }
 
             bool sucesso = usuarioDao.Atualizar(usuario);
-            return sucesso ? "ok" : "erro";
+            return sucesso ? "ok" : "erro"; // Operador ternário: retorna "ok" se true, "erro" se false
         }
 
-
         // =========================
-        // Excluir usuário
+        // Excluir usuário pelo ID
         // =========================
         public bool ExcluirUsuario(int idUsuario)
         {
-            return usuarioDao.Excluir(idUsuario);
+            return usuarioDao.Excluir(idUsuario); // Remove usuário do banco
         }
 
         // =========================
@@ -126,11 +125,11 @@ namespace WPF_Projeto_BD.Controllers
         // =========================
         public Usuario ObterPorId(int idUsuario)
         {
-            return usuarioDao.ObterPorId(idUsuario);
+            return usuarioDao.ObterPorId(idUsuario); // Retorna usuário correspondente ao ID
         }
 
         // =========================
-        // Gerar PDF (futuro)
+        // Gerar PDF (implementação futura)
         // =========================
         public void GerarPDF()
         {
@@ -142,16 +141,26 @@ namespace WPF_Projeto_BD.Controllers
         // =========================
         private bool SenhaValida(string senha, bool permitirApenasNumeros)
         {
-            if (string.IsNullOrWhiteSpace(senha) || senha.Length < 6)
+            if (string.IsNullOrWhiteSpace(senha) || senha.Length < 6) // Valida mínimo 6 caracteres
                 return false;
 
             if (permitirApenasNumeros)
-                return true; // permite CPF numérico para cadastro automático
+                return true; // Permite apenas números (ex: CPF) para cadastro automático
 
-            bool temLetra = senha.Any(char.IsLetter);
-            bool temNumero = senha.Any(char.IsDigit);
+            bool temLetra = senha.Any(char.IsLetter); // Verifica se há pelo menos uma letra
+            bool temNumero = senha.Any(char.IsDigit); // Verifica se há pelo menos um número
 
-            return temLetra && temNumero;
+            return temLetra && temNumero; // Retorna true se senha válida
         }
     }
 }
+
+/*
+UsuarioController gerencia a lógica de negócios relacionada a usuários no sistema.
+- Permite cadastrar usuários (manual ou automático), validar senhas e verificar duplicidade de e-mail.
+- Atualiza e exclui usuários, garantindo consistência e integridade dos dados.
+- Consulta usuários por empresa ou por ID.
+- Utiliza HashService para gerar hash + salt das senhas, garantindo segurança.
+- Retorna "ok"/"erro" ou mensagens detalhadas para a interface (View).
+- Centraliza toda a lógica de autenticação, cadastro e manutenção de usuários, separando a lógica do banco de dados (DAO) da interface.
+*/
