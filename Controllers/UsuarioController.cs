@@ -4,7 +4,7 @@ using System.Linq; // Importa LINQ para consultas em coleções
 using WPF_Projeto_BD.Data.DAO; // Importa os DAOs para acesso ao banco
 using WPF_Projeto_BD.Utils; // Importa utilitários (HashService)
 
-namespace WPF_Projeto_BD.Controllers
+namespace WPF_Projeto_BD.Controllers // Define o namespace dos controllers
 {
     internal class UsuarioController // Controller responsável pela lógica de negócios de usuários
     {
@@ -13,7 +13,7 @@ namespace WPF_Projeto_BD.Controllers
         // =========================
         // Cadastrar usuário (manual)
         // =========================
-        public string CadastrarUsuario(string nome, string email, string senha, string tipoUsuario, int idEmpresa)
+        public string CadastrarUsuario(string nome, string email, string senha, string tipoUsuario, int idEmpresa) // Método para cadastrar um novo usuário
         {
             return CadastrarUsuario(nome, email, senha, tipoUsuario, idEmpresa, false);
             // Chama método sobrecarregado permitindo apenas senhas normais (não numéricas)
@@ -22,39 +22,39 @@ namespace WPF_Projeto_BD.Controllers
         // =========================
         // Cadastrar usuário com opção de senha apenas numérica (automático)
         // =========================
-        public string CadastrarUsuario(string nome, string email, string senha, string tipoUsuario, int idEmpresa, bool permitirApenasNumeros)
+        public string CadastrarUsuario(string nome, string email, string senha, string tipoUsuario, int idEmpresa, bool permitirApenasNumeros) // Método para cadastrar um novo usuário
         {
             // 1) Validar campos obrigatórios
-            if (string.IsNullOrWhiteSpace(nome))
-                return "O nome é obrigatório.";
+            if (string.IsNullOrWhiteSpace(nome)) // Valida nome não vazio
+                return "O nome é obrigatório."; //  Retorna mensagem de erro
 
-            if (string.IsNullOrWhiteSpace(email) || !email.Contains("@"))
-                return "E-mail inválido.";
+            if (string.IsNullOrWhiteSpace(email) || !email.Contains("@")) // Valida e-mail básico
+                return "E-mail inválido."; // Retorna mensagem de erro
 
-            if (!SenhaValida(senha, permitirApenasNumeros))
-                return permitirApenasNumeros
-                    ? "Senha inválida."
-                    : "A senha deve ter pelo menos 6 caracteres, incluindo letras e números.";
+            if (!SenhaValida(senha, permitirApenasNumeros)) // Valida senha conforme regras
+                return permitirApenasNumeros 
+                    ? "Senha inválida." // Retorna mensagem de erro para senhas numéricas
+                    : "A senha deve ter pelo menos 6 caracteres, incluindo letras e números."; // Retorna mensagem de erro para senhas normais
 
             // 2) Verificar duplicidade de e-mail
-            if (usuarioDao.ExisteEmail(email))
-                return "Este e-mail já está cadastrado.";
+            if (usuarioDao.ExisteEmail(email)) // Verifica se e-mail já existe
+                return "Este e-mail já está cadastrado."; // Retorna mensagem de erro
 
             // 3) Gerar hash + salt da senha
-            var (hash, salt) = HashService.GerarHashComSalt(senha);
+            var (hash, salt) = HashService.GerarHashComSalt(senha); // Gera hash e salt seguros 
 
-            var usuario = new Usuario
+            var usuario = new Usuario // Cria novo objeto Usuario
             {
-                Nome = nome,
-                Email = email,
-                SenhaHash = hash,
-                Salt = salt,
-                TipoUsuario = tipoUsuario,
-                IdEmpresa = idEmpresa
+                Nome = nome, // Define nome
+                Email = email, // Define e-mail
+                SenhaHash = hash, // Define hash da senha
+                Salt = salt, // Define salt da senha
+                TipoUsuario = tipoUsuario, // Define tipo de usuário
+                IdEmpresa = idEmpresa // Define ID da empresa
             };
 
             // 4) Inserir no banco
-            usuarioDao.Inserir(usuario);
+            usuarioDao.Inserir(usuario); // Insere usuário no banco
 
             return "ok"; // Retorna "ok" se cadastro for bem-sucedido
         }
@@ -62,7 +62,7 @@ namespace WPF_Projeto_BD.Controllers
         // =========================
         // Obter todos os usuários de uma empresa
         // =========================
-        public List<Usuario> ObterTodos(int idEmpresa)
+        public List<Usuario> ObterTodos(int idEmpresa) // Método para obter todos os usuários de uma empresa
         {
             return usuarioDao.ObterTodos(idEmpresa); // Retorna lista de usuários
         }
@@ -70,52 +70,52 @@ namespace WPF_Projeto_BD.Controllers
         // =========================
         // Atualizar usuário existente
         // =========================
-        public string AtualizarUsuario(Usuario usuario, string novaSenha)
+        public string AtualizarUsuario(Usuario usuario, string novaSenha) // Método para atualizar um usuário existente
         {
             // Valida campos obrigatórios
-            if (string.IsNullOrWhiteSpace(usuario.Nome))
-                return "O nome é obrigatório.";
+            if (string.IsNullOrWhiteSpace(usuario.Nome)) // Valida nome não vazio
+                return "O nome é obrigatório."; // Retorna mensagem de erro
 
-            if (string.IsNullOrWhiteSpace(usuario.Email) || !usuario.Email.Contains("@"))
-                return "E-mail inválido.";
+            if (string.IsNullOrWhiteSpace(usuario.Email) || !usuario.Email.Contains("@")) // Valida e-mail básico
+                return "E-mail inválido."; // Retorna mensagem de erro
 
             if (string.IsNullOrWhiteSpace(usuario.TipoUsuario) ||
-                (usuario.TipoUsuario != "admin" && usuario.TipoUsuario != "user"))
-                return "O tipo de conta deve ser 'admin' ou 'user'.";
+                (usuario.TipoUsuario != "admin" && usuario.TipoUsuario != "user")) // Valida tipo de usuário
+                return "O tipo de conta deve ser 'admin' ou 'user'."; // Retorna mensagem de erro
 
             // ================= VALIDAÇÃO DE SENHA =================
-            if (string.IsNullOrWhiteSpace(novaSenha))
+            if (string.IsNullOrWhiteSpace(novaSenha)) // Sem nova senha informada
             {
-                if (string.IsNullOrWhiteSpace(usuario.SenhaHash))
+                if (string.IsNullOrWhiteSpace(usuario.SenhaHash)) // Senha antiga vazia
                     return "A senha não pode ficar vazia."; // Senha antiga permanece se preenchida
             }
-            else
+            else // Nova senha informada
             {
-                if (!SenhaValida(novaSenha, false))
-                    return "A senha deve ter pelo menos 6 caracteres, com letras e números.";
+                if (!SenhaValida(novaSenha, false)) // Valida nova senha (não permite apenas números)
+                    return "A senha deve ter pelo menos 6 caracteres, com letras e números."; // Retorna mensagem de erro
 
                 // Atualiza hash e salt
-                var resultado = HashService.GerarHashComSalt(novaSenha);
-                usuario.SenhaHash = resultado.hash;
-                usuario.Salt = resultado.salt;
+                var resultado = HashService.GerarHashComSalt(novaSenha); // Gera novo hash e salt
+                usuario.SenhaHash = resultado.hash; // Atualiza hash
+                usuario.Salt = resultado.salt; // Atualiza salt
             }
 
             // Verifica duplicidade de e-mail entre outros usuários
-            var todosUsuarios = usuarioDao.ObterTodos(usuario.IdEmpresa);
-            foreach (var u in todosUsuarios)
+            var todosUsuarios = usuarioDao.ObterTodos(usuario.IdEmpresa); // Obtém todos os usuários da empresa
+            foreach (var u in todosUsuarios) // Percorre cada usuário
             {
-                if (u.Email == usuario.Email && u.IdUsuario != usuario.IdUsuario)
-                    return "Este e-mail já está cadastrado por outro usuário.";
+                if (u.Email == usuario.Email && u.IdUsuario != usuario.IdUsuario) // E-mail já usado por outro usuário
+                    return "Este e-mail já está cadastrado por outro usuário."; // Retorna mensagem de erro
             }
 
-            bool sucesso = usuarioDao.Atualizar(usuario);
+            bool sucesso = usuarioDao.Atualizar(usuario); // Atualiza usuário no banco
             return sucesso ? "ok" : "erro"; // Operador ternário: retorna "ok" se true, "erro" se false
         }
 
         // =========================
         // Excluir usuário pelo ID
         // =========================
-        public bool ExcluirUsuario(int idUsuario)
+        public bool ExcluirUsuario(int idUsuario) // Método para excluir um usuário pelo ID
         {
             return usuarioDao.Excluir(idUsuario); // Remove usuário do banco
         }
@@ -123,7 +123,7 @@ namespace WPF_Projeto_BD.Controllers
         // =========================
         // Obter usuário por ID
         // =========================
-        public Usuario ObterPorId(int idUsuario)
+        public Usuario ObterPorId(int idUsuario) // Método para obter um usuário pelo ID
         {
             return usuarioDao.ObterPorId(idUsuario); // Retorna usuário correspondente ao ID
         }
@@ -139,12 +139,12 @@ namespace WPF_Projeto_BD.Controllers
         // =========================
         // Validação de senha
         // =========================
-        private bool SenhaValida(string senha, bool permitirApenasNumeros)
+        private bool SenhaValida(string senha, bool permitirApenasNumeros) // Método para validar a senha conforme regras
         {
             if (string.IsNullOrWhiteSpace(senha) || senha.Length < 6) // Valida mínimo 6 caracteres
-                return false;
+                return false; // Retorna false se inválida
 
-            if (permitirApenasNumeros)
+            if (permitirApenasNumeros) // Se permitido apenas números
                 return true; // Permite apenas números (ex: CPF) para cadastro automático
 
             bool temLetra = senha.Any(char.IsLetter); // Verifica se há pelo menos uma letra
