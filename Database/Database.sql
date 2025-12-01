@@ -1,6 +1,6 @@
+drop database minitcc_pntj;
 create database minitcc_pntj;
 use minitcc_pntj;
-
 
 create table empresa (
     id_empresa int primary key auto_increment,
@@ -191,7 +191,85 @@ INSERT INTO empresa
 (cnpj, nome_fantasia, email, telefone, razao_social, endereco)
 VALUES
 ('22133444000177','arte moderna','contato@artemoderna.com','11981112222','arte moderna ltda','rua criativa, 101 - sp'),
-('33445566000188','cores & formas','vendas@coresformas.com','11982223333','cores e formas ltda','av. design, 450 - sp');
+('33445566000188','cores & formas','vendas@coresformas.com','11982223333','cores e formas ltda','av. design, 450 - sp'),
+('44556677000199',
+ 'Pri &  Rafa Camisetas',
+ 'prierafa@contato.com',
+ '11987654321',
+ 'Pri e Rafa LTDA',
+ 'R. Cap. Lorival Mey, 750 - Remanso Campineiro, Hortolândia - SP, 13184-470');
+INSERT INTO funcionario (nome, cpf, cargo, telefone, email, IdEmpresa, Departamento) VALUES
+-- Direção e Administrativo
+('Mariana Alves',           '20000000001', 'Diretora de Operações',          '11910000001', 'mariana.alves@confecpersonalizada.com.br',        5, 'Diretoria'),
+('Ricardo Pereira',         '20000000002', 'Gerente Administrativo',         '11910000002', 'ricardo.pereira@confecpersonalizada.com.br',      5, 'Administrativo'),
+('Patrícia Rocha',          '20000000003', 'Assistente Administrativo',      '11910000003', 'patricia.rocha@confecpersonalizada.com.br',       5, 'Administrativo'),
+('Lucas Carvalho',          '20000000004', 'Analista Financeiro',            '11910000004', 'lucas.carvalho@confecpersonalizada.com.br',       5, 'Financeiro'),
+('Fernanda Nunes',          '20000000005', 'Auxiliar Financeiro',            '11910000005', 'fernanda.nunes@confecpersonalizada.com.br',       5, 'Financeiro'),
+
+-- RH
+('Juliana Costa',           '20000000006', 'Analista de RH',                 '11910000006', 'juliana.costa@confecpersonalizada.com.br',        5, 'Recursos Humanos'),
+('Tiago Moreira',           '20000000007', 'Assistente de RH',               '11910000007', 'tiago.moreira@confecpersonalizada.com.br',        5, 'Recursos Humanos'),
+
+-- Criação e Design
+('Ana Paula Mendes',        '20000000008', 'Coordenadora de Criação',        '11910000008', 'ana.mendes@confecpersonalizada.com.br',           5, 'Criação'),
+('Bruno Silva',             '20000000009', 'Designer de Estampas',           '11910000009', 'bruno.silva@confecpersonalizada.com.br',          5, 'Criação'),
+('Carla Oliveira',          '20000000010', 'Designer de Moda',               '11910000010', 'carla.oliveira@confecpersonalizada.com.br',       5, 'Criação'),
+('Eduardo Lima',            '20000000011', 'Ilustrador',                     '11910000011', 'eduardo.lima@confecpersonalizada.com.br',         5, 'Criação'),
+('Gabriela Santos',         '20000000012', 'Designer Gráfico',               '11910000012', 'gabriela.santos@confecpersonalizada.com.br',      5, 'Criação'),
+
+-- Modelagem e Corte
+('Helena Martins',          '20000000013', 'Modelista',                      '11910000013', 'helena.martins@confecpersonalizada.com.br',       5, 'Modelagem'),
+('Rafael Souza',            '20000000014', 'Auxiliar de Modelagem',          '11910000014', 'rafael.souza@confecpersonalizada.com.br',         5, 'Modelagem'),
+('Isabela Correia',         '20000000015', 'Encarregada de Corte',           '11910000015', 'isabela.correia@confecpersonalizada.com.br',      5, 'Corte'),
+('João Pedro Araújo',       '20000000016', 'Operador de Corte',              '11910000016', 'joao.araujo@confecpersonalizada.com.br',          5, 'Corte'),
+('Camila Freitas',          '20000000017', 'Auxiliar de Corte',              '11910000017', 'camila.freitas@confecpersonalizada.com.br',       5, 'Corte'),
+
+-- Costura
+('Luciana Barros',          '20000000018', 'Supervisora de Costura',         '11910000018', 'luciana.barros@confecpersonalizada.com.br',       5, 'Costura'),
+('Marta Ribeiro',           '20000000019', 'Costureira',                     '11910000019', 'marta.ribeiro@confecpersonalizada.com.br',        5, 'Costura'),
+('Paulo Henrique Dias',     '20000000020', 'Costureiro',                     '11910000020', 'paulo.dias@confecpersonalizada.com.br',           5, 'Costura'),
+('Renata Gomes',            '20000000021', 'Costureira',                     '11910000021', 'renata.gomes@confecpersonalizada.com.br',         5, 'Costura'),
+('Sandra Figueiredo',       '20000000022', 'Costureira',                     '11910000022', 'sandra.figueiredo@confecpersonalizada.com.br',    5, 'Costura'),
+('Cláudia Teixeira',        '20000000023', 'Costureira Overloquista',        '11910000023', 'claudia.teixeira@confecpersonalizada.com.br',     5, 'Costura'),
+('Patrícia Lima',           '20000000024', 'Costureira Reta',                '11910000024', 'patricia.lima@confecpersonalizada.com.br',        5, 'Costura'),
+('Diego Fernandes',         '20000000025', 'Auxiliar de Costura',            '11910000025', 'diego.fernandes@confecpersonalizada.com.br',      5, 'Costura'),
+
+-- Estamparia e Bordado
+('Felipe Nascimento',       '20000000026', 'Coordenador de Estamparia',      '11910000026', 'felipe.nascimento@confecpersonalizada.com.br',    5, 'Estamparia'),
+('Natália Prado',           '20000000027', 'Operadora de Silk Screen',       '11910000027', 'natalia.prado@confecpersonalizada.com.br',        5, 'Estamparia'),
+('Rodrigo Almeida',         '20000000028', 'Operador de Sublimação',         '11910000028', 'rodrigo.almeida@confecpersonalizada.com.br',      5, 'Estamparia'),
+('Beatriz Ferreira',        '20000000029', 'Auxiliar de Estamparia',         '11910000029', 'beatriz.ferreira@confecpersonalizada.com.br',     5, 'Estamparia'),
+('Caroline Campos',         '20000000030', 'Bordadeira',                     '11910000030', 'caroline.campos@confecpersonalizada.com.br',      5, 'Bordado'),
+('Guilherme Torres',        '20000000031', 'Operador de Máquina de Bordar',  '11910000031', 'guilherme.torres@confecpersonalizada.com.br',     5, 'Bordado'),
+('Tatiane Souza',           '20000000032', 'Auxiliar de Bordado',            '11910000032', 'tatiane.souza@confecpersonalizada.com.br',        5, 'Bordado'),
+
+-- Acabamento e Controle de Qualidade
+('Rafaela Cardoso',         '20000000033', 'Encarregada de Acabamento',      '11910000033', 'rafaela.cardoso@confecpersonalizada.com.br',      5, 'Acabamento'),
+('Sérgio Lopes',            '20000000034', 'Auxiliar de Acabamento',         '11910000034', 'sergio.lopes@confecpersonalizada.com.br',         5, 'Acabamento'),
+('Monique Araújo',          '20000000035', 'Passadeira',                     '11910000035', 'monique.araujo@confecpersonalizada.com.br',       5, 'Acabamento'),
+('Vanessa Mota',            '20000000036', 'Conferente de Qualidade',        '11910000036', 'vanessa.mota@confecpersonalizada.com.br',         5, 'Qualidade'),
+('Hugo Ribeiro',            '20000000037', 'Inspetor de Qualidade',          '11910000037', 'hugo.ribeiro@confecpersonalizada.com.br',         5, 'Qualidade'),
+
+-- Comercial e Atendimento
+('Daniela Brito',           '20000000038', 'Coordenadora Comercial',         '11910000038', 'daniela.brito@confecpersonalizada.com.br',        5, 'Comercial'),
+('Marcelo Tavares',         '20000000039', 'Vendedor Interno',               '11910000039', 'marcelo.tavares@confecpersonalizada.com.br',      5, 'Comercial'),
+('Larissa Gomes',           '20000000040', 'Vendedora Externa',              '11910000040', 'larissa.gomes@confecpersonalizada.com.br',        5, 'Comercial'),
+('André Santos',            '20000000041', 'Atendente de Loja',              '11910000041', 'andre.santos@confecpersonalizada.com.br',         5, 'Varejo'),
+('Priscila Duarte',         '20000000042', 'Atendimento ao Cliente',         '11910000042', 'priscila.duarte@confecpersonalizada.com.br',      5, 'SAC'),
+
+-- Marketing e E-commerce
+('Caroline Ribeiro',        '20000000043', 'Analista de Marketing',          '11910000043', 'caroline.ribeiro@confecpersonalizada.com.br',     5, 'Marketing'),
+('Henrique Costa',          '20000000044', 'Social Media',                   '11910000044', 'henrique.costa@confecpersonalizada.com.br',       5, 'Marketing'),
+('Bianca Silva',            '20000000045', 'Fotógrafa de Produtos',          '11910000045', 'bianca.silva@confecpersonalizada.com.br',         5, 'Marketing'),
+('Jonas Pereira',           '20000000046', 'Gestor de E-commerce',           '11910000046', 'jonas.pereira@confecpersonalizada.com.br',        5, 'E-commerce'),
+('Marina Lopes',            '20000000047', 'Assistente de E-commerce',       '11910000047', 'marina.lopes@confecpersonalizada.com.br',         5, 'E-commerce'),
+
+-- Logística e Expedição
+('Rodrigo Silva',           '20000000048', 'Coordenador de Logística',       '11910000048', 'rodrigo.silva.log@confecpersonalizada.com.br',    5, 'Logística'),
+('Felipe Santos',           '20000000049', 'Auxiliar de Expedição',          '11910000049', 'felipe.santos@confecpersonalizada.com.br',        5, 'Expedição'),
+('Simone Rocha',            '20000000050', 'Conferente de Estoque',          '11910000050', 'simone.rocha@confecpersonalizada.com.br',         5, 'Almoxarifado');
+
+select * from funcionario; 
 
 INSERT INTO cliente
 (nome, cpf_cnpj, endereco, telefone, email)
@@ -419,3 +497,5 @@ END$$
 DELIMITER ;
 
 CALL sp_atualizar_estoque_produto(1,2);
+
+select * from empresa;
