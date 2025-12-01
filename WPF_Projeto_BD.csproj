@@ -125,7 +125,6 @@
     <Compile Include="Data\DAO\UsuarioDAO.cs" />
     <Compile Include="Utils\HashService.cs" />
     <Compile Include="Models\Usuario.cs" />
-    <Compile Include="Utils\Masks.cs" />
     <Compile Include="Views\ClienteCadastro.xaml.cs">
       <DependentUpon>ClienteCadastro.xaml</DependentUpon>
     </Compile>
