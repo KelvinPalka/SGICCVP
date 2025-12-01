@@ -117,6 +117,8 @@ namespace WPF_Projeto_BD.Views
                     if (resultado == "ok")
                     {
                         MessageBox.Show("Usuário cadastrado com sucesso!", "Sucesso", MessageBoxButton.OK, MessageBoxImage.Information);
+                        var configWindow = new Config(usuarioLogado);
+                        configWindow.Show();
                         this.Close();
                     }
                     else

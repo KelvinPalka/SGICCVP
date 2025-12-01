@@ -1,6 +1,6 @@
 ﻿using WPF_Projeto_BD.Data.DAO; // Importa o DAO de usuários para acesso ao banco
 
-namespace WPF_Projeto_BD.Controllers
+namespace WPF_Projeto_BD.Controllers // Define o namespace dos controllers
 {
     public class LoginController // Controller responsável pela autenticação de usuários
     {

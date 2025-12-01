@@ -53,7 +53,7 @@ namespace WPF_Projeto_BD.Controllers // Define o namespace da aplicação
         // ==========================
         // Excluir um funcionário pelo ID
         // ==========================
-        public bool ExcluirFuncionario(int idFuncionario)
+        public bool ExcluirFuncionario(int idFuncionario) // Método para excluir um funcionário pelo ID
         {
             return funcionarioDao.Excluir(idFuncionario); // Remove o funcionário do banco
         }
@@ -61,7 +61,7 @@ namespace WPF_Projeto_BD.Controllers // Define o namespace da aplicação
         // ==========================
         // Obter um funcionário por ID
         // ==========================
-        public Funcionario ObterPorId(int idFuncionario)
+        public Funcionario ObterPorId(int idFuncionario) // Método para obter um funcionário específico pelo ID
         {
             return funcionarioDao.ObterPorId(idFuncionario); // Retorna o funcionário correspondente ao ID
         }
