@@ -344,3 +344,80 @@ SELECT
     AVG(valor) AS media_valor
 FROM pedido
 GROUP BY status_pedido;
+
+DROP PROCEDURE IF EXISTS sp_total_vendas_por_cliente;
+DELIMITER $$
+CREATE PROCEDURE sp_total_vendas_por_cliente(IN p_id_cliente INT)
+BEGIN
+    SELECT
+        c.id_cliente,
+        c.nome AS cliente_nome,
+        COUNT(p.id_pedido) AS total_pedidos,
+        COALESCE(SUM(p.valor),0) AS total_valor,
+        COALESCE(AVG(p.valor),0) AS media_valor
+    FROM cliente c
+    LEFT JOIN pedido p ON c.id_cliente = p.id_cliente
+    WHERE c.id_cliente = p_id_cliente
+    GROUP BY c.id_cliente, c.nome;
+END$$
+DELIMITER ;
+CALL sp_total_vendas_por_cliente(1);
+
+DROP PROCEDURE IF EXISTS sp_criar_pedido;
+DELIMITER $$
+CREATE PROCEDURE sp_criar_pedido(
+    IN p_data_pedido DATE,
+    IN p_data_entrega DATE,
+    IN p_qntd INT,
+    IN p_valor DECIMAL(10,2),
+    IN p_status VARCHAR(100),
+    IN p_descricao VARCHAR(200),
+    IN p_id_cliente INT,
+    IN p_id_produto INT
+)
+BEGIN
+    INSERT INTO pedido (data_pedido, data_entrega, qntd, valor, status_pedido, descricao, id_cliente, id_produto)
+    VALUES (p_data_pedido, p_data_entrega, p_qntd, p_valor, p_status, p_descricao, p_id_cliente, p_id_produto);
+    SELECT LAST_INSERT_ID() AS novo_id_pedido;
+END$$
+DELIMITER ;
+CALL sp_criar_pedido('2025-10-01','2025-10-07',2,180.00,'em processamento','pedido via procedure',1,1);
+
+DROP PROCEDURE IF EXISTS sp_atualizar_estoque_produto;
+DELIMITER $$
+CREATE PROCEDURE sp_atualizar_estoque_produto(IN p_id_produto INT, IN p_qntd INT)
+BEGIN
+    DECLARE v_cod_papel INT;
+    DECLARE v_cod_tecido INT;
+    DECLARE v_cod_linha INT;
+    DECLARE v_cod_fio INT;
+    DECLARE v_cod_tinta INT;
+
+    SELECT cod_papel, cod_tecido, cod_linha, cod_fio, cod_tinta
+    INTO v_cod_papel, v_cod_tecido, v_cod_linha, v_cod_fio, v_cod_tinta
+    FROM produto
+    WHERE id_produto = p_id_produto
+    LIMIT 1;
+
+    IF v_cod_papel IS NOT NULL THEN
+        UPDATE papel SET qntd_estocada = qntd_estocada - p_qntd WHERE cod_papel = v_cod_papel;
+    END IF;
+
+    IF v_cod_tecido IS NOT NULL THEN
+        UPDATE tecido SET qntd_estocada = qntd_estocada - p_qntd WHERE cod_tecido = v_cod_tecido;
+    END IF;
+
+    IF v_cod_linha IS NOT NULL THEN
+        UPDATE linha SET qntd_estocada = qntd_estocada - p_qntd WHERE cod_linha = v_cod_linha;
+    END IF;
+
+    IF v_cod_fio IS NOT NULL THEN
+        UPDATE fio SET qntd_estocada = qntd_estocada - p_qntd WHERE cod_fio = v_cod_fio;
+    END IF;
+
+    IF v_cod_tinta IS NOT NULL THEN
+        UPDATE tinta SET qntd_estocada = qntd_estocada - p_qntd WHERE cod_tinta = v_cod_tinta;
+    END IF;
+END$$
+DELIMITER ;
+CALL sp_atualizar_estoque_produto(1,2);
