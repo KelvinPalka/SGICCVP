@@ -163,28 +163,18 @@ namespace WPF_Projeto_BD.Controllers // Definindo o namespace da aplicação
             }
             else // Se o usuário logado for nulo
             {
-                MessageBox.Show("Usuário não definido.", "Erro", MessageBoxButton.OK, MessageBoxImage.Warning); // Exibe mensagem de erro
+                MessageBox.Show("Usuário não definido.", "Erro", MessageBoxButton.OK, MessageBoxImage.Warning);
             }
         }
 
-        public void AbrirTelaCadastroCliente() // Método para abrir a tela de cadastro de cliente
+        public void AbrirTelaCadastroCliente()
         {
-            new ClienteCadastro(this).Show(); // Abre a tela de cadastro de cliente, passando o controlador atual
+            new ClienteCadastro(this).Show();
         }
 
-        public void AbrirTelaEdicaoCliente(Cliente cliente) // Método para abrir a tela de edição de cliente
+        public void AbrirTelaEdicaoCliente(Cliente cliente)
         {
-            new ClienteCadastro(cliente, this).Show(); // Abre a tela de edição de cliente, passando o cliente e o controlador atual
+            new ClienteCadastro(cliente, this).Show();
         }
     }
 }
-
-/*
-ClienteController é responsável pelo gerenciamento da lógica de negócios relacionada a clientes no sistema.
-- Realiza validação de campos, incluindo duplicidade de CPF/CNPJ e e-mail, permitindo ignorar o cliente atual durante edição.
-- Executa operações CRUD (Inserir, Editar, Excluir, Listar) utilizando o ClienteDAO.
-- Trata exceções e retorna mensagens de erro detalhadas para a View.
-- Manipula a navegação entre telas (abrir cadastro, edição e Home) garantindo que o usuário logado seja considerado.
-- Utiliza tipos nullable (int?) para lidar com identificadores opcionais durante validações.
-- Integra o fluxo da aplicação garantindo consistência entre a interface e o banco de dados.
-*/

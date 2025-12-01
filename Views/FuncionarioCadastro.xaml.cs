@@ -2,32 +2,36 @@
 using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
-using Wpf_Projeto_BD.Models;
-using WPF_Projeto_BD.Controllers;
-using WPF_Projeto_BD.Data.DAO;
+using Wpf_Projeto_BD.Models; // Model Funcionario e Usuario
+using WPF_Projeto_BD.Controllers; // Controller FuncionarioController
+using WPF_Projeto_BD.Data.DAO; // DAO FuncionarioDAO
 
-namespace WPF_Projeto_BD.Views
+namespace WPF_Projeto_BD.Views // Define o namespace da aplicação (Views)
 {
+    // Tela para cadastro e edição de funcionários
     public partial class FuncionarioCadastro : Window
     {
-        private Usuario usuarioLogado;
-        private FuncionarioController controller = new FuncionarioController();
-        private FuncionarioDAO funcionarioDao = new FuncionarioDAO();
-        private Funcionario funcionarioEmEdicao;
+        private Usuario usuarioLogado; // Usuário atualmente logado
+        private FuncionarioController controller = new FuncionarioController(); // Controller responsável por gerenciar funcionários
+        private FuncionarioDAO funcionarioDao = new FuncionarioDAO(); // DAO para acesso direto (se necessário)
+        private Funcionario funcionarioEmEdicao; // Se não nulo, indica que a tela está em modo de edição
 
+        // Construtor da tela, recebe usuário logado e opcionalmente funcionário para edição
         public FuncionarioCadastro(Usuario usuario, Funcionario funcionarioParaEditar = null)
         {
-            InitializeComponent();
+            InitializeComponent(); // Inicializa componentes visuais
             usuarioLogado = usuario;
             funcionarioEmEdicao = funcionarioParaEditar;
 
+            // Se for edição, preenche os campos
             if (funcionarioEmEdicao != null)
             {
                 PreencherCamposEdicao();
-                btnSalvar.Content = "Atualizar Funcionário";
+                btnSalvar.Content = "Atualizar Funcionário"; // Altera texto do botão
             }
         }
 
+        // Preenche os campos do formulário com os dados do funcionário em edição
         private void PreencherCamposEdicao()
         {
             txtNomeFuncionario.Text = funcionarioEmEdicao.Nome;
@@ -75,12 +79,13 @@ namespace WPF_Projeto_BD.Views
                     return "Este e-mail já está cadastrado para outro funcionário.";
             }
 
-            return "ok";
+            return "ok"; // Todos os campos válidos
         }
 
         // ==================== Botão Salvar ====================
         private void BtnSalvar_Click(object sender, RoutedEventArgs e)
         {
+            // Captura os valores digitados
             string nome = txtNomeFuncionario.Text.Trim();
             string cpf = txtCPF.Text.Trim();
             string cargo = txtCargo.Text.Trim();
@@ -88,6 +93,7 @@ namespace WPF_Projeto_BD.Views
             string email = txtEmailFuncionario.Text.Trim();
             string departamento = ((ComboBoxItem)cmbDepartamento.SelectedItem)?.Content?.ToString() ?? "";
 
+            // Valida os campos
             string resultadoValidacao = ValidarCampos(nome, cpf, cargo, telefone, email, departamento);
             if (resultadoValidacao != "ok")
             {
@@ -97,9 +103,8 @@ namespace WPF_Projeto_BD.Views
 
             try
             {
-                if (funcionarioEmEdicao != null)
+                if (funcionarioEmEdicao != null) // Atualização
                 {
-                    // Atualização
                     funcionarioEmEdicao.Nome = nome;
                     funcionarioEmEdicao.CPF = cpf;
                     funcionarioEmEdicao.Cargo = cargo;
@@ -113,9 +118,8 @@ namespace WPF_Projeto_BD.Views
                     else
                         MessageBox.Show("Erro ao atualizar funcionário!", "Erro", MessageBoxButton.OK, MessageBoxImage.Error);
                 }
-                else
+                else // Cadastro
                 {
-                    // Cadastro
                     string resultado = controller.CadastrarFuncionario(nome, cpf, cargo, telefone, email, usuarioLogado.IdEmpresa, departamento);
                     if (resultado == "ok")
                         MessageBox.Show("Funcionário cadastrado com sucesso!", "Sucesso", MessageBoxButton.OK, MessageBoxImage.Information);
@@ -123,7 +127,7 @@ namespace WPF_Projeto_BD.Views
                         MessageBox.Show("Erro ao cadastrar funcionário!", "Erro", MessageBoxButton.OK, MessageBoxImage.Error);
                 }
 
-                // Abrir lista e fechar cadastro
+                // Após salvar, abre lista de funcionários e fecha o cadastro
                 var lista = new FuncionarioLista(usuarioLogado);
                 lista.Show();
                 this.Close();
@@ -150,3 +154,14 @@ namespace WPF_Projeto_BD.Views
         }
     }
 }
+
+/*
+Resumo técnico:
+- FuncionarioCadastro é a View responsável por cadastrar ou editar funcionários.
+- Segue o padrão MVC + DAO: toda lógica de validação e persistência é delegada ao FuncionarioController.
+- Possui validação completa de campos obrigatórios, duplicidade de CPF e e-mail.
+- Permite tanto cadastro de novos funcionários quanto atualização de dados existentes.
+- Após salvar ou atualizar, abre a tela de listagem de funcionários.
+- Botões Cancelar e Voltar retornam à tela de Configurações.
+- Nenhuma lógica de negócio ou acesso direto a banco ocorre na View; tudo é feito pelo controller.
+*/

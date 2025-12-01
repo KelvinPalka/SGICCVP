@@ -1,29 +1,33 @@
-﻿using System;
-using System.Windows;
-using WPF_Projeto_BD.Controllers;
+﻿using System; // Importa namespaces essenciais do C#
+using System.Windows; // Necessário para classes de interface (Window, MessageBox, RoutedEventArgs)
+using WPF_Projeto_BD.Controllers; // Importa o namespace que contém o EmpresaController
 
-namespace WPF_Projeto_BD.Views
+namespace WPF_Projeto_BD.Views // Define o namespace da aplicação (Views)
 {
     /// <summary>
-    /// Tela para cadastrar empresa + administrador
+    /// Tela para cadastrar empresa junto com o administrador
     /// </summary>
     public partial class EmpresaCadastro : Window
     {
-        private readonly EmpresaController controller;
+        private readonly EmpresaController controller; // Controller responsável por gerenciar cadastro de empresas
 
+        // Construtor da tela de cadastro de empresa
         public EmpresaCadastro()
         {
-            InitializeComponent();
-            controller = new EmpresaController(); // Controller sem usuário logado
+            InitializeComponent(); // Inicializa os componentes visuais
+            controller = new EmpresaController(); // Cria o controller (sem usuário logado)
         }
 
+        // Evento do botão "Cadastrar"
         private void BtnCadastrar_Click(object sender, RoutedEventArgs e)
         {
+            // Valida todos os campos antes de prosseguir
             if (!ValidarCampos())
                 return;
 
             try
             {
+                // Chama o controller para cadastrar a empresa e o administrador simultaneamente
                 controller.CadastrarEmpresaComAdministrador(
                     txtCNPJ.Text,
                     txtNomeFantasia.Text,
@@ -37,26 +41,40 @@ namespace WPF_Projeto_BD.Views
                     txtConfirmSenhaADM.Password
                 );
 
-                MessageBox.Show("Empresa cadastrada com sucesso!", "Sucesso", MessageBoxButton.OK, MessageBoxImage.Information);
+                // Exibe mensagem de sucesso
+                MessageBox.Show(
+                    "Empresa cadastrada com sucesso!",
+                    "Sucesso",
+                    MessageBoxButton.OK,
+                    MessageBoxImage.Information
+                );
 
-                // Após cadastro, abrir a tela de login
+                // Após cadastro, abre a tela de login
                 var loginWindow = new Login();
                 loginWindow.Show();
-                this.Close();
+                this.Close(); // Fecha a tela atual
             }
             catch (Exception ex)
             {
-                MessageBox.Show("Erro ao cadastrar empresa: " + ex.Message, "Erro", MessageBoxButton.OK, MessageBoxImage.Error);
+                // Exibe mensagem caso ocorra erro inesperado
+                MessageBox.Show(
+                    "Erro ao cadastrar empresa: " + ex.Message,
+                    "Erro",
+                    MessageBoxButton.OK,
+                    MessageBoxImage.Error
+                );
             }
         }
 
+        // Evento do botão "Voltar"
         private void BtnVoltar_Click(object sender, RoutedEventArgs e)
         {
-            var main = new MainWindow(); // voltar para tela inicial
-            main.Show();
-            this.Close();
+            var main = new MainWindow(); // Cria a tela inicial
+            main.Show(); // Exibe a tela inicial
+            this.Close(); // Fecha a tela de cadastro
         }
 
+        // Método que valida todos os campos da tela
         private bool ValidarCampos()
         {
             if (string.IsNullOrWhiteSpace(txtCNPJ.Text) || txtCNPJ.Text.Length < 14)
@@ -119,7 +137,17 @@ namespace WPF_Projeto_BD.Views
                 return false;
             }
 
-            return true;
+            return true; // Todos os campos válidos
         }
     }
 }
+
+/*
+Resumo técnico:
+- EmpresaCadastro é a View responsável por cadastrar uma empresa e seu administrador.
+- Segue o padrão MVC + DAO: toda lógica de cadastro é delegada ao EmpresaController.
+- Possui validação completa dos campos, incluindo CNPJ, e-mails, telefone e senhas.
+- Ao concluir cadastro com sucesso, abre a tela de login.
+- Possui botão de retorno que abre a tela inicial.
+- Nenhuma lógica de persistência de dados está na View; tudo é tratado pelo controller.
+*/

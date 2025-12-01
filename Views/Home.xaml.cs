@@ -1,51 +1,47 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
-using WPF_Projeto_BD.Controllers;
-using WPF_Projeto_BD.Models;
+using System.Windows; // Necessário para classes de interface (Window, MessageBox, RoutedEventArgs)
+using WPF_Projeto_BD.Controllers; // Importa controllers como ClienteController
+using WPF_Projeto_BD.Models; // Importa o modelo Usuario
 
-namespace WPF_Projeto_BD.Views
+namespace WPF_Projeto_BD.Views // Define o namespace da aplicação (Views)
 {
     /// <summary>
-    /// Lógica interna para Home.xaml
+    /// Tela principal do sistema (Home)
     /// </summary>
     public partial class Home : Window
     {
-        private Usuario usuarioLogado;
+        private Usuario usuarioLogado; // Usuário atualmente logado
+
+        // Construtor da tela, recebe o usuário logado
         public Home(Usuario usuario)
         {
-            InitializeComponent();
-            usuarioLogado = usuario;
-            VerificarPermissao();
+            InitializeComponent(); // Inicializa os componentes visuais
+            usuarioLogado = usuario; // Armazena o usuário logado
+            VerificarPermissao(); // Ajusta visibilidade de botões conforme tipo de usuário
         }
 
+        // Verifica permissões e ajusta visibilidade dos controles
         private void VerificarPermissao()
         {
-            if(usuarioLogado.TipoUsuario == "admin")
+            if (usuarioLogado.TipoUsuario == "admin")
             {
-                btnConfig.Visibility = Visibility.Visible;
+                btnConfig.Visibility = Visibility.Visible; // Admin vê o botão de Configurações
             }
             else
             {
-                btnConfig.Visibility = Visibility.Collapsed;
+                btnConfig.Visibility = Visibility.Collapsed; // Usuário comum não vê
             }
         }
+
+        // =========================
+        // Botões de navegação
+        // =========================
 
         private void BtnEstoque_Click(object sender, RoutedEventArgs e)
         {
             var estoqueWindow = new EstoqueWindown(usuarioLogado);
             estoqueWindow.Show();
-            this.Close();
+            this.Close(); // Fecha a tela Home
         }
 
         private void BtnPedidos_Click(object sender, RoutedEventArgs e)
@@ -60,8 +56,8 @@ namespace WPF_Projeto_BD.Views
             var producao = new ProducaoWindown(usuarioLogado);
             producao.Show();
             this.Close();
-        }    
-        
+        }
+
         private void BtnClientes_Click(object sender, RoutedEventArgs e)
         {
             var controller = new ClienteController(usuarioLogado);
@@ -70,8 +66,6 @@ namespace WPF_Projeto_BD.Views
             this.Close();
         }
 
-
-
         private void BtnVendas_Click(object sender, RoutedEventArgs e)
         {
             var vendas = new VendasWindown(usuarioLogado);
@@ -79,9 +73,15 @@ namespace WPF_Projeto_BD.Views
             this.Close();
         }
 
+        // Botão Fechar/Sair do sistema
         private void BtnFechar_Click(object sender, RoutedEventArgs e)
         {
-            var result = MessageBox.Show("Tem certeza que deseja sair?", "Confirmação", MessageBoxButton.YesNo, MessageBoxImage.Question);
+            var result = MessageBox.Show(
+                "Tem certeza que deseja sair?",
+                "Confirmação",
+                MessageBoxButton.YesNo,
+                MessageBoxImage.Question
+            );
 
             if (result == MessageBoxResult.Yes)
             {
@@ -91,6 +91,7 @@ namespace WPF_Projeto_BD.Views
             }
         }
 
+        // Botão de Configurações (apenas visível para administradores)
         private void BtnConfig_Click(object sender, RoutedEventArgs e)
         {
             var configWindow = new Config(usuarioLogado);
@@ -99,3 +100,12 @@ namespace WPF_Projeto_BD.Views
         }
     }
 }
+
+/*
+Resumo técnico:
+- Home é a View principal do sistema, servindo como painel de navegação.
+- Recebe o usuário logado e ajusta visibilidade de botões conforme permissões (admin vs comum).
+- Possui botões para acessar Estoque, Pedidos, Produção, Clientes, Vendas e Configurações.
+- Botão Fechar solicita confirmação antes de sair e volta para Login.
+- Segue o padrão MVC: a View apenas gerencia a navegação; lógica de negócio de cada módulo é delegada aos controllers correspondentes.
+*/

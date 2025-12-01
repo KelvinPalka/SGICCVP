@@ -3,41 +3,44 @@ using System.Linq;
 using System.Text.RegularExpressions;
 using System.Windows;
 using System.Windows.Controls;
-using Wpf_Projeto_BD.Models;
-using WPF_Projeto_BD.Controllers;
+using Wpf_Projeto_BD.Models; // Model Usuario e Funcionario
+using WPF_Projeto_BD.Controllers; // Controllers UsuarioController e FuncionarioController
 
-namespace WPF_Projeto_BD.Views
+namespace WPF_Projeto_BD.Views // Define o namespace da aplicação (Views)
 {
+    /// <summary>
+    /// Tela para cadastro e edição de usuários do sistema
+    /// </summary>
     public partial class UsuarioCadastro : Window
     {
-        private Usuario usuarioLogado;
-        private UsuarioController usuarioController = new UsuarioController();
-        private FuncionarioController funcionarioController = new FuncionarioController();
-        private Usuario usuarioEmEdicao;
+        private Usuario usuarioLogado; // Usuário atualmente logado
+        private UsuarioController usuarioController = new UsuarioController(); // Controller de usuários
+        private FuncionarioController funcionarioController = new FuncionarioController(); // Controller de funcionários
+        private Usuario usuarioEmEdicao; // Se não nulo, indica edição de usuário existente
 
+        // Construtor da tela, recebe usuário logado e opcionalmente usuário para edição
         public UsuarioCadastro(Usuario usuarioLogado, Usuario usuarioParaEditar = null)
         {
             InitializeComponent();
             this.usuarioLogado = usuarioLogado;
             this.usuarioEmEdicao = usuarioParaEditar;
 
-            // Modo inicial
+            // Inicializa modo manual como padrão
             spManual.Visibility = Visibility.Visible;
             spPadrao.Visibility = Visibility.Collapsed;
 
-            // Eventos
+            // Eventos de alternância entre modos
             rbManual.Checked += RbModo_Checked;
             rbPadrao.Checked += RbModo_Checked;
 
-            CarregarFuncionarios();
+            CarregarFuncionarios(); // Preenche lista de funcionários
 
-            // Preencher dados se estiver editando
+            // Preenche campos se estiver editando usuário existente
             if (usuarioEmEdicao != null)
-            {
                 PreencherCamposEdicao();
-            }
         }
 
+        // Preenche os campos da tela para edição
         private void PreencherCamposEdicao()
         {
             rbManual.IsChecked = true;
@@ -53,18 +56,21 @@ namespace WPF_Projeto_BD.Views
             btnSalvarManual.Content = "Atualizar Usuário";
         }
 
+        // Carrega funcionários para gerar usuários automaticamente
         private void CarregarFuncionarios()
         {
             var funcionarios = funcionarioController.ObterTodos(usuarioLogado.IdEmpresa);
             icFuncionariosParaGerar.ItemsSource = funcionarios;
         }
 
+        // Alterna visibilidade entre modo Manual e Padrão
         private void RbModo_Checked(object sender, RoutedEventArgs e)
         {
             spManual.Visibility = rbManual.IsChecked == true ? Visibility.Visible : Visibility.Collapsed;
             spPadrao.Visibility = rbPadrao.IsChecked == true ? Visibility.Visible : Visibility.Collapsed;
         }
 
+        // Botão Voltar para tela Configurações
         private void BtnVoltar_Click(object sender, RoutedEventArgs e)
         {
             var configWindow = new Config(usuarioLogado);
@@ -77,7 +83,7 @@ namespace WPF_Projeto_BD.Views
         {
             string nome = txtNomeUsuario.Text.Trim();
             string email = txtEmailUsuario.Text.Trim();
-            string novaSenha = txtSenhaUsuario.Password; // senha digitada pelo usuário
+            string novaSenha = txtSenhaUsuario.Password;
             string tipoSelecionado = ((ComboBoxItem)cmbTipoUsuario.SelectedItem)?.Content?.ToString() ?? "";
 
             try
@@ -122,9 +128,7 @@ namespace WPF_Projeto_BD.Views
                         this.Close();
                     }
                     else
-                    {
                         MessageBox.Show("Erro ao cadastrar usuário: " + resultado, "Erro", MessageBoxButton.OK, MessageBoxImage.Warning);
-                    }
                 }
                 else
                 {
@@ -133,7 +137,6 @@ namespace WPF_Projeto_BD.Views
                     usuarioEmEdicao.Email = email;
                     usuarioEmEdicao.TipoUsuario = tipoSelecionado;
 
-                    // ================= VALIDAÇÃO DE SENHA =================
                     if (string.IsNullOrWhiteSpace(novaSenha))
                     {
                         MessageBox.Show("A senha não pode ficar vazia na edição.", "Erro", MessageBoxButton.OK, MessageBoxImage.Warning);
@@ -146,8 +149,6 @@ namespace WPF_Projeto_BD.Views
                         return;
                     }
 
-
-                    // Chama o Controller passando a nova senha
                     resultado = usuarioController.AtualizarUsuario(usuarioEmEdicao, novaSenha);
 
                     if (resultado == "ok")
@@ -158,9 +159,7 @@ namespace WPF_Projeto_BD.Views
                         this.Close();
                     }
                     else
-                    {
                         MessageBox.Show("Erro ao atualizar usuário: " + resultado, "Erro", MessageBoxButton.OK, MessageBoxImage.Warning);
-                    }
                 }
             }
             catch (Exception ex)
@@ -168,8 +167,6 @@ namespace WPF_Projeto_BD.Views
                 MessageBox.Show("Ocorreu um erro inesperado: " + ex.Message, "Erro", MessageBoxButton.OK, MessageBoxImage.Error);
             }
         }
-
-
 
         // ==================== Cadastro Automático ====================
         private void BtnGerarPadrao_Click(object sender, RoutedEventArgs e)
@@ -198,9 +195,7 @@ namespace WPF_Projeto_BD.Views
                 string resultado = usuarioController.CadastrarUsuario(nome, email, senha, tipo, idEmpresa, true);
 
                 if (resultado != "ok")
-                {
                     MessageBox.Show($"Erro ao gerar usuário {nome}: {resultado}", "Erro", MessageBoxButton.OK, MessageBoxImage.Warning);
-                }
             }
 
             MessageBox.Show("Usuários gerados com sucesso!", "Sucesso", MessageBoxButton.OK, MessageBoxImage.Information);
@@ -210,6 +205,7 @@ namespace WPF_Projeto_BD.Views
             this.Close();
         }
 
+        // ==================== Métodos auxiliares ====================
         private CheckBox GetCheckBoxForFuncionario(Funcionario funcionario)
         {
             foreach (var item in icFuncionariosParaGerar.Items)
@@ -256,3 +252,15 @@ namespace WPF_Projeto_BD.Views
         }
     }
 }
+
+/*
+Resumo técnico:
+- UsuarioCadastro é a View responsável por cadastrar e editar usuários do sistema.
+- Possui dois modos: Manual e Padrão (geração automática de usuários a partir de funcionários).
+- Segue padrão MVC + DAO: toda lógica de cadastro, atualização e validação é delegada ao UsuarioController.
+- Valida campos obrigatórios, e-mail e senha (mínimo 6 caracteres com letras e números).
+- Cadastro padrão gera usuários para funcionários selecionados com senha inicial igual ao CPF.
+- Métodos auxiliares permitem localizar CheckBoxes associados a funcionários.
+- Navegação de telas: Voltar retorna à Config, após cadastro abre Config ou UsuarioLista.
+- Nenhuma lógica de persistência direta ocorre na View; tudo é gerenciado pelo controller.
+*/
