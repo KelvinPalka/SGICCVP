@@ -4,16 +4,16 @@
 winexe
 C#
 .cs
-C:\Users\kelvi\OneDrive\Documentos\SGICCVP\obj\Debug\
+C:\Users\24032\Documents\GitHub\SGICCVP\obj\Debug\
 WPF_Projeto_BD
 none
 false
 DEBUG;TRACE
-C:\Users\kelvi\OneDrive\Documentos\SGICCVP\App.xaml
+C:\Users\24032\Documents\GitHub\SGICCVP\App.xaml
 18358072808
 
 541885143366
-341902699441
+34539066717
 Views\ConfigADM.xaml;Views\EmpresaDados.xaml;Views\EmpresaEditar.xaml;Views\EstoqueWindown.xaml;Views\FuncionarioCadastro.xaml;Views\FuncionarioLista.xaml;Views\MainWindow.xaml;Views\ClienteCadastro.xaml;Views\ClienteLista.xaml;Views\EmpresaCadastro.xaml;Views\Home.xaml;Views\Login.xaml;Views\PedidoCadastro.xaml;Views\PedidosLista.xaml;Views\ProducaoWindown.xaml;Views\UsuarioCadastro.xaml;Views\UsuarioLista.xaml;Views\VendasWindown.xaml;
 
 False

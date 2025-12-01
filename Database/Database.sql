@@ -1,8 +1,6 @@
 create database minitcc_pntj;
 use minitcc_pntj;
-create user 'alunos'@'localhost' identified by 'etec';
-grant all privileges on minitcc_pntj.* to 'alunos'@'localhost';
-flush privileges;
+
 
 create table empresa (
     id_empresa int primary key auto_increment,
@@ -285,23 +283,7 @@ VALUES
 ('2025-09-22','em rota',1,1),
 ('2025-09-25','entregue',2,2);
 
-DROP VIEW IF EXISTS relatorio_pedidos;
-CREATE VIEW relatorio_pedidos AS
-SELECT 
-    p.id_pedido,
-    p.data_pedido,
-    p.data_entrega,
-    p.valor,
-    p.status_pedido,
-    c.nome AS cliente_nome,
-    c.telefone AS cliente_telefone,
-    pr.id_produto,
-    t.cor AS tecido_cor
-FROM pedido p
-INNER JOIN cliente c ON p.id_cliente = c.id_cliente
-INNER JOIN produto pr ON p.id_produto = pr.id_produto
-LEFT JOIN tecido t ON pr.cod_tecido = t.cod_tecido;
-
+-- View 1: Relatório de Vendas por Cliente
 DROP VIEW IF EXISTS relatorio_vendas_por_cliente;
 CREATE VIEW relatorio_vendas_por_cliente AS
 SELECT
@@ -314,6 +296,26 @@ FROM cliente c
 LEFT JOIN pedido p ON c.id_cliente = p.id_cliente
 GROUP BY c.id_cliente, c.nome;
 
+-- View 2: Relatório Agrupado de Pedidos (por status)
+DROP VIEW IF EXISTS relatorio_pedidos_agrupado;
+CREATE VIEW relatorio_pedidos_agrupado AS
+SELECT
+    status_pedido,
+    COUNT(id_pedido) AS quantidade_pedidos,
+    SUM(valor) AS soma_valor,
+    AVG(valor) AS media_valor
+FROM pedido
+GROUP BY status_pedido;
+
+-- ************************************************************
+-- A consulta a seguir estava aninhada incorretamente.
+-- Se você quiser esta como uma terceira VIEW, aqui está ela:
+-- ************************************************************
+
+-- View 3: Detalhes de Pedidos "Em Andamento"
+-- (Nome sugerido, pois o original estava confuso)
+DROP VIEW IF EXISTS relatorio_pedidos_em_andamento_detalhe;
+CREATE VIEW relatorio_pedidos_em_andamento_detalhe AS
 SELECT
     p.id_pedido,
     p.data_pedido,
@@ -335,16 +337,6 @@ LEFT JOIN linha lin ON pr.cod_linha = lin.cod_linha
 LEFT JOIN fio fi ON pr.cod_fio = fi.cod_fio
 WHERE p.status_pedido = 'em andamento';
 
-DROP VIEW IF EXISTS relatorio_pedidos_agrupado;
-CREATE VIEW relatorio_pedidos_agrupado AS
-SELECT
-    status_pedido,
-    COUNT(id_pedido) AS quantidade_pedidos,
-    SUM(valor) AS soma_valor,
-    AVG(valor) AS media_valor
-FROM pedido
-GROUP BY status_pedido;
-
 DROP PROCEDURE IF EXISTS sp_total_vendas_por_cliente;
 DELIMITER $$
 CREATE PROCEDURE sp_total_vendas_por_cliente(IN p_id_cliente INT)
@@ -363,7 +355,7 @@ END$$
 DELIMITER ;
 CALL sp_total_vendas_por_cliente(1);
 
-DROP PROCEDURE IF EXISTS sp_criar_pedido;
+DROP PROCEDURE IF EXISTS sp_criar_pedido
 DELIMITER $$
 CREATE PROCEDURE sp_criar_pedido(
     IN p_data_pedido DATE,
@@ -384,7 +376,10 @@ DELIMITER ;
 CALL sp_criar_pedido('2025-10-01','2025-10-07',2,180.00,'em processamento','pedido via procedure',1,1);
 
 DROP PROCEDURE IF EXISTS sp_atualizar_estoque_produto;
-DELIMITER $$
+-- Atenção: Coloque um espaço ou nova linha antes e depois de DELIMITER
+
+DELIMITER $$ 
+
 CREATE PROCEDURE sp_atualizar_estoque_produto(IN p_id_produto INT, IN p_qntd INT)
 BEGIN
     DECLARE v_cod_papel INT;
@@ -419,5 +414,8 @@ BEGIN
         UPDATE tinta SET qntd_estocada = qntd_estocada - p_qntd WHERE cod_tinta = v_cod_tinta;
     END IF;
 END$$
+
+-- Atenção: Resete o delimitador imediatamente após o $$
 DELIMITER ;
+
 CALL sp_atualizar_estoque_produto(1,2);
