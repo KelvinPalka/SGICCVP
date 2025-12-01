@@ -171,106 +171,150 @@ namespace WPF_Projeto_BD.Views // Define o namespace da aplicação (Views)
         // ==================== Cadastro Automático ====================
         private void BtnGerarPadrao_Click(object sender, RoutedEventArgs e)
         {
-            // Pega todos os itens do controle de funcionários, filtra os que são do tipo Funcionario,
-            // e verifica se o CheckBox correspondente está marcado.
-            var checkboxes = icFuncionariosParaGerar.Items.OfType<Funcionario>()
-                .Select(f => new
+            // icFuncionariosParaGerar é um controle da interface (ItemsControl/ListBox/ListView)
+            // Ele exibe todos os funcionários que podem ter usuários gerados automaticamente
+            // Cada item em icFuncionariosParaGerar.Items é um objeto, mas nem todos necessariamente são do tipo Funcionario
+            // Exemplo de Items: [ Funcionario {Id=1, Nome="João"}, Funcionario {Id=2, Nome="Maria"}, Funcionario {Id=3, Nome="Pedro"} ]
+
+            // Pega todos os funcionários que estão na lista 'icFuncionariosParaGerar',
+            // verifica se o CheckBox de cada funcionário está marcado, e cria uma lista temporária.
+            var checkboxes = icFuncionariosParaGerar.Items
+                .OfType<Funcionario>()  // Filtra apenas os objetos que são do tipo Funcionario
+                                        // Ex.: [João, Maria, Pedro]
+
+                .Select(f => new          // Para cada funcionário f, cria um objeto com:
                 {
-                    Funcionario = f, // Mantém referência ao funcionário
-                    IsChecked = GetCheckBoxForFuncionario(f)?.IsChecked == true // Verifica se o CheckBox está marcado
-                }).Where(x => x.IsChecked) // Mantém apenas os funcionários selecionados
+                    Funcionario = f,     // Armazena o próprio funcionário
+                                         // IsChecked será true se o CheckBox correspondente estiver marcado
+                                         // GetCheckBoxForFuncionario(f) retorna o CheckBox visual do funcionário
+                                         // ?.IsChecked verifica se o CheckBox existe e se está marcado
+                                         // == true garante que seja booleano verdadeiro apenas se estiver marcado
+                    IsChecked = GetCheckBoxForFuncionario(f)?.IsChecked == true
+                })
+
+                // Filtra apenas os funcionários que estão realmente marcados
+                // Exemplo: [{João,true}, {Maria,false}, {Pedro,true}] -> [{João,true}, {Pedro,true}]
+                .Where(x => x.IsChecked)
+
+                // Converte o resultado final em uma lista concreta
+                // Agora podemos percorrer a lista no foreach para criar os usuários
                 .ToList();
 
-            // Se nenhum funcionário foi selecionado, mostra aviso e interrompe execução
+            // Verifica se o usuário não selecionou nenhum funcionário
+            // Se a lista estiver vazia, mostra aviso e encerra o método
             if (!checkboxes.Any())
             {
+                // Mostra caixa de diálogo alertando que pelo menos um funcionário precisa ser selecionado
                 MessageBox.Show("Selecione ao menos um funcionário.", "Aviso", MessageBoxButton.OK, MessageBoxImage.Warning);
-                return;
+                return; // Sai do método sem criar nenhum usuário
             }
 
-            // Loop pelos funcionários selecionados
+            // Se chegou aqui, significa que há pelo menos um funcionário selecionado
+            // Percorre cada funcionário selecionado para gerar o usuário
             foreach (var item in checkboxes)
             {
-                // Dados do funcionário que serão usados para criar o usuário
-                string nome = item.Funcionario.Nome;
-                string email = item.Funcionario.Email;
-                string senha = item.Funcionario.CPF; // Senha padrão = CPF
-                string tipo = "user"; // Tipo de usuário padrão
-                int idEmpresa = usuarioLogado.IdEmpresa; // Empresa do usuário logado
+                // Extrai os dados do funcionário que serão usados para criar o usuário
+                string nome = item.Funcionario.Nome;       // Nome do funcionário
+                string email = item.Funcionario.Email;     // Email do funcionário
+                string senha = item.Funcionario.CPF;       // Senha padrão = CPF
+                string tipo = "user";                       // Tipo de usuário padrão
+                int idEmpresa = usuarioLogado.IdEmpresa;   // Empresa do usuário logado
 
                 // Chama o controller para cadastrar o usuário
-                // Último parâmetro "true" indica que é um cadastro automático
+                // O último parâmetro "true" indica que é um cadastro automático
                 string resultado = usuarioController.CadastrarUsuario(nome, email, senha, tipo, idEmpresa, true);
 
-                // Se o cadastro não for bem-sucedido, mostra mensagem de erro
+                // Verifica se houve algum erro no cadastro
+                // Se o resultado não for "ok", mostra mensagem de erro informando o nome do funcionário e o problema
                 if (resultado != "ok")
+                {
                     MessageBox.Show($"Erro ao gerar usuário {nome}: {resultado}", "Erro", MessageBoxButton.OK, MessageBoxImage.Warning);
+                }
             }
 
-            // Se todos os usuários foram gerados com sucesso, mostra mensagem
+            // Se todos os usuários foram gerados (ou pelo menos não houve erro crítico),
+            // mostra mensagem de sucesso
             MessageBox.Show("Usuários gerados com sucesso!", "Sucesso", MessageBoxButton.OK, MessageBoxImage.Information);
 
-            // Abre a janela de configuração novamente
+            // Abre a janela de configuração novamente, passando o usuário logado
             var configWindow = new Config(usuarioLogado);
-            configWindow.Show();
-            this.Close(); // Fecha a janela atual
+            configWindow.Show(); // Mostra a nova janela
+            this.Close();        // Fecha a janela atual para não duplicar a interface
         }
 
         // ==================== Métodos auxiliares ====================
 
-        // Busca o CheckBox associado a um funcionário específico
+        // Procura o CheckBox correspondente a um funcionário específico
+        // Exemplo: se o funcionário tem Id=5, procura o CheckBox que tem Tag=5
         private CheckBox GetCheckBoxForFuncionario(Funcionario funcionario)
         {
+            // Percorre todos os itens da lista de funcionários
             foreach (var item in icFuncionariosParaGerar.Items)
             {
-                // Obtém o container visual do item (cada elemento da lista)
+                // Para cada item, obtém o container visual (cada item da lista tem seu próprio container)
                 var container = icFuncionariosParaGerar.ItemContainerGenerator.ContainerFromItem(item) as FrameworkElement;
                 if (container != null)
                 {
-                    // Procura recursivamente pelo CheckBox dentro do container
+                    // Procura dentro do container o CheckBox visualmente
                     var cb = FindVisualChild<CheckBox>(container);
-                    // Verifica se o CheckBox encontrado corresponde ao funcionário (usando Tag)
+
+                    // Se encontrou o CheckBox e o Tag dele corresponde ao Id do funcionário,
+                    // então este CheckBox pertence ao funcionário
                     if (cb != null && (int)cb.Tag == funcionario.Id)
-                        return cb; // Retorna o CheckBox encontrado
+                        return cb; // Retorna o CheckBox
                 }
             }
-            return null; // Retorna nulo se não encontrar
+
+            // Se não encontrar o CheckBox, retorna null
+            return null;
         }
 
-        // Função genérica para buscar um filho visual de um tipo específico dentro de um DependencyObject
+        // Procura recursivamente um filho visual de tipo T dentro de um objeto visual
+        // Ex.: você passa um container e quer encontrar um CheckBox dentro dele
         private T FindVisualChild<T>(DependencyObject obj) where T : DependencyObject
         {
+            // Percorre todos os filhos do objeto visual
             for (int i = 0; i < System.Windows.Media.VisualTreeHelper.GetChildrenCount(obj); i++)
             {
                 DependencyObject child = System.Windows.Media.VisualTreeHelper.GetChild(obj, i);
-                if (child != null && child is T t)
-                    return t; // Retorna o filho se for do tipo procurado
 
-                // Busca recursivamente nos filhos
+                // Se o filho for do tipo procurado (ex.: CheckBox), retorna imediatamente
+                if (child != null && child is T t)
+                    return t;
+
+                // Senão, procura recursivamente dentro dos filhos deste filho
                 T childOfChild = FindVisualChild<T>(child);
                 if (childOfChild != null)
-                    return childOfChild;
+                    return childOfChild; // Retorna se encontrou
             }
-            return null; // Retorna nulo se não encontrar
+
+            // Retorna null se não encontrou nenhum filho do tipo T
+            return null;
         }
 
         // Valida se a senha é válida
+        // Critérios:
+        // 1) Mínimo de 6 caracteres
+        // 2) Se não permitir apenas números, deve ter pelo menos uma letra e um número
         private bool SenhaValida(string senha, bool permitirApenasNumeros)
         {
-            // Senha não pode ser nula ou ter menos de 6 caracteres
+            // Se a senha for nula, vazia ou menor que 6 caracteres, retorna false
             if (string.IsNullOrWhiteSpace(senha) || senha.Length < 6)
                 return false;
 
-            // Se permitido apenas números (ex.: CPF), retorna true
+            // Se permitido apenas números (como CPF), retorna true
             if (permitirApenasNumeros)
                 return true;
 
-            // Verifica se a senha contém pelo menos uma letra e um número
+            // Verifica se a senha contém pelo menos uma letra
             bool temLetra = senha.Any(char.IsLetter);
+            // Verifica se a senha contém pelo menos um número
             bool temNumero = senha.Any(char.IsDigit);
 
+            // Retorna true apenas se tiver pelo menos uma letra e um número
             return temLetra && temNumero;
         }
+
     }
 }
 
